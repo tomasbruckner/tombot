@@ -1,0 +1,22 @@
+{
+  "name": "tombot-lunch",
+  "version": "1.0.0",
+  "description": "lunch menu for slack",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.techfides.cz:tomasbruckner/tombot-lunch.git"
+  },
+  "keywords": [
+    "slackbot"
+  ],
+  "author": "Tomas Bruckner",
+  "license": "ISC",
+  "dependencies": {
+    "@slack/client": "^4.2.0",
+    "request": "^2.85.0"
+  }
+}
