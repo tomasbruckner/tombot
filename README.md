@@ -1,6 +1,26 @@
-# Name Day SlackBot
-Simple implementation of [slack](https://slack.com/) bot that tells you, who has name day today (in czech).
+# Tombot SlackBot
+Simple implementation of [slack](https://slack.com/) bot that tells you, who has name day today (in czech) and daily menu for some restaurants.
 
+## How to use it
+Send him message in #lunchtime channel:
+```
+@tombot help
+```
+
+Or you can send him Direct message without *@tombot*:
+```
+help
+```
+
+### Supported commands
+- help
+- beranek
+- kocka
+- lightofindia
+- lloyds
+- nepal
+- selepka
+- svatek
 
 ## How to run it
 
