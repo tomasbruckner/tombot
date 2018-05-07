@@ -3,6 +3,7 @@ const RTMClient = require('@slack/client').RTMClient;
 const WebClient = require('@slack/client').WebClient;
 const Nepal = require('./menus/nepal');
 const Beranek = require('./menus/beranek');
+const GreenCat = require('./menus/greenCat');
 const LightOfIndia = require('./menus/lightOfIndia');
 const LLoyds = require('./menus/lloyds');
 const Selepka = require('./menus/selepka');
@@ -104,6 +105,10 @@ function handleMessage({ appData, rtm, web }, message) {
         if (/\b(light|lightofindia)(\b|\?)/i.test(message.text)) {
             sendMenu({ getMenu: LightOfIndia.getMenu, web, message });
         }
+
+        if (/\b(cat|kocka)(\b|\?)/i.test(message.text)) {
+            sendMenu({ getMenu: GreenCat.getMenu, web, message });
+        }
     }
 }
 
@@ -111,9 +116,12 @@ function getHelpMessage() {
     return `Hello to you from Tombot, the amazing TechFides worker that can help you with almost anything!
 Check out these commands:
         help
-        nepal
         beranek
+        kocka
+        lightofindia
         lloyds
+        nepal
+        selepka
         svatek`;
 }
 
