@@ -19,8 +19,8 @@ function createSlackMenu({ dailyMenu, title, title_link }) {
     const dishes = dailyMenu.daily_menus[0].daily_menu.dishes;
     const menus = dishes.map(textMapper);
 
-    menus[0].title = "LLoyd's menu";
-    menus[0].title_link = "http://restauracelloyds.cz/menu-2/denni-menu";
+    menus[0].title = title;
+    menus[0].title_link = title_link;
 
     return menus;
 }

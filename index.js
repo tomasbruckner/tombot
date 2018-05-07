@@ -2,6 +2,8 @@ const fs = require('fs');
 const RTMClient = require('@slack/client').RTMClient;
 const WebClient = require('@slack/client').WebClient;
 const LLoyds = require('./menus/lloyds');
+const Nepal = require('./menus/nepal');
+const Beranek = require('./menus/beranek');
 
 const SLACK_TOKEN = process.env.TOKEN;
 const ZOMATO_KEY = process.env.ZOMATO;
@@ -66,7 +68,12 @@ function handleMessage({ appData, rtm, web }, message) {
         return;
     }
 
-    if (message.text.includes(`<@${appData.selfId}>`) || message.channel[0] === 'D') {
+    if (message.text.includes(`<@${appData.selfId}>`) || message.channel[0] === 'D') {        
+        if (/\bhelp(\b|\?)/i.test(message.text)) {
+            const helpMessage = getHelpMessage();
+            rtm.sendMessage(helpMessage, message.channel);
+        }
+
         if (/\b(svatek|meniny|nameday|name day)(\b|\?)/i.test(message.text)) {
             const res = `Dneska ma svatek: ${getNameDays()}. Gratulujeme!`;
             rtm.sendMessage(res, message.channel);
@@ -76,17 +83,38 @@ function handleMessage({ appData, rtm, web }, message) {
             rtm.sendMessage('http://files.explosm.net/comics/Rob/myothercat.png', message.channel);
         }
 
-
         if (/\b(lloyds|loyds)(\b|\?)/i.test(message.text)) {
-            LLoyds.getMenu({ zomatoApiKey: ZOMATO_KEY }).then(menu => {
-                web.chat
-                    .postMessage({ channel: message.channel, text: '', attachments: menu })
-                    .then(console.log)
-                    .catch(console.error);
-            })
-            .catch(console.error);
+            sendMenu({ getMenu: LLoyds.getMenu, web, message });
+        }
+
+        if (/\b(nepal)(\b|\?)/i.test(message.text)) {
+            sendMenu({ getMenu: Nepal.getMenu, web, message });
+        }
+
+        if (/\b(beranek)(\b|\?)/i.test(message.text)) {
+            sendMenu({ getMenu: Beranek.getMenu, web, message });
         }
     }
+}
+
+function getHelpMessage() {
+    return `Hello to you from Tombot, the amazing TechFides worker that can help you with almost anything!
+Check out these commands:
+        help
+        nepal
+        beranek
+        lloyds
+        svatek`;
+}
+
+function sendMenu({ getMenu, web, message }) {
+    getMenu({ zomatoApiKey: ZOMATO_KEY }).then(menu => {
+        web.chat
+            .postMessage({ channel: message.channel, text: '', attachments: menu })
+            .then(console.log)
+            .catch(console.error);
+    })
+    .catch(console.error);
 }
 
 function getCurrentDate() {
