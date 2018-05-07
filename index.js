@@ -1,9 +1,11 @@
 const fs = require('fs');
 const RTMClient = require('@slack/client').RTMClient;
 const WebClient = require('@slack/client').WebClient;
-const LLoyds = require('./menus/lloyds');
 const Nepal = require('./menus/nepal');
 const Beranek = require('./menus/beranek');
+const LightOfIndia = require('./menus/lightOfIndia');
+const LLoyds = require('./menus/lloyds');
+const Selepka = require('./menus/selepka');
 
 const SLACK_TOKEN = process.env.TOKEN;
 const ZOMATO_KEY = process.env.ZOMATO;
@@ -93,6 +95,14 @@ function handleMessage({ appData, rtm, web }, message) {
 
         if (/\b(beranek)(\b|\?)/i.test(message.text)) {
             sendMenu({ getMenu: Beranek.getMenu, web, message });
+        }
+
+        if (/\b(selepka|selepova)(\b|\?)/i.test(message.text)) {
+            sendMenu({ getMenu: Selepka.getMenu, web, message });
+        }
+
+        if (/\b(light|lightofindia)(\b|\?)/i.test(message.text)) {
+            sendMenu({ getMenu: LightOfIndia.getMenu, web, message });
         }
     }
 }

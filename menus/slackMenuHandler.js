@@ -16,7 +16,12 @@ const COLORS = [
 ];
 
 function createSlackMenu({ dailyMenu, title, title_link }) {
-    const dishes = dailyMenu.daily_menus[0].daily_menu.dishes;
+    let dishes = dailyMenu;
+
+    if (dailyMenu.daily_menus) {
+        dishes = dailyMenu.daily_menus[0].daily_menu.dishes;
+    }
+    
     const menus = dishes.map(textMapper);
 
     menus[0].title = title;
