@@ -28,6 +28,15 @@ try {
     return;
 }
 
+let PUBLIC_HOLIDAYS;
+
+try {
+    PUBLIC_HOLIDAYS = JSON.parse(fs.readFileSync('./data/publicHolidays.json', 'utf8'));
+} catch (e) {
+    console.error('No data/publicHolidays.json file');
+    return;
+}
+
 main();
 return;
 
@@ -72,13 +81,19 @@ function handleMessage({ appData, rtm, web }, message) {
     }
 
     if (message.text.includes(`<@${appData.selfId}>`) || message.channel[0] === 'D') {        
+        let all = false;
+
         if (/\bhelp(\b|\?)/i.test(message.text)) {
             const helpMessage = getHelpMessage();
             rtm.sendMessage(helpMessage, message.channel);
         }
 
-        if (/\b(svatek|meniny|nameday|name day)(\b|\?)/i.test(message.text)) {
-            const res = `Dneska ma svatek: ${getNameDays()}. Gratulujeme!`;
+        if (/\b(all)(\b|\?)/i.test(message.text)) {
+            all = true;
+        }
+
+        if (all || /\b(svatek|meniny|nameday|name day)(\b|\?)/i.test(message.text)) {
+            const res = getDayInfo();
             rtm.sendMessage(res, message.channel);
         }
 
@@ -86,27 +101,27 @@ function handleMessage({ appData, rtm, web }, message) {
             rtm.sendMessage('http://files.explosm.net/comics/Rob/myothercat.png', message.channel);
         }
 
-        if (/\b(lloyds|loyds)(\b|\?)/i.test(message.text)) {
+        if (all || /\b(lloyds|loyds)(\b|\?)/i.test(message.text)) {
             sendMenu({ getMenu: LLoyds.getMenu, web, message });
         }
 
-        if (/\b(nepal)(\b|\?)/i.test(message.text)) {
+        if (all || /\b(nepal)(\b|\?)/i.test(message.text)) {
             sendMenu({ getMenu: Nepal.getMenu, web, message });
         }
 
-        if (/\b(beranek)(\b|\?)/i.test(message.text)) {
+        if (all || /\b(beranek)(\b|\?)/i.test(message.text)) {
             sendMenu({ getMenu: Beranek.getMenu, web, message });
         }
 
-        if (/\b(selepka|selepova)(\b|\?)/i.test(message.text)) {
+        if (all || /\b(selepka|selepova)(\b|\?)/i.test(message.text)) {
             sendMenu({ getMenu: Selepka.getMenu, web, message });
         }
 
-        if (/\b(light|lightofindia)(\b|\?)/i.test(message.text)) {
+        if (all || /\b(light|lightofindia)(\b|\?)/i.test(message.text)) {
             sendMenu({ getMenu: LightOfIndia.getMenu, web, message });
         }
 
-        if (/\b(cat|kocka)(\b|\?)/i.test(message.text)) {
+        if (all || /\b(cat|kocka)(\b|\?)/i.test(message.text)) {
             sendMenu({ getMenu: GreenCat.getMenu, web, message });
         }
     }
@@ -122,7 +137,8 @@ Check out these commands:
         lloyds
         nepal
         selepka
-        svatek`;
+        svatek
+        all`;
 }
 
 function sendMenu({ getMenu, web, message }) {
@@ -141,8 +157,19 @@ function getCurrentDate() {
     return `${date.getDate()}. ${date.getMonth() + 1}.`;
 }
 
-function getNameDays() {
-    var key = getCurrentDate();
+function getDayInfo() {
+    const date = getCurrentDate();
+    const names = NAMES[date];
+    const publicHoliday = PUBLIC_HOLIDAYS[date];
+    let dayInfo = `Dnes je ${date} `;
 
-    return NAMES[key].join(', ');
+    if (names) {
+        dayInfo += `Svatek ma: ${names.join(', ')}. Gratulujeme!\n`;
+    }
+
+    if (publicHoliday) {
+        dayInfo += `Statni svatek: ${publicHoliday.name}!\n${publicHoliday.description}\n`;
+    }
+
+    return dayInfo;
 }

@@ -20,7 +20,8 @@ help
 - lloyds
 - nepal
 - selepka
-- svatek
+- svatek - shows whose name day is today
+- all - shows menu for every restaurant + name day
 
 ## How to run it
 
