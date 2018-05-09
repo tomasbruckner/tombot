@@ -36,7 +36,7 @@ function getMenu({ zomatoApiKey }) {
 function createSlackMenu({ dailyMenu }) {
     const opts = {
         dailyMenu,
-        title: "Green Cat's menu",
+        title: "Grand restaurant Zelená Kočka's menu",
         title_link: "http://www.zelenakocka.cz/index.php",
     };
 
