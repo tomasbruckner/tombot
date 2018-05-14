@@ -36,6 +36,7 @@ function getMenu({ zomatoApiKey }) {
 function createSlackMenu({ dailyMenu }) {
     const opts = {
         dailyMenu,
+        color: "#0a1966",
         title: "U Bileho beranka's menu",
         title_link: "http://www.ubilehoberanka.cz/menu-dne",
     };

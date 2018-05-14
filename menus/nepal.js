@@ -36,6 +36,7 @@ function getMenu({ zomatoApiKey }) {
 function createSlackMenu({ dailyMenu }) {
     const opts = {
         dailyMenu,
+        color: "#827717",
         title: "Golden Nepal's menu",
         title_link: "http://goldennepal.cz/menu/#denni-menu",
     };

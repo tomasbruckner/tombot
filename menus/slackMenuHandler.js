@@ -15,22 +15,23 @@ const COLORS = [
     '#D50000', '#C51162', '#AA00FF', '#6200EA', '#304FFE', '#2962FF', '#0091EA', '#00B8D4', '#00BFA5', '#00C853', '#64DD17', '#AEEA00', '#FFD600', '#FFAB00', '#FF6D00', '#DD2C00',
 ];
 
-function createSlackMenu({ dailyMenu, title, title_link }) {
+function createSlackMenu({ color, dailyMenu, title, title_link }) {
     let dishes = dailyMenu;
 
     if (dailyMenu.daily_menus) {
         dishes = dailyMenu.daily_menus[0].daily_menu.dishes;
     }
     
-    const menus = dishes.map(textMapper);
+    const menus = dishes.map(textMapper.bind(this, color));
 
+    // add name and link to the restaurant to the first attachment
     menus[0].title = title;
     menus[0].title_link = title_link;
 
     return menus;
 }
 
-function textMapper(menu) {
+function textMapper(color, menu) {
     const { name, price } = menu.dish;
     let footer = "";
 
@@ -39,10 +40,10 @@ function textMapper(menu) {
     }
 
     return {
+        color,
         footer,
         text: name.trim(),
         fallback: "Restaurant menu",
-        color: getRandomColor(),
     };
 }
 

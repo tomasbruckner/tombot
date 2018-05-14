@@ -36,6 +36,7 @@ function getMenu({ zomatoApiKey }) {
 function createSlackMenu({ dailyMenu }) {
     const opts = {
         dailyMenu,
+        color: "#7986CB",
         title: "LLoyd's menu",
         title_link: "http://restauracelloyds.cz/menu-2/denni-menu/",
     };

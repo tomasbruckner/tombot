@@ -84,6 +84,7 @@ function getMenuPrice({ dish }) {
 function createSlackMenu({ dailyMenu }) {
     const opts = {
         dailyMenu,
+        color: "#e7ef43",
         title: "Light of India's menu",
         title_link: "http://www.lightofindia.cz/lang-cs/denni-menu",
     };

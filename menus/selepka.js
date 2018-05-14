@@ -36,6 +36,7 @@ function getMenu({ zomatoApiKey }) {
 function createSlackMenu({ dailyMenu }) {
     const opts = {
         dailyMenu,
+        color: "#d11b45",
         title: "Selepka's menu",
         title_link: "http://www.selepova.cz/denni-menu/",
     };

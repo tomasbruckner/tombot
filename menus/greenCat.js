@@ -36,6 +36,7 @@ function getMenu({ zomatoApiKey }) {
 function createSlackMenu({ dailyMenu }) {
     const opts = {
         dailyMenu,
+        color: "#7CB342",
         title: "Grand restaurant Zelená Kočka's menu",
         title_link: "http://www.zelenakocka.cz/index.php",
     };
