@@ -80,7 +80,7 @@ function handleMessage({ appData, rtm, web }, message) {
         return;
     }
 
-    if (message.text.includes(`<@${appData.selfId}>`) || message.channel[0] === 'D') {        
+    if (message.text.includes(`<@${appData.selfId}>`) || message.channel[0] === 'D') {
         let all = false;
 
         if (/\bhelp(\b|\?)/i.test(message.text)) {
@@ -142,13 +142,13 @@ Check out these commands:
 }
 
 function sendMenu({ getMenu, web, message }) {
-    getMenu({ zomatoApiKey: ZOMATO_KEY }).then(menu => {
+    getMenu({ zomatoApiKey: ZOMATO_KEY }).then(attachments => {
         web.chat
-            .postMessage({ channel: message.channel, text: '', attachments: menu })
+            .postMessage(createAttachmentMessage({ attachments, message }))
             .then(console.log)
             .catch(console.error);
     })
-    .catch(console.error);
+        .catch(console.error);
 }
 
 function getCurrentDate() {
@@ -172,4 +172,13 @@ function getDayInfo() {
     }
 
     return dayInfo;
+}
+
+function createAttachmentMessage({ message, attachments }) {
+    return {
+        attachments,
+        channel: message.channel,
+        as_user: true,
+        text: '',
+    }
 }
