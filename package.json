@@ -4,10 +4,9 @@
   "description": "lunch menu for slack",
   "main": "src/index.js",
   "scripts": {
-    "build": "rm -rf dist/ && tsc",
-    "test": "tsc && mocha dist/**/*.spec.js",
-    "lint": "tslint --config tslint.json -p tsconfig.json",
-    "tsc": "tsc -v"
+    "build": "tsc",
+    "test": "tsc -p tsconfig.json && mocha dist/**/*.spec.js",
+    "lint": "tslint --config tslint.json -p tsconfig.json"
   },
   "repository": {
     "type": "git",
