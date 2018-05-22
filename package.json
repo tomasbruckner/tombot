@@ -4,20 +4,29 @@
   "description": "lunch menu for slack",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rm -rf dist/ && tsc",
+    "test": "tsc && mocha dist/**/*.spec.js",
+    "lint": "tslint --config tslint.json -p tsconfig.json",
+    "tsc": "tsc -v"
   },
   "repository": {
     "type": "git",
     "url": "git@gitlab.techfides.cz:tomasbruckner/tombot-lunch.git"
   },
   "keywords": [
-    "slackbot"
+    "tombot"
   ],
   "author": "Tomas Bruckner",
   "license": "ISC",
   "dependencies": {
-    "@slack/client": "^4.2.0",
+    "@slack/client": "^4.2.2",
     "cheerio": "^1.0.0-rc.2",
-    "request": "^2.85.0"
+    "pm2": "^2.10.4",
+    "request": "^2.87.0"
+  },
+  "devDependencies": {
+    "tsc": "^1.2",
+    "tslint": "^5.10.0",
+    "typescript": "^2.8.3"
   }
 }

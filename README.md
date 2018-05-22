@@ -14,6 +14,7 @@ help
 
 ### Supported commands
 - help
+- alcapone
 - beranek
 - kocka
 - lightofindia
