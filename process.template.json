@@ -1,0 +1,11 @@
+{
+    "apps": [
+        {
+            "script": "dist/index.js",
+            "env": {
+                "ZOMATO": "ec19",
+                "TOKEN": "xoxb-3"
+            }
+        }
+    ]
+}
