@@ -24,6 +24,7 @@
     "request": "^2.87.0"
   },
   "devDependencies": {
+    "ts-node": "^6.0.3",
     "tsc": "^1.2",
     "tslint": "^5.10.0",
     "typescript": "^2.8.3"

@@ -14,7 +14,7 @@ class LightOfIndia extends Restaurant {
 
     protected getMenu() {
         return new Promise((resolve, reject) => {
-            request(this.url, (err, res, body) => {
+            request.get(this.url, (err, res, body) => {
                 if (err) {
                     return reject(err);
                 } else if (!res || res.statusCode !== 200) {

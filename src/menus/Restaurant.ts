@@ -19,7 +19,7 @@ class Restaurant {
 
     protected getMenu(zomatoApiKey: string) {
         return new Promise((resolve, reject) => {
-            request({
+            request.get({
                 headers: {
                     user_key: zomatoApiKey,
                 },

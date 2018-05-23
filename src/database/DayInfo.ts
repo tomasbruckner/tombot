@@ -10,7 +10,7 @@ class DayInfo {
 
     public getDayInfo(): string {
         const date: string = this.getCurrentDate();
-        const names: string[] = this.nameDays[date];
+        const names: string[] = this.nameDays.getNameDay(date);
         const publicHoliday: PublicHoliday = this.publicHolidays.getPublicHoliday(date);
         let dayInfo: string = `Dnes je ${date} `;
 

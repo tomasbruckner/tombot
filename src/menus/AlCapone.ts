@@ -4,7 +4,7 @@ import { SlackAttachment } from "../common/interfaces";
 import Restaurant from "./Restaurant";
 
 class AlCapone extends Restaurant {
-    protected url: string = "";
+    protected url: string = "http://www.pizzaalcapone.cz/brno/poledni-menu";
 
     protected defaultParams: SlackAttachment = {
         color: "#5da7ac",
@@ -14,7 +14,7 @@ class AlCapone extends Restaurant {
 
     protected getMenu() {
         return new Promise((resolve, reject) => {
-            request(this.url, (err, res, body) => {
+            request.get(this.url, (err, res, body) => {
                 if (err) {
                     return reject(err);
                 } else if (!res || res.statusCode !== 200) {
