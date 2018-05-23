@@ -4,7 +4,7 @@ import { SlackAttachment } from "../common/interfaces";
 import Restaurant from "./Restaurant";
 
 class LightOfIndia extends Restaurant {
-    protected url: string = "";
+    protected url: string = "http://www.lightofindia.cz/lang-cs/denni-menu";
 
     protected defaultParams: SlackAttachment = {
         color: "#e7ef43",
@@ -14,7 +14,7 @@ class LightOfIndia extends Restaurant {
 
     protected getMenu() {
         return new Promise((resolve, reject) => {
-            request(URL, (err, res, body) => {
+            request(this.url, (err, res, body) => {
                 if (err) {
                     return reject(err);
                 } else if (!res || res.statusCode !== 200) {

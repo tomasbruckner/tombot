@@ -2,7 +2,7 @@
   "name": "tombot-lunch",
   "version": "1.0.0",
   "description": "lunch menu for slack",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
     "test": "tsc -p tsconfig.json && mocha dist/**/*.spec.js",
