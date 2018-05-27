@@ -25,13 +25,11 @@ class LightOfIndia extends Restaurant {
                 try {
                     const $ = cheerio.load(body);
                     nodes = $(`td[valign="top"]`)[0].childNodes;
+                    const slackMenu = this.createSlackMenu(this.getDishes(nodes));
+                    return resolve(slackMenu);
                 } catch (e) {
                     return reject(e);
                 }
-
-                const slackMenu = this.createSlackMenu(this.getDishes(nodes));
-                return resolve(slackMenu);
-
             });
         });
     }

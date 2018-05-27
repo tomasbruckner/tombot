@@ -24,13 +24,11 @@ class AlCapone extends Restaurant {
                 let $;
                 try {
                     $ = cheerio.load(body);
+                    const slackMenu = this.createSlackMenu(this.getDishes($));
+                    return resolve(slackMenu);
                 } catch (e) {
                     return reject(e);
                 }
-
-                const slackMenu = this.createSlackMenu(this.getDishes($));
-                return resolve(slackMenu);
-
             });
         });
     }

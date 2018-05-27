@@ -15,8 +15,6 @@ const rtm = new RTMClient(SLACK_TOKEN, {
 
 const web = new WebClient(SLACK_TOKEN);
 
-const cron = new CronJob();
-
 const bot = new Bot(
     SLACK_TOKEN,
     ZOMATO_KEY,
