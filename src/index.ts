@@ -1,4 +1,5 @@
 import { RTMClient, WebClient } from "@slack/client";
+import { CronJob } from "cron";
 import Bot from "./Bot";
 import DayInfo from "./database/DayInfo";
 import NameDays from "./database/NameDays";
@@ -14,11 +15,14 @@ const rtm = new RTMClient(SLACK_TOKEN, {
 
 const web = new WebClient(SLACK_TOKEN);
 
-new Bot(
+const cron = new CronJob();
+
+const bot = new Bot(
     SLACK_TOKEN,
     ZOMATO_KEY,
     new DayInfo(new NameDays(), new PublicHolidays()),
     rtm,
     web,
     new RestaurantHandler(),
+    CronJob,
 ).start();

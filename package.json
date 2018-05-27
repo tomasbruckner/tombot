@@ -20,6 +20,7 @@
   "dependencies": {
     "@slack/client": "^4.2.2",
     "cheerio": "^1.0.0-rc.2",
+    "node-cron": "^1.2.1",
     "pm2": "^2.10.4",
     "request": "^2.87.0"
   },

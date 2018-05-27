@@ -1,10 +1,26 @@
 import { RTMClient, WebClient } from "@slack/client";
+import { CronJob } from "cron";
+import {
+  ALCAPONE_REGEX,
+  ALL_REGEX,
+  BERANEK_REGEX,
+  HELP_REGEX,
+  JOKE_REGEX,
+  KOCKA_REGEX,
+  LIGHT_REGEX,
+  LLOYDS_REGEX,
+  NAMEDAY_REGEX,
+  NEPAL_REGEX,
+  SELEPKA_REGEX,
+} from "./common/constants";
 import { Restaurants, SlackChannels } from "./common/enums";
 import { PublicHoliday } from "./common/interfaces";
 import DayInfo from "./database/DayInfo";
 import RestaurantHandler from "./menus/RestaurantHandler";
 
 class Bot {
+  private cronJob: CronJob;
+  private lunchtimeChannelId: string = "C6KEXHHSL";
   private selfId: string;
 
   public constructor(
@@ -14,7 +30,10 @@ class Bot {
     private rtmClient: RTMClient,
     private webClient: WebClient,
     private restaurantHandler: RestaurantHandler,
-  ) { }
+    CronJobConstructor: CronJob,
+  ) {
+    this.cronJob = new CronJobConstructor(this.getCronSettings());
+  }
 
   public start(): void {
     if (!this.slackToken) {
@@ -37,6 +56,17 @@ class Bot {
     this.rtmClient.on("message", this.handleMessage.bind(this));
 
     this.rtmClient.start({});
+
+    this.cronJob.start();
+  }
+
+  public getCronSettings() {
+    return {
+      cronTime: "0 8 * * 1-5",
+      onTick: this.sendAllByCron.bind(this),
+      start: false,
+      timeZone: "Europe/Prague",
+    };
   }
 
   private handleMessage(message): void {
@@ -48,49 +78,49 @@ class Bot {
     if (message.text.includes(`<@${this.selfId}>`) || message.channel[0] === SlackChannels.DirectMessage) {
       let all: boolean = false;
 
-      if (/\bhelp(\b|\?)/i.test(message.text)) {
+      if (HELP_REGEX.test(message.text)) {
         const helpMessage = this.getHelpMessage();
         this.rtmClient.sendMessage(helpMessage, message.channel);
       }
 
-      if (/\b(all)(\b|\?)/i.test(message.text)) {
+      if (ALL_REGEX.test(message.text)) {
         all = true;
       }
 
-      if (all || /\b(svatek|meniny|nameday|name day)(\b|\?)/i.test(message.text)) {
+      if (all || NAMEDAY_REGEX.test(message.text)) {
         const res: string = this.dayInfo.getDayInfo();
         this.rtmClient.sendMessage(res, message.channel);
       }
 
-      if (/\b(joke|vtip)(\b|\?)/i.test(message.text)) {
+      if (JOKE_REGEX.test(message.text)) {
         this.rtmClient.sendMessage("http://files.explosm.net/comics/Rob/myothercat.png", message.channel);
       }
 
-      if (all || /\b(alcapone|capone)(\b|\?)/i.test(message.text)) {
+      if (all || ALCAPONE_REGEX.test(message.text)) {
         this.sendMenu(Restaurants.AlCapone, message);
       }
 
-      if (all || /\b(beranek)(\b|\?)/i.test(message.text)) {
+      if (all || BERANEK_REGEX.test(message.text)) {
         this.sendMenu(Restaurants.Beranek, message);
       }
 
-      if (all || /\b(kocka|cat)(\b|\?)/i.test(message.text)) {
+      if (all || KOCKA_REGEX.test(message.text)) {
         this.sendMenu(Restaurants.ZelenaKocka, message);
       }
 
-      if (all || /\b(light|lightofindia)(\b|\?)/i.test(message.text)) {
+      if (all || LIGHT_REGEX.test(message.text)) {
         this.sendMenu(Restaurants.LightOfIndia, message);
       }
 
-      if (all || /\b(lloyds|loyds)(\b|\?)/i.test(message.text)) {
+      if (all || LLOYDS_REGEX.test(message.text)) {
         this.sendMenu(Restaurants.LLoyds, message);
       }
 
-      if (all || /\b(nepal)(\b|\?)/i.test(message.text)) {
+      if (all || NEPAL_REGEX.test(message.text)) {
         this.sendMenu(Restaurants.Nepal, message);
       }
 
-      if (all || /\b(selepka|selepova)(\b|\?)/i.test(message.text)) {
+      if (all || SELEPKA_REGEX.test(message.text)) {
         this.sendMenu(Restaurants.Selepka, message);
       }
     }
@@ -103,6 +133,32 @@ class Bot {
     } catch (e) {
       console.error(e);
     }
+  }
+
+  private async sendAllByCron() {
+    try {
+      const history = await this.webClient.channels.history({
+        channel: this.lunchtimeChannelId,
+        inclusive: true,
+        oldest: Date.now().toString(),
+      });
+
+      if (this.allNotSent(history)) {
+        this.handleMessage({
+          channel: this.lunchtimeChannelId,
+          text: `<@${this.selfId}> all`,
+        });
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  private allNotSent(history): boolean {
+    return !history.messages.reduce(
+      (acc, m) => acc || ALL_REGEX.test(m.text),
+      false,
+    );
   }
 
   private getHelpMessage(): string {
