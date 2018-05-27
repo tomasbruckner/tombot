@@ -20,7 +20,7 @@ import RestaurantHandler from "./menus/RestaurantHandler";
 
 class Bot {
   private cronJob: CronJob;
-  private lunchtimeChannelId: string = "C6KEXHHSL";
+  private readonly lunchtimeChannelId: string = "C6KEXHHSL";
   private selfId: string;
 
   public constructor(
