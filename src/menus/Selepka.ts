@@ -6,7 +6,7 @@ class Selepka extends Restaurant {
 
     protected defaultParams: SlackAttachment = {
         color: "#d11b45",
-        title: "Selepka's menu",
+        title: "Šelepka",
         title_link: "http://www.selepova.cz/denni-menu",
     };
 }

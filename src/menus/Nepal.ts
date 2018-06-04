@@ -6,7 +6,7 @@ class Nepal extends Restaurant {
 
     protected defaultParams: SlackAttachment = {
         color: "#827717",
-        title: "Golden Nepal's menu",
+        title: "Golden Nepal",
         title_link: "http://goldennepal.cz/menu/#denni-menu",
     };
 }

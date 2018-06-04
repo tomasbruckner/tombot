@@ -15,11 +15,11 @@ class DayInfo {
         let dayInfo: string = `Dnes je ${date} `;
 
         if (names) {
-            dayInfo += `Svatek ma: ${names.join(", ")}. Gratulujeme!\n`;
+            dayInfo += `Svátek má: ${names.join(", ")}. Gratulujeme!\n`;
         }
 
         if (publicHoliday) {
-            dayInfo += `Statni svatek: ${publicHoliday.name}!\n${publicHoliday.description}\n`;
+            dayInfo += `Státní svátek: ${publicHoliday.name}!\n${publicHoliday.description}\n`;
         }
 
         return dayInfo;

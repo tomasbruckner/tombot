@@ -6,7 +6,7 @@ class ZelenaKocka extends Restaurant {
 
     protected defaultParams: SlackAttachment = {
         color: "#7CB342",
-        title: "Grand restaurant Zelená Kočka's menu",
+        title: "Grand restaurant Zelená Kočka",
         title_link: "http://www.zelenakocka.cz/index.php",
     };
 }
