@@ -6,7 +6,7 @@ class Beranek extends Restaurant {
 
     protected defaultParams: SlackAttachment = {
         color: "#0a1966",
-        title: "U Bileho beranka's menu",
+        title: "U Bílého beránka",
         title_link: "http://www.ubilehoberanka.cz/menu-dne",
     };
 }

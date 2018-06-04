@@ -8,7 +8,7 @@ class LightOfIndia extends Restaurant {
 
     protected defaultParams: SlackAttachment = {
         color: "#e7ef43",
-        title: "Light of India's menu",
+        title: "Light of India",
         title_link: "http://www.lightofindia.cz/lang-cs/denni-menu",
     };
 

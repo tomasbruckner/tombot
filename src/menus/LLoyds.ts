@@ -6,7 +6,7 @@ class LLoyds extends Restaurant {
 
     protected defaultParams: SlackAttachment = {
         color: "#7986CB",
-        title: "LLoyd's menu",
+        title: "LLoyd's",
         title_link: "http://restauracelloyds.cz/menu-2/denni-menu",
     };
 }

@@ -8,7 +8,7 @@ class AlCapone extends Restaurant {
 
     protected defaultParams: SlackAttachment = {
         color: "#5da7ac",
-        title: "Al Capone's menu",
+        title: "Al Capone",
         title_link: "http://www.pizzaalcapone.cz/brno/poledni-menu",
     };
 
