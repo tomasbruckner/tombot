@@ -1,3 +1,4 @@
+import * as request from "request";
 import { Restaurants } from "../common/enums";
 import AlCapone from "./AlCapone";
 import Beranek from "./Beranek";
@@ -9,13 +10,13 @@ import ZelenaKocka from "./ZelenaKocka";
 
 class RestaurantHandler {
     private restaurants = {
-        [Restaurants.AlCapone]: new AlCapone(),
-        [Restaurants.Beranek]: new Beranek(),
-        [Restaurants.LightOfIndia]: new LightOfIndia(),
-        [Restaurants.LLoyds]: new LLoyds(),
-        [Restaurants.Nepal]: new Nepal(),
-        [Restaurants.Selepka]: new Selepka(),
-        [Restaurants.ZelenaKocka]: new ZelenaKocka(),
+        [Restaurants.AlCapone]: new AlCapone(request),
+        [Restaurants.Beranek]: new Beranek(request),
+        [Restaurants.LightOfIndia]: new LightOfIndia(request),
+        [Restaurants.LLoyds]: new LLoyds(request),
+        [Restaurants.Nepal]: new Nepal(request),
+        [Restaurants.Selepka]: new Selepka(request),
+        [Restaurants.ZelenaKocka]: new ZelenaKocka(request),
     };
 
     public sendMenu(restaurant: Restaurants, zomatoApiKey: string, message) {
