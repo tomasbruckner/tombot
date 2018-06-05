@@ -19,7 +19,7 @@ test("Resolve menu long response", done => {
 
     const callback = requestMock.mock.calls[0][1];
 
-    callback(undefined, { statusCode: 200 }, selepkaResponse);
+    callback(undefined, { statusCode: 200 }, response);
 
     menu.then(menu => {
         expect(menu).toEqual(expectedSlackMenu);
@@ -33,9 +33,9 @@ test("Resolve menu short response", done => {
     expect(requestMock.mock.calls.length).toBe(1);
 
     const callback = requestMock.mock.calls[0][1];
-    const response = JSON.stringify(JSON.parse(selepkaResponse).daily_menus[0].daily_menu.dishes);
+    const shortResponse = JSON.stringify(JSON.parse(response).daily_menus[0].daily_menu.dishes);
 
-    callback(undefined, { statusCode: 200 }, response);
+    callback(undefined, { statusCode: 200 }, shortResponse);
 
     menu.then(menu => {
         expect(menu).toEqual(expectedSlackMenu);
@@ -50,7 +50,7 @@ test("Reject menu status code", done => {
 
     const callback = requestMock.mock.calls[0][1];
 
-    callback(undefined, { statusCode: 404 }, selepkaResponse);
+    callback(undefined, { statusCode: 404 }, response);
 
     menu.catch(menu => {
         done();
@@ -64,7 +64,7 @@ test("Reject menu error", done => {
 
     const callback = requestMock.mock.calls[0][1];
 
-    callback({}, { statusCode: 200 }, selepkaResponse);
+    callback({}, { statusCode: 200 }, response);
 
     menu.catch(menu => {
         done();
@@ -77,8 +77,9 @@ test("Reject menu invalid response", done => {
     expect(requestMock.mock.calls.length).toBe(1);
 
     const callback = requestMock.mock.calls[0][1];
+    const invalidJson = "{a:}";
 
-    callback(undefined, { statusCode: 200 }, "{a:}");
+    callback(undefined, { statusCode: 200 }, invalidJson);
 
     menu.catch(menu => {
         done();
@@ -146,7 +147,7 @@ const expectedSlackMenu = {
     text: ''
 };
 
-const selepkaResponse = JSON.stringify({
+const response = JSON.stringify({
     "daily_menus": [
         {
             "daily_menu": {

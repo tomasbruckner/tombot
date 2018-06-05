@@ -5,7 +5,7 @@ class Restaurant {
 
     protected defaultParams: SlackAttachment;
 
-    public constructor(private request) {
+    public constructor(protected request) {
 
     }
 
@@ -30,15 +30,20 @@ class Restaurant {
                 }
 
                 try {
-                    const dailyMenu = JSON.parse(body);
-                    const slackMenu = this.createSlackMenu(dailyMenu);
+                    const slackMenu = this.handleResponse(body);
 
-                    resolve(slackMenu);
+                    return resolve(slackMenu);
                 } catch (e) {
                     return reject(body);
                 }
             });
         });
+    }
+
+    protected handleResponse(body: string) {
+        const dailyMenu = JSON.parse(body);
+
+        return this.createSlackMenu(dailyMenu);
     }
 
     protected createSlackMenu(dailyMenu): SlackMenu[] {
