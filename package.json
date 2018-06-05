@@ -34,17 +34,5 @@
     "tsc": "^1.2",
     "tslint": "^5.10.0",
     "typescript": "^2.8.3"
-  },
-  "nyc": {
-    "extension": [
-      ".ts"
-    ],
-    "exclude": [
-      "**/*.d.ts"
-    ],
-    "reporter": [
-      "html"
-    ],
-    "all": true
   }
 }
