@@ -1,5 +1,4 @@
 import * as cheerio from "cheerio";
-import * as request from "request";
 import { SlackAttachment } from "../common/interfaces";
 import Restaurant from "./Restaurant";
 
@@ -12,25 +11,11 @@ class AlCapone extends Restaurant {
         title_link: "http://www.pizzaalcapone.cz/brno/poledni-menu",
     };
 
-    protected getMenu() {
-        return new Promise((resolve, reject) => {
-            request.get(this.url, (err, res, body) => {
-                if (err) {
-                    return reject(err);
-                } else if (!res || res.statusCode !== 200) {
-                    return reject(res);
-                }
+    protected handleResponse(body: string) {
+        const $ = cheerio.load(body);
+        const dishes = this.getDishes($);
 
-                let $;
-                try {
-                    $ = cheerio.load(body);
-                    const slackMenu = this.createSlackMenu(this.getDishes($));
-                    return resolve(slackMenu);
-                } catch (e) {
-                    return reject(e);
-                }
-            });
-        });
+        return this.createSlackMenu(dishes);
     }
 
     private getDishes($) {

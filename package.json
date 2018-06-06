@@ -1,11 +1,11 @@
 {
   "name": "tombot-lunch",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "lunch menu for slack",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
-    "test": "tsc -p tsconfig.json && mocha dist/**/*.spec.js",
+    "test": "jest --coverage --verbose",
     "lint": "tslint --config tslint.json -p tsconfig.json"
   },
   "repository": {
@@ -15,7 +15,7 @@
   "keywords": [
     "tombot"
   ],
-  "author": "Tomas Bruckner",
+  "author": "Tomas Bruckner, https://github.com/tomasbruckner",
   "license": "ISC",
   "dependencies": {
     "@slack/client": "^4.2.2",
@@ -25,6 +25,11 @@
     "request": "^2.87.0"
   },
   "devDependencies": {
+    "@types/jest": "^23.0.0",
+    "@types/node": "^10.3.0",
+    "jest": "^23.1.0",
+    "source-map-support": "^0.5.6",
+    "ts-jest": "^22.4.6",
     "ts-node": "^6.0.3",
     "tsc": "^1.2",
     "tslint": "^5.10.0",

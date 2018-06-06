@@ -8,7 +8,7 @@ export const HELP_REGEX = /\bhelp(\b|\?)/i;
 
 export const JOKE_REGEX = /\b(joke|vtip)(\b|\?)/i;
 
-export const KOCKA_REGEX = /\b(beranek)(\b|\?)/i;
+export const KOCKA_REGEX = /\b(kocka)(\b|\?)/i;
 
 export const LIGHT_REGEX = /\b(light|lightofindia)(\b|\?)/i;
 

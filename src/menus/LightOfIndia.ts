@@ -1,5 +1,4 @@
 import * as cheerio from "cheerio";
-import * as request from "request";
 import { SlackAttachment } from "../common/interfaces";
 import Restaurant from "./Restaurant";
 
@@ -12,33 +11,19 @@ class LightOfIndia extends Restaurant {
         title_link: "http://www.lightofindia.cz/lang-cs/denni-menu",
     };
 
-    protected getMenu() {
-        return new Promise((resolve, reject) => {
-            request.get(this.url, (err, res, body) => {
-                if (err) {
-                    return reject(err);
-                } else if (!res || res.statusCode !== 200) {
-                    return reject(res);
-                }
+    protected handleResponse(body: string) {
+        const $ = cheerio.load(body);
+        const nodes = $(`td[valign="top"]`)[0].childNodes;
+        const dishes = this.getDishes(nodes);
 
-                let nodes;
-                try {
-                    const $ = cheerio.load(body);
-                    nodes = $(`td[valign="top"]`)[0].childNodes;
-                    const slackMenu = this.createSlackMenu(this.getDishes(nodes));
-                    return resolve(slackMenu);
-                } catch (e) {
-                    return reject(e);
-                }
-            });
-        });
+        return this.createSlackMenu(dishes);
     }
 
     private getDishes(nodes) {
         const dayIndex = new Date().getDay();
 
         if (dayIndex === 0 || dayIndex > 5) {
-            return [];
+            throw new Error("Light of India does not have menu on weekend");
         }
 
         for (let i = 0, h2 = 0; i < nodes.length; i++) {

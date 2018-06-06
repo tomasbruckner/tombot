@@ -2,6 +2,10 @@ export interface Menu {
     dish: Dish;
 }
 
+export interface Message {
+    channel: string;
+}
+
 export interface Dish {
     name: string;
     price: string;

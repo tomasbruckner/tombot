@@ -6,7 +6,11 @@
         "moduleResolution": "node",
         "sourceMap": true,
         "outDir": "dist",
-        "baseUrl": "."
+        "baseUrl": ".",
+        "types": [
+            "jest",
+            "node"
+        ]
     },
     "include": [
         "src/**/*.ts"

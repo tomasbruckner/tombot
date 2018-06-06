@@ -1,25 +1,23 @@
-import * as request from "request";
-
-import { Menu, SlackAttachment, SlackMenu } from "../common/interfaces";
+import { Menu, Message, SlackAttachment, SlackMenu } from "../common/interfaces";
 
 class Restaurant {
     protected url: string;
 
     protected defaultParams: SlackAttachment;
 
-    public async getSlackMenu(message, zomatoApiKey) {
-        try {
-            const attachments = await this.getMenu(zomatoApiKey);
+    public constructor(protected request) {
 
-            return this.createAttachmentMessage(message, attachments);
-        } catch (e) {
-            console.error(e);
-        }
+    }
+
+    public async getSlackMenu(message: Message, zomatoApiKey: string) {
+        const attachments = await this.getMenu(zomatoApiKey);
+
+        return this.createAttachmentMessage(message, attachments);
     }
 
     protected getMenu(zomatoApiKey: string) {
         return new Promise((resolve, reject) => {
-            request.get({
+            this.request.get({
                 headers: {
                     user_key: zomatoApiKey,
                 },
@@ -32,15 +30,20 @@ class Restaurant {
                 }
 
                 try {
-                    const dailyMenu = JSON.parse(body);
-                    const slackMenu = this.createSlackMenu(dailyMenu);
+                    const slackMenu = this.handleResponse(body);
 
-                    resolve(slackMenu);
+                    return resolve(slackMenu);
                 } catch (e) {
                     return reject(body);
                 }
             });
         });
+    }
+
+    protected handleResponse(body: string) {
+        const dailyMenu = JSON.parse(body);
+
+        return this.createSlackMenu(dailyMenu);
     }
 
     protected createSlackMenu(dailyMenu): SlackMenu[] {
@@ -59,7 +62,7 @@ class Restaurant {
         return menus;
     }
 
-    private createAttachmentMessage(message, attachments) {
+    private createAttachmentMessage(message: Message, attachments) {
         return {
             as_user: true,
             attachments,
