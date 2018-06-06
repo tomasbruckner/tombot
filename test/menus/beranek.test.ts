@@ -1,4 +1,3 @@
-import * as assert from "assert";
 import Beranek from "../../src/menus/Beranek";
 
 let requestMock;

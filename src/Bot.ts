@@ -1,4 +1,4 @@
-import { RTMClient, WebClient } from "@slack/client";
+import { RTMCallResult, RTMClient, WebClient } from "@slack/client";
 import { CronJob } from "cron";
 import {
   ALCAPONE_REGEX,
@@ -19,8 +19,8 @@ import DayInfo from "./database/DayInfo";
 import RestaurantHandler from "./menus/RestaurantHandler";
 
 class Bot {
-  private cronJob: CronJob;
   private readonly lunchtimeChannelId: string = "C6KEXHHSL";
+  private cronJob: CronJob;
   private selfId: string;
 
   public constructor(
@@ -44,7 +44,7 @@ class Bot {
       throw new Error("No Zomato api key specified in env ZOMATO");
     }
 
-    this.rtmClient.on("authenticated", (connectData) => {
+    this.rtmClient.on("authenticated", connectData => {
       this.selfId = connectData.self.id;
       console.log(`Logged in as ${this.selfId} of team ${connectData.team.id}`);
     });
@@ -69,10 +69,12 @@ class Bot {
     };
   }
 
-  private handleMessage(message): void {
+  private handleMessage(message): Array<Promise<void | RTMCallResult>> {
+    const messagePromises = [];
+
     // For structure of `message`, see https://api.slack.com/events/message
     if (message.subtype === "message_changed") {
-      return;
+      return messagePromises;
     }
 
     if (message.text.includes(`<@${this.selfId}>`) || message.channel[0] === SlackChannels.DirectMessage) {
@@ -80,7 +82,10 @@ class Bot {
 
       if (HELP_REGEX.test(message.text)) {
         const helpMessage = this.getHelpMessage();
-        this.rtmClient.sendMessage(helpMessage, message.channel);
+
+        messagePromises.push(
+          this.rtmClient.sendMessage(helpMessage, message.channel),
+        );
       }
 
       if (ALL_REGEX.test(message.text)) {
@@ -89,44 +94,65 @@ class Bot {
 
       if (all || NAMEDAY_REGEX.test(message.text)) {
         const res: string = this.dayInfo.getDayInfo();
-        this.rtmClient.sendMessage(res, message.channel);
+
+        messagePromises.push(
+          this.rtmClient.sendMessage(res, message.channel),
+        );
       }
 
       if (JOKE_REGEX.test(message.text)) {
-        this.rtmClient.sendMessage("http://files.explosm.net/comics/Rob/myothercat.png", message.channel);
+        messagePromises.push(
+          this.rtmClient.sendMessage("http://files.explosm.net/comics/Rob/myothercat.png", message.channel),
+        );
       }
 
       if (all || ALCAPONE_REGEX.test(message.text)) {
-        this.sendMenu(Restaurants.AlCapone, message);
+        messagePromises.push(
+          this.sendMenu(Restaurants.AlCapone, message),
+        );
       }
 
       if (all || BERANEK_REGEX.test(message.text)) {
-        this.sendMenu(Restaurants.Beranek, message);
+        messagePromises.push(
+          this.sendMenu(Restaurants.Beranek, message),
+        );
       }
 
       if (all || KOCKA_REGEX.test(message.text)) {
-        this.sendMenu(Restaurants.ZelenaKocka, message);
+        messagePromises.push(
+          this.sendMenu(Restaurants.ZelenaKocka, message),
+        );
       }
 
       if (all || LIGHT_REGEX.test(message.text)) {
-        this.sendMenu(Restaurants.LightOfIndia, message);
+        messagePromises.push(
+          this.sendMenu(Restaurants.LightOfIndia, message),
+        );
       }
 
       if (all || LLOYDS_REGEX.test(message.text)) {
-        this.sendMenu(Restaurants.LLoyds, message);
+        messagePromises.push(
+          this.sendMenu(Restaurants.LLoyds, message),
+        );
       }
 
       if (all || NEPAL_REGEX.test(message.text)) {
-        this.sendMenu(Restaurants.Nepal, message);
+        messagePromises.push(
+          this.sendMenu(Restaurants.Nepal, message),
+        );
       }
 
       if (all || SELEPKA_REGEX.test(message.text)) {
-        this.sendMenu(Restaurants.Selepka, message);
+        messagePromises.push(
+          this.sendMenu(Restaurants.Selepka, message),
+        );
       }
     }
+
+    return messagePromises;
   }
 
-  private async sendMenu(restaurant: Restaurants, message) {
+  private async sendMenu(restaurant: Restaurants, message): Promise<void> {
     try {
       const slackMessage = await this.restaurantHandler.sendMenu(restaurant, this.zomatoKey, message);
       this.webClient.chat.postMessage(slackMessage);
@@ -163,17 +189,17 @@ class Bot {
 
   private getHelpMessage(): string {
     return `Hello to you from Tombot, the amazing TechFides worker that can help you with almost anything!
-  Check out these commands:
-          help
-          alcapone
-          beranek
-          kocka
-          lightofindia
-          lloyds
-          nepal
-          selepka
-          svatek
-          all`;
+Check out these commands:
+        help
+        alcapone
+        beranek
+        kocka
+        lightofindia
+        lloyds
+        nepal
+        selepka
+        svatek
+        all`;
   }
 }
 

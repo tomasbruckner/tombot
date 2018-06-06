@@ -16,6 +16,9 @@ module.exports = {
 	],
 	testEnvironment: 'node',
 	collectCoverageFrom: [
-		'src/**/*.ts'
+		'src/**/*.ts',
+		'!src/index.ts',
+		'!src/common/interfaces/index.ts',
+		'!src/common/types/index.ts',
 	]
 };

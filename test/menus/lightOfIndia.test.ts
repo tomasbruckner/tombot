@@ -1,18 +1,14 @@
-import * as assert from "assert";
 import LightOfIndia from "../../src/menus/LightOfIndia";
 
 let requestMock;
 let testedClass: LightOfIndia;
-let originalDate;
+const originalDate = global.Date;
 let mockDate;
 
 beforeAll(() => {
 	requestMock = jest.fn();
-	originalDate = global.Date;
 	mockDate = function() {
-		this.getDay = function() {
-			return 2;
-		}
+		this.getDay = () => 2;
 	};
 
 	global.Date = mockDate;

@@ -19,6 +19,7 @@ class RestaurantHandler {
         [Restaurants.ZelenaKocka]: new ZelenaKocka(request),
     };
 
+    /* istanbul ignore next */
     public sendMenu(restaurant: Restaurants, zomatoApiKey: string, message) {
         return this.restaurants[restaurant].getSlackMenu(message, zomatoApiKey);
     }

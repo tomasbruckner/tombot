@@ -1,4 +1,3 @@
-import * as assert from "assert";
 import Nepal from "../../src/menus/Nepal";
 
 let requestMock;

@@ -1,4 +1,3 @@
-import * as assert from "assert";
 import AlCapone from "../../src/menus/AlCapone";
 
 let requestMock;

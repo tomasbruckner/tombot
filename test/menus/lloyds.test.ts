@@ -1,4 +1,3 @@
-import * as assert from "assert";
 import LLoyds from "../../src/menus/LLoyds";
 
 let requestMock;

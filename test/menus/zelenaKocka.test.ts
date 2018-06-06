@@ -1,4 +1,3 @@
-import * as assert from "assert";
 import ZelenaKocka from "../../src/menus/ZelenaKocka";
 
 let requestMock;

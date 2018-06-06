@@ -1,4 +1,3 @@
-import * as assert from "assert";
 import Selepka from "../../src/menus/Selepka";
 
 let requestMock;
