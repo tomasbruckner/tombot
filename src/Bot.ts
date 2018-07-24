@@ -5,6 +5,7 @@ import {
   ALL_REGEX,
   BERANEK_REGEX,
   HELP_REGEX,
+  HIMALAYA_REGEX,
   JOKE_REGEX,
   KOCKA_REGEX,
   LIGHT_REGEX,
@@ -14,12 +15,11 @@ import {
   SELEPKA_REGEX,
 } from "./common/constants";
 import { Restaurants, SlackChannels } from "./common/enums";
-import { PublicHoliday } from "./common/interfaces";
 import DayInfo from "./database/DayInfo";
 import RestaurantHandler from "./menus/RestaurantHandler";
 
 class Bot {
-  private readonly lunchtimeChannelId: string = "C6KEXHHSL";
+  private readonly LUNCHTIME_CHANNEL_ID: string = "C6KEXHHSL";
   private cronJob: CronJob;
   private selfId: string;
 
@@ -118,6 +118,12 @@ class Bot {
         );
       }
 
+      if (HIMALAYA_REGEX.test(message.text)) {
+        messagePromises.push(
+          this.sendMenu(Restaurants.Himalaya, message),
+        );
+      }
+
       if (all || KOCKA_REGEX.test(message.text)) {
         messagePromises.push(
           this.sendMenu(Restaurants.ZelenaKocka, message),
@@ -164,14 +170,14 @@ class Bot {
   private async sendAllByCron() {
     try {
       const history = await this.webClient.channels.history({
-        channel: this.lunchtimeChannelId,
+        channel: this.LUNCHTIME_CHANNEL_ID,
         inclusive: true,
         oldest: Date.now().toString(),
       });
 
       if (this.allNotSent(history)) {
         this.handleMessage({
-          channel: this.lunchtimeChannelId,
+          channel: this.LUNCHTIME_CHANNEL_ID,
           text: `<@${this.selfId}> all`,
         });
       }
@@ -193,6 +199,7 @@ Check out these commands:
         help
         alcapone
         beranek
+        himalaya
         kocka
         lightofindia
         lloyds
