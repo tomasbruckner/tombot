@@ -3,6 +3,7 @@ export enum Messages {
     Beranek,
     FunFact,
     Help,
+    Himalaya,
     Joke,
     LightOfIndia,
     LLoyds,

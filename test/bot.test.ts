@@ -220,6 +220,7 @@ Check out these commands:
         help
         alcapone
         beranek
+        himalaya
         kocka
         lightofindia
         lloyds

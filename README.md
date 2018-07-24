@@ -16,6 +16,7 @@ help
 - help
 - alcapone
 - beranek
+- himalaya
 - kocka
 - lightofindia
 - lloyds

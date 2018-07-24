@@ -6,6 +6,8 @@ export const BERANEK_REGEX = /\b(beranek)(\b|\?)/i;
 
 export const HELP_REGEX = /\bhelp(\b|\?)/i;
 
+export const HIMALAYA_REGEX = /\bhimalaya(\b|\?)/i;
+
 export const JOKE_REGEX = /\b(joke|vtip)(\b|\?)/i;
 
 export const KOCKA_REGEX = /\b(kocka)(\b|\?)/i;
