@@ -83,7 +83,7 @@ class Restaurant {
             color: this.defaultParams.color,
             fallback: "Restaurant menu",
             footer,
-            text: name.trim(),
+            text: name.trim().replace(/ +/g, " "),
         };
     }
 }
