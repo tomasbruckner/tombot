@@ -5,8 +5,9 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
-    "test": "jest --coverage --verbose",
-    "lint": "tslint --config tslint.json -p tsconfig.json"
+    "lint": "tslint --config tslint.json -p tsconfig.json",
+    "start": "pm2-runtime start process.json",
+    "test": "jest --coverage --verbose"
   },
   "repository": {
     "type": "git",
@@ -21,7 +22,7 @@
     "@slack/client": "^4.8.0",
     "cheerio": "^1.0.0-rc.2",
     "node-cron": "^1.2.1",
-    "pm2": "^2.10.4",
+    "pm2": "^3.2.2",
     "request": "^2.88.0"
   },
   "devDependencies": {
@@ -33,6 +34,6 @@
     "ts-node": "^6.2.0",
     "tsc": "^1.2",
     "tslint": "^5.11.0",
-    "typescript": "^2.9.2"
+    "typescript": "^3.2.2"
   }
 }
