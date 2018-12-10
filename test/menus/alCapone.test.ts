@@ -1,66 +1,68 @@
 import AlCapone from "../../src/menus/AlCapone";
 
-let requestMock;
-let testedClass: AlCapone;
+describe("Al Capone", () => {
+    let requestMock;
+    let testedClass: AlCapone;
 
-beforeAll(() => {
-    requestMock = jest.fn();
-});
-
-beforeEach(() => {
-    testedClass = new AlCapone({ get: requestMock });
-});
-
-test("Resolve menu response", done => {
-    const menu = testedClass.getSlackMenu({ channel: "channel" }, "apikey");
-
-    expect(requestMock.mock.calls.length).toBe(1);
-
-    const callback = requestMock.mock.calls[0][1];
-
-    callback(undefined, { statusCode: 200 }, response);
-
-    menu.then(menu => {
-        expect(menu).toEqual(expectedSlackMenu);
-        done();
+    beforeAll(() => {
+        requestMock = jest.fn();
     });
-});
 
-afterEach(() => {
-    requestMock.mockReset();
+    beforeEach(() => {
+        testedClass = new AlCapone({get: requestMock});
+    });
+
+    test("Resolve menu response", done => {
+        const menu = testedClass.getSlackMenu({channel: "channel"}, "apikey");
+
+        expect(requestMock.mock.calls.length).toBe(1);
+
+        const callback = requestMock.mock.calls[0][1];
+
+        callback(undefined, {statusCode: 200}, response);
+
+        menu.then(resultMenu => {
+            expect(resultMenu).toEqual(expectedSlackMenu);
+            done();
+        });
+    });
+
+    afterEach(() => {
+        requestMock.mockReset();
+    });
 });
 
 const expectedSlackMenu = {
     as_user: true,
     attachments:
         [{
-            color: '#5da7ac',
-            fallback: 'Restaurant menu',
-            footer: '',
-            text: 'Zeleninová polévka',
-            title: 'Al Capone',
-            title_link: 'http://www.pizzaalcapone.cz/brno/poledni-menu'
+            color: "#5da7ac",
+            fallback: "Restaurant menu",
+            footer: "",
+            text: "Zeleninová polévka",
+            title: "Al Capone",
+            title_link: "http://www.pizzaalcapone.cz/brno/poledni-menu",
         },
-        {
-            color: '#5da7ac',
-            fallback: 'Restaurant menu',
-            footer: 'Cena: 79 Kč',
-            text: 'Menu 1 - Špagety s tomatovou omáčkou, grilovanými kousky kuřecího masa zakáplé bazalkovým pestem'
-        },
-        {
-            color: '#5da7ac',
-            fallback: 'Restaurant menu',
-            footer: 'Cena: 94 Kč',
-            text: 'Menu 2 - Smažená vepřová kotleta s vídeňským salátem a limetou'
-        },
-        {
-            color: '#5da7ac',
-            fallback: 'Restaurant menu',
-            footer: 'Cena: 109 Kč',
-            text: 'Menu 3 - Grilovaný hermelín na salátovém lůžku s paprikou a rajčaty, brusinková omáčka, bagetky'
-        }],
-    channel: 'channel',
-    text: ''
+            {
+                color: "#5da7ac",
+                fallback: "Restaurant menu",
+                footer: "Cena: 79 Kč",
+                text: "Menu 1 - Špagety s tomatovou omáčkou, grilovanými kousky kuřecího masa zakáplé bazalkovým pestem",
+            },
+            {
+                color: "#5da7ac",
+                fallback: "Restaurant menu",
+                footer: "Cena: 94 Kč",
+                text: "Menu 2 - Smažená vepřová kotleta s vídeňským salátem a limetou",
+            },
+            {
+                color: "#5da7ac",
+                fallback: "Restaurant menu",
+                footer: "Cena: 109 Kč",
+                text: "Menu 3 - Grilovaný hermelín na salátovém lůžku s paprikou a rajčaty, brusinková omáčka, bagetky",
+            }],
+    channel: "channel",
+    text: "",
 };
 
 const response = `<html lang="cs" class=" js cssanimations"><head>

@@ -1,106 +1,108 @@
 import LightOfIndia from "../../src/menus/LightOfIndia";
 
-let requestMock;
-let testedClass: LightOfIndia;
-const originalDate = global.Date;
-let mockDate;
+describe("Light of India", () => {
+    let requestMock;
+    let testedClass: LightOfIndia;
+    const originalDate = global.Date;
+    let mockDate;
 
-beforeAll(() => {
-	requestMock = jest.fn();
-	mockDate = function() {
-		this.getDay = () => 2;
-	};
+    beforeAll(() => {
+        requestMock = jest.fn();
+        mockDate = function () {
+            this.getDay = () => 2;
+        };
 
-	global.Date = mockDate;
-});
+        global.Date = mockDate;
+    });
 
-afterAll(() => {
-	global.Date = originalDate;
-});
+    afterAll(() => {
+        global.Date = originalDate;
+    });
 
-beforeEach(() => {
-	testedClass = new LightOfIndia({ get: requestMock });
-});
+    beforeEach(() => {
+        testedClass = new LightOfIndia({get: requestMock});
+    });
 
-afterEach(() => {
-	requestMock.mockReset();
-});
+    afterEach(() => {
+        requestMock.mockReset();
+    });
 
-test("Resolve menu response", done => {
-	const menu = testedClass.getSlackMenu({ channel: "channel" }, "apikey");
+    test("Resolve menu response", done => {
+        const menu = testedClass.getSlackMenu({channel: "channel"}, "apikey");
 
-	expect(requestMock.mock.calls.length).toBe(1);
+        expect(requestMock.mock.calls.length).toBe(1);
 
-	const callback = requestMock.mock.calls[0][1];
+        const callback = requestMock.mock.calls[0][1];
 
-	callback(undefined, { statusCode: 200 }, response);
+        callback(undefined, {statusCode: 200}, response);
 
-	menu.then(menu => {
-		expect(menu).toEqual(expectedSlackMenu);
-		done();
-	});
-});
+        menu.then(resultMenu => {
+            expect(resultMenu).toEqual(expectedSlackMenu);
+            done();
+        });
+    });
 
-test("Weekend", done => {
-	const originalDate = global.Date;
-	const mockDate: any = function() {
-		this.getDay = function() {
-			return 6;
-		}
-	};
-	global.Date = mockDate;
+    test("Weekend", done => {
+        const originalDate = global.Date;
+        const mockDate: any = function () {
+            this.getDay = function () {
+                return 6;
+            };
+        };
+        global.Date = mockDate;
 
-    const menu = testedClass.getSlackMenu({ channel: "channel" }, "apikey");
+        const menu = testedClass.getSlackMenu({channel: "channel"}, "apikey");
 
-    expect(requestMock.mock.calls.length).toBe(1);
+        expect(requestMock.mock.calls.length).toBe(1);
 
-    const callback = requestMock.mock.calls[0][1];
+        const callback = requestMock.mock.calls[0][1];
 
-    callback(undefined, { statusCode: 200 }, response);
+        callback(undefined, {statusCode: 200}, response);
 
-    menu.catch(() => {
-		global.Date = originalDate;
-        done();
+        menu.catch(() => {
+            global.Date = originalDate;
+            done();
+        });
     });
 });
 
 const expectedSlackMenu = {
-	as_user: true,
-	attachments:
-		[{
-			color: '#e7ef43',
-			fallback: 'Restaurant menu',
-			footer: 'Cena: 22Kč',
-			text: '1.  Chicken soup (kuřecí polévka) (1,3,7)',
-			title: 'Light of India',
-			title_link: 'http://www.lightofindia.cz/lang-cs/denni-menu'
-		},
-		{
-			color: '#e7ef43',
-			fallback: 'Restaurant menu',
-			footer: 'Cena: 99Kč',
-			text: '2.  Chicken Curry (kuřecí kostky v kari omáčce) 100g (7,8)'
-		},
-		{
-			color: '#e7ef43',
-			fallback: 'Restaurant menu',
-			footer: 'Cena: 99Kč',
-			text: '3.  Chicken Korma (kuřecí kousky v jemné omáčce) 100g (7,8)'
-		},
-		{
-			color: '#e7ef43',
-			fallback: 'Restaurant menu',
-			footer: 'Cena: 99Kč',
-			text: '4.  Aloo Gobi (brambory s květákem v omáčce) 100g (7,8)'
-		},
-		{
-			color: '#e7ef43',
-			fallback: 'Restaurant menu',
-			footer: '',
-			text: '5.  Menu Mix Thali(mix dnešního menu na děleném talíři) 150g (viz jídla)'
-		}],
-	channel: 'channel',
-	text: ''
+    as_user: true,
+    attachments:
+        [{
+            color: "#e7ef43",
+            fallback: "Restaurant menu",
+            footer: "Cena: 22Kč",
+            text: "1. Chicken soup (kuřecí polévka) (1,3,7)",
+            title: "Light of India",
+            title_link: "http://www.lightofindia.cz/lang-cs/denni-menu",
+        },
+            {
+                color: "#e7ef43",
+                fallback: "Restaurant menu",
+                footer: "Cena: 99Kč",
+                text: "2. Chicken Curry (kuřecí kostky v kari omáčce) 100g (7,8)",
+            },
+            {
+                color: "#e7ef43",
+                fallback: "Restaurant menu",
+                footer: "Cena: 99Kč",
+                text: "3. Chicken Korma (kuřecí kousky v jemné omáčce) 100g (7,8)",
+            },
+            {
+                color: "#e7ef43",
+                fallback: "Restaurant menu",
+                footer: "Cena: 99Kč",
+                text: "4. Aloo Gobi (brambory s květákem v omáčce) 100g (7,8)",
+            },
+            {
+                color: "#e7ef43",
+                fallback: "Restaurant menu",
+                footer: "",
+                text: "5. Menu Mix Thali(mix dnešního menu na děleném talíři) 150g (viz jídla)",
+            }],
+    channel: "channel",
+    text: "",
 };
 
 const response = `<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="cs-cz" lang="cs-cz" dir="ltr"><head>

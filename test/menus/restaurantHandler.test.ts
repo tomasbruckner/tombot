@@ -1,5 +1,7 @@
 import RestaurantHandler from "../../src/menus/RestaurantHandler";
 
-test("Constructor", () => {
-    const testedClass = new RestaurantHandler();
+describe("Restaurant Handler", () => {
+    test("Constructor", () => {
+        const testedClass = new RestaurantHandler();
+    });
 });
