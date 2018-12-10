@@ -142,7 +142,7 @@ class Bot {
         );
       }
 
-      if (all || NEPAL_REGEX.test(message.text)) {
+      if (NEPAL_REGEX.test(message.text)) {
         messagePromises.push(
           this.sendMenu(Restaurants.Nepal, message),
         );
