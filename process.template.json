@@ -3,9 +3,10 @@
         {
             "script": "dist/index.js",
             "env": {
-                "ZOMATO": "ec19",
-                "TOKEN": "xoxb-3",
-                "NODE_ENV": "production"
+              "ZOMATO": "ec19",
+              "TOKEN": "xoxb-3",
+              "NODE_ENV": "production",
+              "CHANNEL": "abc"
             }
         }
     ]

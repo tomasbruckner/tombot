@@ -1,10 +1,8 @@
 export enum Restaurants {
     AlCapone,
-    Beranek,
-    Himalaya,
+    Drevak,
     LightOfIndia,
-    LLoyds,
-    Nepal,
     Selepka,
+    Tao,
     ZelenaKocka,
 }

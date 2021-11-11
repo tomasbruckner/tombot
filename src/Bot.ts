@@ -1,36 +1,31 @@
 import { RTMCallResult, RTMClient, WebClient } from "@slack/client";
 import { CronJob } from "cron";
 import {
-  ALCAPONE_REGEX,
-  ALL_REGEX,
-  BERANEK_REGEX,
-  HELP_REGEX,
-  HIMALAYA_REGEX,
-  JOKE_REGEX,
-  KOCKA_REGEX,
-  LIGHT_REGEX,
-  LLOYDS_REGEX,
-  NAMEDAY_REGEX,
-  NEPAL_REGEX,
-  SELEPKA_REGEX,
+    ALCAPONE_REGEX,
+    ALL_REGEX, DREVAK_REGEX,
+    HELP_REGEX,
+    JOKE_REGEX,
+    LIGHT_REGEX,
+    NAMEDAY_REGEX,
+    SELEPKA_REGEX, TAO_REGEX,
 } from "./common/constants";
 import { Restaurants, SlackChannels } from "./common/enums";
 import DayInfo from "./database/DayInfo";
 import RestaurantHandler from "./menus/RestaurantHandler";
 
 class Bot {
-  private readonly LUNCHTIME_CHANNEL_ID: string = "C6KEXHHSL";
   private cronJob: CronJob;
   private selfId: string;
 
   public constructor(
-    private slackToken: string,
-    private zomatoKey: string,
-    private dayInfo: DayInfo,
-    private rtmClient: RTMClient,
-    private webClient: WebClient,
-    private restaurantHandler: RestaurantHandler,
-    CronJobConstructor: CronJob,
+      private slackToken: string,
+      private zomatoKey: string,
+      private lunchtimeChannel: string,
+      private dayInfo: DayInfo,
+      private rtmClient: RTMClient,
+      private webClient: WebClient,
+      private restaurantHandler: RestaurantHandler,
+      CronJobConstructor: CronJob,
   ) {
     this.cronJob = new CronJobConstructor(this.getCronSettings());
   }
@@ -81,7 +76,7 @@ class Bot {
       let all: boolean = false;
 
       if (HELP_REGEX.test(message.text)) {
-        const helpMessage = this.getHelpMessage();
+          const helpMessage = Bot.getHelpMessage();
 
         messagePromises.push(
           this.rtmClient.sendMessage(helpMessage, message.channel),
@@ -112,23 +107,17 @@ class Bot {
         );
       }
 
-      if (all || BERANEK_REGEX.test(message.text)) {
-        messagePromises.push(
-          this.sendMenu(Restaurants.Beranek, message),
-        );
-      }
+        if (all || DREVAK_REGEX.test(message.text)) {
+            messagePromises.push(
+                this.sendMenu(Restaurants.Drevak, message),
+            );
+        }
 
-      if (HIMALAYA_REGEX.test(message.text)) {
-        messagePromises.push(
-          this.sendMenu(Restaurants.Himalaya, message),
-        );
-      }
-
-      if (all || KOCKA_REGEX.test(message.text)) {
-        messagePromises.push(
-          this.sendMenu(Restaurants.ZelenaKocka, message),
-        );
-      }
+        if (all || TAO_REGEX.test(message.text)) {
+            messagePromises.push(
+                this.sendMenu(Restaurants.Tao, message),
+            );
+        }
 
       if (all || LIGHT_REGEX.test(message.text)) {
         messagePromises.push(
@@ -136,23 +125,11 @@ class Bot {
         );
       }
 
-      if (all || LLOYDS_REGEX.test(message.text)) {
-        messagePromises.push(
-          this.sendMenu(Restaurants.LLoyds, message),
-        );
-      }
-
-      if (NEPAL_REGEX.test(message.text)) {
-        messagePromises.push(
-          this.sendMenu(Restaurants.Nepal, message),
-        );
-      }
-
-      if (all || SELEPKA_REGEX.test(message.text)) {
-        messagePromises.push(
-          this.sendMenu(Restaurants.Selepka, message),
-        );
-      }
+        if (SELEPKA_REGEX.test(message.text)) {
+            messagePromises.push(
+                this.sendMenu(Restaurants.Selepka, message),
+            );
+        }
     }
 
     return messagePromises;
@@ -170,15 +147,15 @@ class Bot {
   private async sendAllByCron() {
     try {
       const history = await this.webClient.channels.history({
-        channel: this.LUNCHTIME_CHANNEL_ID,
-        inclusive: true,
-        oldest: Date.now().toString(),
+          channel: this.lunchtimeChannel,
+          inclusive: true,
+          oldest: Date.now().toString(),
       });
 
       if (this.allNotSent(history)) {
         this.handleMessage({
-          channel: this.LUNCHTIME_CHANNEL_ID,
-          text: `<@${this.selfId}> all`,
+            channel: this.lunchtimeChannel,
+            text: `<@${this.selfId}> all`,
         });
       }
     } catch (e) {
@@ -186,28 +163,25 @@ class Bot {
     }
   }
 
-  private allNotSent(history): boolean {
-    return !history.messages.reduce(
-      (acc, m) => acc || ALL_REGEX.test(m.text),
-      false,
-    );
-  }
+    private allNotSent(history): boolean {
+        return !history.messages.reduce(
+            (acc, m) => acc || ALL_REGEX.test(m.text),
+            false,
+        );
+    }
 
-  private getHelpMessage(): string {
-    return `Hello to you from Tombot, the amazing TechFides worker that can help you with almost anything!
+    private static getHelpMessage(): string {
+        return `Hello to you from Tombot, the amazing MMP bot that can help you with almost anything!
 Check out these commands:
         help
         alcapone
-        beranek
-        himalaya
-        kocka
+        drevak
         lightofindia
-        lloyds
-        nepal
         selepka
+        tao
         svatek
         all`;
-  }
+    }
 }
 
 export default Bot;

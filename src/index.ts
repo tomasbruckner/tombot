@@ -8,6 +8,7 @@ import RestaurantHandler from "./menus/RestaurantHandler";
 
 const SLACK_TOKEN = process.env.TOKEN;
 const ZOMATO_KEY = process.env.ZOMATO;
+const CHANNEL = process.env.CHANNEL;
 
 const rtm = new RTMClient(SLACK_TOKEN, {
     useRtmConnect: true,
@@ -15,9 +16,10 @@ const rtm = new RTMClient(SLACK_TOKEN, {
 
 const web = new WebClient(SLACK_TOKEN);
 
-const bot = new Bot(
+new Bot(
     SLACK_TOKEN,
     ZOMATO_KEY,
+    CHANNEL,
     new DayInfo(new NameDays(), new PublicHolidays()),
     rtm,
     web,

@@ -15,13 +15,9 @@ help
 ### Supported commands
 - help
 - alcapone
-- beranek
-- himalaya
-- kocka
+- drevak
 - lightofindia
-- lloyds
-- nepal
-- selepka
+- tao
 - svatek - shows whose name day is today
 - all - shows menu for every restaurant + name day
 

@@ -33,304 +33,618 @@ describe("Al Capone", () => {
 });
 
 const expectedSlackMenu = {
-    as_user: true,
-    attachments:
-        [{
-            color: "#5da7ac",
-            fallback: "Restaurant menu",
-            footer: "",
-            text: "Zeleninová polévka",
-            title: "Al Capone",
-            title_link: "http://www.pizzaalcapone.cz/brno/poledni-menu",
+    "as_user": true,
+    "attachments": [
+        {
+            "color": "#5da7ac",
+            "fallback": "Restaurant menu",
+            "footer": "",
+            "text": "Hovězí vývar se zeleninou a nudlemi 1,3,7,9",
+            "title": "Al Capone",
+            "title_link": "https://www.pizzaalcapone.cz/cz/poledni-menu",
         },
-            {
-                color: "#5da7ac",
-                fallback: "Restaurant menu",
-                footer: "Cena: 79 Kč",
-                text: "Menu 1 - Špagety s tomatovou omáčkou, grilovanými kousky kuřecího masa zakáplé bazalkovým pestem",
-            },
-            {
-                color: "#5da7ac",
-                fallback: "Restaurant menu",
-                footer: "Cena: 94 Kč",
-                text: "Menu 2 - Smažená vepřová kotleta s vídeňským salátem a limetou",
-            },
-            {
-                color: "#5da7ac",
-                fallback: "Restaurant menu",
-                footer: "Cena: 109 Kč",
-                text: "Menu 3 - Grilovaný hermelín na salátovém lůžku s paprikou a rajčaty, brusinková omáčka, bagetky",
-            }],
-    channel: "channel",
-    text: "",
+        {
+            "color": "#5da7ac",
+            "fallback": "Restaurant menu",
+            "footer": "Cena: 94,- Kč",
+            "text": "Masové kuličky v rajské omáčce, kolínka 1,3,7",
+        },
+        {
+            "color": "#5da7ac",
+            "fallback": "Restaurant menu",
+            "footer": "Cena: 104,- Kč",
+            "text": "Pizza Torio (tomat, mozzarella, slanina, šunka, vejce, paprika) 1,3,7",
+        },
+        {
+            "color": "#5da7ac",
+            "fallback": "Restaurant menu",
+            "footer": "Cena: 114,- Kč",
+            "text": "Mix gril (kuřecí, vepřové), mexické chilli fazole, vařené brambory s petrželkou 1",
+        },
+    ],
+    "channel": "channel",
+    "text": "",
 };
 
-const response = `<html lang="cs" class=" js cssanimations"><head>
-		
-<link href="http://fonts.googleapis.com/css?family=Yellowtail%7cCabin:400,500,600,700,400italic,700italic%7cLibre+Baskerville:400italic%7cGreat+Vibes%7cOswald:400,300,700%7cOpen+Sans:600italic,700" rel="stylesheet" type="text/css">
+const response = `<!DOCTYPE html>
+<HTML lang="cs">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow" />
+    <meta name="keywords" content="Pizzeria Al Capone" />
+    <meta name="description" content="Pizzeria Al Capone" />
+    <meta name="author" content="UMIX.cz" />
+    <meta name="revisit-after" content="3 days" />
+    <title>Polední menu - Pizzeria Alcapone - Brno</title>
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/public/frontend/images/favico/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/public/frontend/images/favico/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/public/frontend/images/favico/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/public/frontend/images/favico/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/public/frontend/images/favico/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/public/frontend/images/favico/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/public/frontend/images/favico/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/public/frontend/images/favico/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/public/frontend/images/favico/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/public/frontend/images/favico/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/public/frontend/images/favico/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/public/frontend/images/favico/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/public/frontend/images/favico/favicon-16x16.png">
+    <link rel="manifest" href="/public/frontend/images/favico/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/public/frontend/images/favico/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="keywords" content="">
-<meta name="robots" content="index, follow">
-<meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="/public/frontend/css/bootstrap.min.css">
+    <!-- main stylesheet -->
+    <link rel="stylesheet" href="/public/frontend/css/style.css?v=1.1939">
 
-<link rel="stylesheet" href="/css/bootstrap.min.css">
-<link rel="stylesheet" href="/css/font-awesome.min.css">
-<link rel="stylesheet" href="/css/elixir.css">
-<link href="/js/owl-carousel/owl.carousel.css" rel="stylesheet">
-<link href="/js/owl-carousel/owl.theme.css" rel="stylesheet">
-<link href="/js/owl-carousel/owl.transitions.css" rel="stylesheet">
-<link href="/css/YTPlayer.css" rel="stylesheet">
-<link rel="stylesheet" href="/css/swipebox.css">
-<link rel="stylesheet" href="/css/menu.css" media="all">
+    <!-- responsive css -->
+    <link rel="stylesheet" href="/public/frontend/css/responsive.css?v=1.3">
 
-<!--[if lt IE 9]>
-    <meta http-equiv="X-UA-Compatible" content="IE=8" />
-    <script src="/js/html5shiv.js"></script>
-    <script src="/js/respond.js"></script>
-<![endif]-->
-		<title>Polední menu v Pizzerii Al Capone Brno</title>
-		<meta name="description" content="Pizzeria Al Capone Brno je rodinná pizzerie na Hrnčířské, kde na vás čekají Italské speciality a každý den polední menu.">
+    <link href="/public/frontend/css/lightbox.css" rel="stylesheet">
 
-		<style>
-			section.menu {
-				background: none;
-			}
+    <!-- select2 -->
+    <link href="/vendor/select2/select2/dist/css/select2.min.css" rel="stylesheet">
 
-			#header {
-				position: fixed;
-				top:0px;
-				left: 0px;
-				z-index:1001;
-				width: 100%;
-				height: 90px;
-				font-family: 'Open Sans', sans-serif;
-				background-color: #fff!important;
-				box-shadow: 0 1px 3px rgba(0,0,0,0.11);
-				padding-top: 20px;
-			}
+    <link href="https://fonts.googleapis.com/css?family=Kaushan+Script|Permanent+Marker&display=swap" rel="stylesheet">
 
-			#header .menu-item a {
-				color: #818181;
-			}
-			#header.overflow {
-				top:-100px;
-				left: 0px;
-				background-color: #fff!important;
-				box-shadow: 0 1px 3px rgba(0,0,0,0.11);
-				-webkit-transition: all 0.3s ease-in;
-				-o-transition: all 0.3s ease-in;
-				transition: all 0.3s ease-in;
-				-webkit-font-smoothing: antialiased;
-			}
-			#about .container .jt_row.jt_row-fluid.row .col-md-6.jt_col.column_container .heading.font-smoothing .text {
-				font-family: Georgia, "Times New Roman", Times, serif;
-				font-size: 24px;
-			}
-			#about .container .jt_row.jt_row-fluid.row .col-md-6.col-md-offset-3.jt_col.column_container .section-subtitle #subheader div h3 {
-				font-family: Georgia, "Times New Roman", Times, serif;
-				font-style: normal;
-			}
-			#about .container .jt_row.jt_row-fluid.row .col-md-6.col-md-offset-3.jt_col.column_container .section-subtitle #subheader div p {
-				font-family: Georgia, "Times New Roman", Times, serif;
-			}
-			.poledni-menu{
-				margin-bottom: 1em;
-			}
-		</style>
-	</head>
-	<body class="gold">
-		
-<div id="mask" style="display: none;">
-	<div class="loader" style="display: none;">
-		<img src="/svg-loaders/tail-spin.svg" alt="loading">
-	</div>
+
+        
+            <!-- Google Tag Manager -->
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-NJ2MS6G');</script>
+        <!-- End Google Tag Manager -->
+
+         <!-- color stylesheet -->
+        <link rel="stylesheet" href="/public/frontend/css/colors2.css" id="ui-theme-color">
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-152868281-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'UA-152868281-1');
+        </script>
+
+    
+
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NJ2MS6G"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+ 
+<!-- mobile menu -->
+<div class="visible-xs bg2">
+
+    <!-- Brno -->
+
+    
+       <div class="row">
+
+           <div class="col-xs-12" style="text-align: left" >
+               <a href="tel:+420 541 210 555" class="mobile-xs-menu-rajhrad"> &nbsp; &nbsp;<i class="flaticon-phone-call"></i> &nbsp; &nbsp;+420 541 210 555 - Rezervace</a>
+           </div>
+
+           <hr class="hr-menu">
+           <div class="col-xs-6">
+               <div class="btn-group text-center">
+                   <button type="button" class="btn dropdown-toggle text-right" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-weight: bold; float: right; font-size: 8px;background-color: white">
+                       <p> <i class="flaticon-down-arrow"></i> &nbsp; Vybrat restauraci</p>
+                   </button>
+                   <ul class="dropdown-menu">
+                       <li><a href="http://www.pizzaalcapone.cz">Restaurace Brno</a></li>
+                       <li><a href="http://www.alcaponerajhrad.cz">Restaurace Rajhrad</a></li>
+                   </ul>
+               </div>
+           </div>
+
+           <div class="col-xs-6">
+               <ul class="list-unstyled kosik-mobil" style="color: white;">
+                   <li>
+                       <a href="/cz/obsah-kosiku">
+                           <i class="flaticon-shopping-bag"></i>
+                           <span id="header_basket_sum"  >
+                                   0 Kč                               </span>
+                       </a>
+                   </li>
+               </ul>
+
+           </div>
+       </div>
+
+    
+    <!-- END Brno -->
+
+    <!-- Rajhrad -->
+    
+    <!-- END Rajhrad -->
+
+
+
+
+
 </div>
-
-<!-- BEGIN HEADER -->
-<header id="header" role="banner" class="fixed">
-	<div class="jt_row container visible">
-		<div class="navbar-header page-scroll">
-			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
-				<i class="fa fa-bars"></i>
-			</button>
-			<a class="navbar-brand normal logo" href="/brno"><div class="logo_elixir"></div></a>
-			<a class="navbar-brand mini" href="/brno"><div class="logo_elixir dark"></div></a>
-			<a class="navbar-brand mini darker" href="/brno"><div class="logo_elixir dark"></div></a>
-		</div>
-
-		<!-- BEGIN NAVIGATION MENU-->
-		<nav class="collapse navbar-collapse navbar-right navbar-main-collapse" role="navigation">
-			<ul id="nav" class="nav navbar-nav navigation">
-				<li class="menu-item"><a href="/brno">ÚVOD</a></li>
-				<li class="menu-item"><a href="pizza-alcapone">O NÁS</a></li>
-				<li class="menu-item"><a href="poledni-menu">POLEDNÍ MENU</a></li>
-				<li class="menu-item"><a href="jidelni-listek">JÍDELNÍ LÍSTEK</a></li>
-				<li class="menu-item"><a href="napojovy-listek">NÁPOJOVÝ LÍSTEK</a></li>
-				<li class="menu-item"><a href="fotogalerie">FOTOGALERIE</a></li>
-				<li class="menu-item"><a href="kontakt">KONTAKT</a></li>
-			</ul>
-		</nav>
-		<!-- EN NAVIGATION MENU -->
-	</div>
-</header>
-<!-- END HEADER -->
-
-		<section id="menu" class="section menu">
-
-            <div class="container">
-				<div class="jt_row jt_row-fluid row visible">
+<!-- mobile menu END -->
 
 
-					<div class="jt_row jt_row-fluid row visible">
-						<div class="col-md-12 jt_col column_container">
-								<div class="title first">Polední menu</div>
-	<div class="voffset10"></div>
-	<div class="subtitle">Týden: 04.-10. 06. 2018</div>
-	<div class="voffset10"></div>
-	<div class="jt_row row visible">
-		<div class="col-xs-12 col-md-6 col-md-offset-3 jt_col">
+<div id="wrapper">
+<div id="wrapper">
+    <header class="new-block main-header">
+        <div class="main-nav new-block">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="logo">
 
-			<p class="poledni-menu">
-				<strong>Pondělí, 04. 06. 2018</strong><br>
+                            
+                                    <a href="/"><img src="/public/frontend/images/logo_brno_nove_black_small.png" alt="Alcapone Brno" class="img-responsive"></a>
 
-				Krupicová polévka s vejcem<br>Menu 1 - Kuřecí prsíčko v pivním těstíčku, jogurtový dip, vařené brambory<br>Menu 2 - Pizza Salame (sýr, salám, kukuřice<br>Menu 3 - Gratinovaná kotleta se slaninou a mozzarellou, bramborové dolárky s česnekem<br>			</p>
+                                
+                        </div>
 
-			<p class="poledni-menu active-day">
-				<strong>Úterý, 05. 06. 2018</strong><br>
+                        <div class="location-block hidden-xs">
+                            <div class="btn-group">
+                                <button type="button" class="btn  btn1 stl1 dropdown-toggle text-right" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: transparent; font-weight: bold;">
+                                    <span>Vybrat restauraci</span>
+                                </button>
+                                <br>
 
-				Zeleninová polévka<br>Menu 1 - Špagety s tomatovou omáčkou, grilovanými kousky kuřecího masa zakáplé bazalkovým pestem<br>Menu 2 - Smažená vepřová kotleta s vídeňským salátem a limetou<br>Menu 3 - Grilovaný hermelín na salátovém lůžku s paprikou a rajčaty, brusinková omáčka, bagetky<br>			</p>
+                                <ul class="dropdown-menu" style="z-index: 999">
+                                    <li><a href="http://www.pizzaalcapone.cz/cz/poledni-menu">Restaurace Brno</a></li>
+                                    <li><a href="http://www.alcaponerajhrad.cz/cz/poledni-menu">Restaurace Rajhrad</a></li>
+                                </ul>
+                            </div>
+                        </div>
 
-			<p class="poledni-menu">
-				<strong>Středa, 06. 06. 2018</strong><br>
+                        <a href="#" class="nav-opener"><i class="fa fa-bars"></i></a>
 
-				Drůbeží vývar se zeleninou a nudlemi<br>Menu 1 - Bazalkové kuřecí špízky, restované brambory se slaninou<br>Menu 2 - Pizza Americana (sýr, šunka, cibule, kečup)<br>Menu 3 - Grilovaná vepřová panenka plněná sušenými rajčaty a uzeným sýrem, bramborové pyré<br>			</p>
+                        <div class="visible-xs header-phone-black">
+                            
+                        </div>
 
-			<p class="poledni-menu">
-				<strong>Čtvrtek, 07. 06. 2018</strong><br>
+                        <nav class="nav">
+    <ul class="list-unstyled">
 
-				Pórková polévka<br>Menu 1 - Kuřecí směs se zeleninou, smetanová rýže<br>Menu 2 - Sekaný steak s kapary a sýrem, majonézovo-pepřový dip, šťouchané brambory<br>Menu 3 - Vepřové medailonky na rozmarýnu, opékané brambory s chilli papričkami<br>			</p>
+                <!-- Start topmenu-->                        <li>
+                        <a  href="/cz/uvod">ÚVOD
+                            
 
-			<p class="poledni-menu">
-				<strong>Pátek, 08. 06. 2018</strong><br>
+                        </a>
+                                            </li>
 
-				Uzená polévka s kroupami<br>Menu 1 - Kuřecí filet na grilu se sázeným vejcem, mačkané brambory s cibulkou<br>Menu 2 - Pizza Ronaldo (sýr, slanina, kozí rohy)<br>Menu 3 - Smažené plátky cukety podávané na listovém salátě s rajčaty, bylinkový dip, bagetky<br>			</p>
+                                        <li>
+                        <a  href="/cz/o-nas">O NÁS
+                            
 
-			<p class="poledni-menu">
+                        </a>
+                                            </li>
 
-				<br>Menu 1 - 79 Kč / Menu 2 - 94 Kč / Menu 3 - 109 Kč<br>				<br>
-				Menu podáváme do 13:30
-			</p>
+                                        <li>
+                        <a  href="/cz/poledni-menu">POLEDNÍ MENU
+                            
 
-				<p>
-			<em>Přejeme Vám dobrou chuť.</em> <img src="/images/logo-red.svg" alt="polední menu v Alcapone" class="img" width="110" height="50"><br>
-		</p>
-		<div class="ornament"></div>
-	</div>
-</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-		
-<!-- BEGIN CONTACT SECTION -->
-<section id="contact" class="section contact dark">
-	<div class="container">
-		<div class="jt_row jt_row-fluid row">
+                        </a>
+                                            </li>
 
-			<div class="col-md-12 jt_col column_container">
-				<h2 class="section-title">Kde nás najdete</h2>
-			</div>
-			<div class="col-md-6 col-md-offset-3 jt_col column_container">
-				<div class="section-subtitle">
-					<p>Pizzeria Al Capone</p>
-					<p>Hrnčířská 6<br>
-						Brno - Královo Pole<br>
-						602 00</p>
-					<h4><strong>Provozní doba: <br>
-                        </strong></h4>
-					<p><strong>po-ne 11:00 - 23:30</strong></p>
-					<p>Teplá kuchyně do 23:00 <br>
-						<br>
-						<strong>Tel. +420 541 210 555</strong><br>
-						<a href="mailto:info@pizzaalcapone.cz">info@pizzaalcapone.cz</a></p>
-					<p>&nbsp;</p>
-				</div>
-			</div>
+                                        <li>
+                        <a  href="/cz/jidelni-listek">JÍDELNÍ LÍSTEK
+                            
 
-			<div class="col-xs-12 jt_col column_container">
-				<!-- BEGIN FOOTER -->
-				<footer id="footer" class="section" role="contentinfo">
-					<ul class="social">
-						<li><a href="https://www.facebook.com/pizzaalcaponebrno?fref=ts" class="icon fb"><i class="fa fa-facebook"></i></a></li>
-					</ul>
-				</footer>
-				<!-- END FOOTER -->
-			</div>
+                        </a>
+                                            </li>
 
-			<form action="/mail.php" method="post" id="contactform" class="contact-form" novalidate="novalidate">
-				<div class="col-md-6 jt_col column_container">    
-					<input type="text" id="name" name="name" class="text name required" placeholder="Jméno">
-					<input type="email" id="email" name="email" class="tex email required" placeholder="Email">
-					<input type="text" id="phone" name="phone" placeholder="Telefon">
-					<input type="hidden" id="web" name="web" value="Brno">
-				</div>
+                                        <li>
+                        <a  href="/cz/napojovy-listek">NÁPOJOVÝ LÍSTEK
+                            
 
-				<div class="col-md-6 jt_col column_container">    
-					<textarea id="message" name="message" class="text area required" placeholder="zpráva" rows="10"></textarea>
-				</div>
+                        </a>
+                                            </li>
 
-				<div class="col-md-4 col-md-offset-4 jt_col column_container">  
-					<div class="formSent"><strong>Zpráva byla odeslána</strong> <br>Děkujeme že jste nás kontaktovali</div>   
-					<input type="submit" class="button contact center" value="Odeslat">
-				</div>
+                                        <li>
+                        <a  href="/cz/fotogalerie">FOTOGALERIE
+                            
 
-			</form>
-			<div class="voffset100"></div>
-		</div>
-		<div class="voffset50"></div>
-	</div>
+                        </a>
+                                            </li>
 
+                                        <li>
+                        <a  href="/cz/kontakt">KONTAKTY
+                            
+
+                        </a>
+                                            </li>
+
+                <!-- End topmenu-->    </ul>
+</nav>
+                        <div class="nav-right-block hidden-xs">
+        <ul class="list-unstyled" style="color: white;">
+        <li><a href="/cz/obsah-kosiku"><i class="flaticon-shopping-bag"></i><span id="header_basket_sum"  >0 Kč</span></a></li>
+    </ul>
+    </div><!-- nav-login -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header> <!-- header -->
+
+
+
+
+
+
+<!-- breadcrumb -->
+<section class="page-info new-block">
+    <div class="fixed-bg" style="background: url('/public/frontend/images/info-bg.jpg');"></div>
+    <div class="overlay"></div>
+    <div class="container">
+        <h2>Polední menu</h2>
+
+                <div class="clear-fix"></div>
+    </div>
 </section>
-<!-- END CONTACT SECTION -->
+<!-- breadcrumb -->
 
-		
-<a href="#0" class="cd-top">Top</a>
-   
-<script async="" src="//www.google-analytics.com/analytics.js"></script><script src="/js/modernizr.custom.js"></script>
-<script src="/js/jquery.js"></script>
-<script src="/js/classie.js"></script>
-<script src="/js/pathLoader.js"></script>
-<script src="/js/owl-carousel/owl.carousel.min.js"></script>
-<script src="/js/jquery.inview.js"></script>
-<script src="/js/jquery.nav.js"></script>
-<script src="/js/jquery.mb.YTPlayer.js"></script>
-<script src="/js/jquery.form.js"></script>
-<script src="/js/jquery.validate.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/default.js"></script>
-<script src="/js/plugins.js"></script>
-<script type="text/javascript" src="/js/jquery.isotope.min.js"></script>
-<script type="text/javascript" src="/js/jquery.prettyPhoto.js"></script>
-<script src="/js/jquery.swipebox.js"></script>
-<script type="text/javascript">
-    ;( function( $ ) {
+<section class="about-us-block new-block" style="min-height: 500px;">
+    <div class="container">
+        <div class="row">
+            <div class="dmenu-poznamka" style="padding-top: 50px">
+                <p>obědov&eacute; menu pod&aacute;v&aacute;me od 11.00 do 13.30 hodin</p>
+            </div>
 
-        $( '.swipebox' ).swipebox();
+            <table class="table table-responsive">
+                <tbody>
 
-    } )( jQuery );
-    </script>
+                
+                    <tr>
+                        <td class="bg1" colspan="3">
+                            čtvrtek                            <h3>11.11.2021</h3>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Polévka</td>
+                        <td>
+                            <h3>Hovězí vývar se zeleninou a nudlemi 1,3,7,9</h3>
+                        </td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
+                        <td>Menu 1</td>
+                        <td>
+                            <h3>Masové kuličky v rajské omáčce, kolínka 1,3,7</h3>
+                        </td>
+                        <td>
+                            <h3 class="dmenu-cena">94,- Kč</h3>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Menu 2</td>
+                        <td>
+                            <h3>Pizza Torio (tomat, mozzarella, slanina, šunka, vejce, paprika) 1,3,7</h3>
+                        </td>
+                        <td>
+                            <h3 class="dmenu-cena">104,- Kč</h3>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Menu 3</td>
+                        <td>
+                            <h3>Mix gril (kuřecí, vepřové), mexické chilli fazole, vařené brambory s petrželkou 1</h3>
+                        </td>
+                        <td>
+                            <h3 class="dmenu-cena">114,- Kč</h3>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Menu 4</td>
+                        <td>
+                            <h3>Hovězí flank steak, grilovaný kukuřičný klas, demi-glace, americké brambory 1</h3>
+                        </td>
+                        <td>
+                            <h3 class="dmenu-cena">149,- Kč</h3>
+                        </td>
+                    </tr>
+
+                     
+                
+                    <tr>
+                        <td class="bg1" colspan="3">
+                            pátek                            <h3>12.11.2021</h3>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Polévka</td>
+                        <td>
+                            <h3>Moravská česneková polévka s vejcem 3,9</h3>
+                        </td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
+                        <td>Menu 1</td>
+                        <td>
+                            <h3>Krkovička na grilu, hrachová kaše s cibulkou, restované brambory 1,7</h3>
+                        </td>
+                        <td>
+                            <h3 class="dmenu-cena">94,- Kč</h3>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Menu 2</td>
+                        <td>
+                            <h3>Pizza Carbonara (smetana, sýr, slanina, cibule, rukola) 1,3,7</h3>
+                        </td>
+                        <td>
+                            <h3 class="dmenu-cena">104,- Kč</h3>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Menu 3</td>
+                        <td>
+                            <h3>Kuřecí smaženky, sýrová omáčka, bramborové pyré 1,3,7</h3>
+                        </td>
+                        <td>
+                            <h3 class="dmenu-cena">114,- Kč</h3>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Menu 4</td>
+                        <td>
+                            <h3>Lasagne dello Cheff (široké nudle s boloňskou masovou směsí, kuřecím masem, cuketou, hříbky, smetanou), zapečené sýrem 1,3,7</h3>
+                        </td>
+                        <td>
+                            <h3 class="dmenu-cena">149,- Kč</h3>
+                        </td>
+                    </tr>
+
+                     
+                
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</section><footer class="main-footer home2 new-block">
+        <div class="fixed-bg parallax " style="background: url('/public/frontend/images/footer-bg.jpg');"></div>
+        <div class="overlay"></div>
+        <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-3 col-md-3 col-sm-3 center-block block-footer">
+
+                        
+                            <a href="/"><img src="/public/frontend/images/logo_brno_nove_gray_small.png" alt="logo" class="img-responsive center-block" style="padding-bottom: 20px; height: auto ; width: 150px"></a>
+
+
+                        
+
+                        <p>Jsme rodinn&aacute; pizzerie, kter&aacute; se nach&aacute;z&iacute; kousek od centra Brna. Působ&iacute;me na trhu už 25 let.</p>
+
+                        <a href="/cz/o-nas" class="link">Více o nás</a>
+
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 block-footer">
+
+                        <div class="block-stl4">
+                            <a href="https://goo.gl/maps/75n44fKgv6QPE6Yr8">
+                                <i class="flaticon-placeholder"></i><br/>
+                                <span class="font-white">Hrnčířská 6 <br/> 602 00 Brno</span>
+                            </a>
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-3 col-md-3 col-sm-3 block-footer">
+
+                        <div class="block-stl4">
+                            <a href="tel:+420 541 210 555">
+                                <i class="flaticon-phone-call"></i><br/>
+                                <span class="font-white">+420 541 210 555</span>
+                            </a>
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-3 col-md-3 col-sm-3 block-footer">
+
+                        <div class="block-stl4">
+                            <a href="mailto:info@pizzaalcapone.cz">
+                                <i class="flaticon-message"></i><br/>
+                                <span class="font-white">info@pizzaalcapone.cz</span>
+                            </a>
+                        </div>
+
+                    </div>
+
+                </div>
+        </div>
+
+</footer>
+<div class="copy-right">
+    <div class="container">
+            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12"><p>©2019Pizzeria Alcapone - Brno - Všechna práva vyhrazena</p> </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12"><p> Created by <a href="https://www.umix.cz" target="_blank">UMIX s.r.o </a></p></div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+            <p>
+            <a href="/backend" target="_blank" title="Přihlášení do backendu"><i class="fa fa-gears"></i> Administrace</a>
+            </p>
+        </div>
+
+    </div>
+</div>
+
+<span id="go_to_top" class="go-to-top"><i class="flaticon-up-arrow"></i></span>
+</div><!-- #wrapper -->
+
+<div  id="myModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Košík</h4>
+            </div>
+            <div class="modal-body" id="hlaska_text">
+                <p>Položka byla úspěšně přidána do košíku</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Zavřít</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- include jQuery -->
+<script src="/public/frontend/js/jquery.min.js"></script>
+<script src="/vendor/select2/select2/dist/js/select2.js"></script>
+<script src="/vendor/select2/select2/dist/js/i18n/cs.js"></script>
+<!-- bootstrap -->
+<script src="/public/frontend/js/bootstrap.min.js"></script>
+<!-- bootstrap -->
+<script src="/public/frontend/js/owl.carousel.min.js"></script>
+<!-- slick slider  -->
+<script src="/public/frontend/js/slick.js"></script>
+<!-- dscountdown  -->
+<script src="/public/frontend/js/dscountdown.min.js"></script>
+<!-- jquery.nice-select -->
+<script src="/public/frontend/js/jquery.nice-select.js"></script>
+<!-- magnific-popup -->
+<script src="/public/frontend/js/jquery.magnific-popup.min.js"></script>
+<!-- Mixitup -->
+<script src="/public/frontend/js/mixitup.min.js"></script>
+<!-- Google Map -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBP1lPhUhDU6MINpruPDinAzXffRlpzzFo"></script>
+<script src="/public/frontend/js/map.js"></script>
+<!-- custom js -->
+<script src="/public/frontend/js/custom.js"></script>
+
+
+
+
+<script type="text/javascript" src="/public/frontend/js/lightbox.js"></script>
+<script type="text/javascript" src="/public/frontend/js/alcapone.js"></script>
+
+
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    function setTabs() {
+        let availableWidth = $('#nav-bar2').outerWidth();
+        let liNodes = $('#nav-bar2 li');
+        liNodes.removeClass('clear');
+        let filledWidth = 0;
+        for (var i=liNodes.length-1; i>=0; i--) {
+            let currentWidth = $(liNodes[i]).outerWidth();
 
-  ga('create', 'UA-54321752-2', 'auto');
-  ga('send', 'pageview');
+            if (filledWidth + currentWidth <= availableWidth)
+                filledWidth += currentWidth;
+
+            else {
+                $(liNodes[i+1]).addClass('clear');
+                availableWidth = filledWidth;
+                filledWidth = currentWidth;
+            }
+        }
+    }
+
+    setTabs();
+    $(window).resize(_.debounce(setTabs, 200));
+
+
 </script>
 
-	
-</body></html>`;
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="upozorneni">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Svatomartínské hody</h4>
+            </div>
+            <div class="modal-body">
+                                                    <a href="">
+                    <img src="http://www.pizzaalcapone.cz/public/frontend/data/upozorneni/3/1635856413shutterstock.jpg" alt="Svatomartínské hody" class="img-responsive">
+                    </a>
+                            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<script>
+    $( document ).ready(function() {
+        $('#upozorneni').modal('show')
+    });
+</script>
+
+
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-54321752-2', 'auto');
+    ga('send', 'pageview');
+</script>
+
+<!-- Facebook Pixel Code -->
+<script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '626758071479320');
+    fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+
+               src="https://www.facebook.com/tr?id=626758071479320&ev=PageView&noscript=1"
+    /></noscript>
+<!-- End Facebook Pixel Code -->
+
+
+</body>
+</html>
+`;

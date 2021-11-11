@@ -48,6 +48,7 @@ describe("Bot", () => {
             testedClass = new Bot(
                 "slack",
                 "zomato",
+                "123",
                 dayInfo,
                 rtm,
                 web,
@@ -99,6 +100,7 @@ describe("Bot", () => {
         const testedClass: Bot = new Bot(
             "",
             "zomato",
+            "123",
             dayInfo,
             rtm,
             web,
@@ -115,6 +117,7 @@ describe("Bot", () => {
         const testedClass: Bot = new Bot(
             "slack",
             "",
+            "123",
             dayInfo,
             rtm,
             web,
@@ -136,6 +139,7 @@ describe("Bot", () => {
         const testedClass: Bot = new Bot(
             "slack",
             "zomato",
+            "123",
             dayInfo,
             rtm,
             web,
@@ -194,6 +198,7 @@ describe("Bot", () => {
             testedClass = new Bot(
                 "slack",
                 "zomato",
+                "123",
                 dayInfo,
                 rtm,
                 web,
@@ -214,17 +219,14 @@ describe("Bot", () => {
 
             const calls = rtm.sendMessage.mock.calls;
             expect(calls.length).toBe(1);
-            expect(calls[0][0]).toBe(`Hello to you from Tombot, the amazing TechFides worker that can help you with almost anything!
+            expect(calls[0][0]).toBe(`Hello to you from Tombot, the amazing MMP bot that can help you with almost anything!
 Check out these commands:
         help
         alcapone
-        beranek
-        himalaya
-        kocka
+        drevak
         lightofindia
-        lloyds
-        nepal
         selepka
+        tao
         svatek
         all`);
         });
@@ -272,41 +274,7 @@ Check out these commands:
             });
         });
 
-        test("Beranek", done => {
-            const promises = handleMessage({
-                channel: ["D"],
-                text: " beranek",
-            });
-
-            expect(promises.length).toBe(1);
-
-            Promise.all(promises).then(() => {
-                const calls = restaurantHandler.sendMenu.mock.calls;
-                expect(calls.length).toBe(1);
-                expect(calls[0][0]).toBe(Restaurants.Beranek);
-
-                done();
-            });
-        });
-
-        test("Zelena Kocka", done => {
-            const promises = handleMessage({
-                channel: ["D"],
-                text: " kocka",
-            });
-
-            expect(promises.length).toBe(1);
-
-            Promise.all(promises).then(() => {
-                const calls = restaurantHandler.sendMenu.mock.calls;
-                expect(calls.length).toBe(1);
-                expect(calls[0][0]).toBe(Restaurants.ZelenaKocka);
-
-                done();
-            });
-        });
-
-        test("Ligh of India", done => {
+        test("Light of India", done => {
             const promises = handleMessage({
                 channel: ["D"],
                 text: " light",
@@ -323,10 +291,10 @@ Check out these commands:
             });
         });
 
-        test("LLods", done => {
+        test("Tao", done => {
             const promises = handleMessage({
                 channel: ["D"],
-                text: " lloyds",
+                text: " tao",
             });
 
             expect(promises.length).toBe(1);
@@ -334,16 +302,16 @@ Check out these commands:
             Promise.all(promises).then(() => {
                 const calls = restaurantHandler.sendMenu.mock.calls;
                 expect(calls.length).toBe(1);
-                expect(calls[0][0]).toBe(Restaurants.LLoyds);
+                expect(calls[0][0]).toBe(Restaurants.Tao);
 
                 done();
             });
         });
 
-        test("Nepal", done => {
+        test("Drevak", done => {
             const promises = handleMessage({
                 channel: ["D"],
-                text: " nepal",
+                text: " drevak",
             });
 
             expect(promises.length).toBe(1);
@@ -351,7 +319,7 @@ Check out these commands:
             Promise.all(promises).then(() => {
                 const calls = restaurantHandler.sendMenu.mock.calls;
                 expect(calls.length).toBe(1);
-                expect(calls[0][0]).toBe(Restaurants.Nepal);
+                expect(calls[0][0]).toBe(Restaurants.Drevak);
 
                 done();
             });
@@ -380,7 +348,7 @@ Check out these commands:
                 text: " all",
             });
 
-            const NUMBER_OF_EXPECTED_MENUS = 7;
+            const NUMBER_OF_EXPECTED_MENUS = 5;
             expect(promises.length).toBe(NUMBER_OF_EXPECTED_MENUS);
         });
     });
