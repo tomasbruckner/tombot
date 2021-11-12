@@ -3,9 +3,20 @@ import UDrevaka from "../../src/menus/UDrevaka";
 describe("U Drevaka", () => {
     let requestMock;
     let testedClass: UDrevaka;
+    const originalDate = global.Date;
+    let mockDate;
+
+    afterAll(() => {
+        global.Date = originalDate;
+    });
 
     beforeAll(() => {
         requestMock = jest.fn();
+        mockDate = function () {
+            this.getDay = () => 5;
+        };
+
+        global.Date = mockDate;
     });
 
     beforeEach(() => {

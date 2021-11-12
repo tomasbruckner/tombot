@@ -25,7 +25,7 @@ class UDrevaka extends Restaurant {
             throw new Error("U Drevaka does not have menu on weekend");
         }
 
-        const nodes = $(`.item-day:nth-child(${dayIndex + 1}) > .row > div`);
+        const nodes = $(`.item-day:nth-child(${dayIndex}) > .row > div`);
         const dishes = [{
             dish: {
                 name: nodes[0].children[0].data,
