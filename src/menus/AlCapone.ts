@@ -41,6 +41,11 @@ class AlCapone extends Restaurant {
                 name: nodes[6].children[0].data.trim(),
                 price: nodes[7].children[0].data.trim(),
             },
+        }, {
+            dish: {
+                name: nodes[8].children[0].data.trim(),
+                price: nodes[9].children[0].data.trim(),
+            },
         }];
 
         return dishes;
