@@ -39,27 +39,33 @@ const expectedSlackMenu = {
             "color": "#5da7ac",
             "fallback": "Restaurant menu",
             "footer": "",
-            "text": "Hovězí vývar se zeleninou a nudlemi 1,3,7,9",
+            "text": "Gulášová polévka 1",
             "title": "Al Capone",
             "title_link": "https://www.pizzaalcapone.cz/cz/poledni-menu",
         },
         {
             "color": "#5da7ac",
             "fallback": "Restaurant menu",
-            "footer": "Cena: 94,- Kč",
-            "text": "Masové kuličky v rajské omáčce, kolínka 1,3,7",
+            "footer": "Cena: 99,- Kč",
+            "text": "Pečené kuře s játrovou nádivkou, rýže 1,7",
         },
         {
             "color": "#5da7ac",
             "fallback": "Restaurant menu",
-            "footer": "Cena: 104,- Kč",
-            "text": "Pizza Torio (tomat, mozzarella, slanina, šunka, vejce, paprika) 1,3,7",
+            "footer": "Cena: 109,- Kč",
+            "text": "Pizza Mesicana (sýr, šunka, slanina, kukuřice, vejce, chilli) 1,3,7",
         },
         {
             "color": "#5da7ac",
             "fallback": "Restaurant menu",
-            "footer": "Cena: 114,- Kč",
-            "text": "Mix gril (kuřecí, vepřové), mexické chilli fazole, vařené brambory s petrželkou 1",
+            "footer": "Cena: 119,- Kč",
+            "text": "Smažená vepřová kapsa plněná mozzarellou, vařené brambory s petrželkou 1,3,71,3,7",
+        },
+        {
+            "color": "#5da7ac",
+            "fallback": "Restaurant menu",
+            "footer": "Cena: 149,- Kč",
+            "text": "Vídeňská hovězí rostěná, americké brambory s balkánským sýrem, smažená cibule, majonéza 1,7",
         },
     ],
     "channel": "channel",
@@ -98,7 +104,7 @@ const response = `<!DOCTYPE html>
 
     <link rel="stylesheet" href="/public/frontend/css/bootstrap.min.css">
     <!-- main stylesheet -->
-    <link rel="stylesheet" href="/public/frontend/css/style.css?v=1.1939">
+    <link rel="stylesheet" href="/public/frontend/css/style.css?v=1.195">
 
     <!-- responsive css -->
     <link rel="stylesheet" href="/public/frontend/css/responsive.css?v=1.3">
@@ -326,14 +332,14 @@ const response = `<!DOCTYPE html>
                 
                     <tr>
                         <td class="bg1" colspan="3">
-                            čtvrtek                            <h3>11.11.2021</h3>
+                            pátek                            <h3>28.1.2022</h3>
                         </td>
                     </tr>
 
                     <tr>
                         <td>Polévka</td>
                         <td>
-                            <h3>Hovězí vývar se zeleninou a nudlemi 1,3,7,9</h3>
+                            <h3>Gulášová polévka 1   </h3>
                         </td>
                         <td></td>
                     </tr>
@@ -341,37 +347,37 @@ const response = `<!DOCTYPE html>
                     <tr>
                         <td>Menu 1</td>
                         <td>
-                            <h3>Masové kuličky v rajské omáčce, kolínka 1,3,7</h3>
+                            <h3>Pečené kuře s játrovou nádivkou, rýže 1,7</h3>
                         </td>
                         <td>
-                            <h3 class="dmenu-cena">94,- Kč</h3>
+                            <h3 class="dmenu-cena">99,- Kč</h3>
                         </td>
                     </tr>
 
                     <tr>
                         <td>Menu 2</td>
                         <td>
-                            <h3>Pizza Torio (tomat, mozzarella, slanina, šunka, vejce, paprika) 1,3,7</h3>
+                            <h3>Pizza Mesicana (sýr, šunka, slanina, kukuřice, vejce, chilli) 1,3,7 </h3>
                         </td>
                         <td>
-                            <h3 class="dmenu-cena">104,- Kč</h3>
+                            <h3 class="dmenu-cena">109,- Kč</h3>
                         </td>
                     </tr>
 
                     <tr>
                         <td>Menu 3</td>
                         <td>
-                            <h3>Mix gril (kuřecí, vepřové), mexické chilli fazole, vařené brambory s petrželkou 1</h3>
+                            <h3>Smažená vepřová kapsa plněná mozzarellou, vařené brambory s petrželkou 1,3,71,3,7 </h3>
                         </td>
                         <td>
-                            <h3 class="dmenu-cena">114,- Kč</h3>
+                            <h3 class="dmenu-cena">119,- Kč</h3>
                         </td>
                     </tr>
 
                     <tr>
                         <td>Menu 4</td>
                         <td>
-                            <h3>Hovězí flank steak, grilovaný kukuřičný klas, demi-glace, americké brambory 1</h3>
+                            <h3>Vídeňská hovězí rostěná, americké brambory s balkánským sýrem, smažená cibule, majonéza 1,7</h3>
                         </td>
                         <td>
                             <h3 class="dmenu-cena">149,- Kč</h3>
@@ -382,14 +388,14 @@ const response = `<!DOCTYPE html>
                 
                     <tr>
                         <td class="bg1" colspan="3">
-                            pátek                            <h3>12.11.2021</h3>
+                            pondělí                            <h3>31.1.2022</h3>
                         </td>
                     </tr>
 
                     <tr>
                         <td>Polévka</td>
                         <td>
-                            <h3>Moravská česneková polévka s vejcem 3,9</h3>
+                            <h3>Hráškový krém 1,7</h3>
                         </td>
                         <td></td>
                     </tr>
@@ -397,37 +403,261 @@ const response = `<!DOCTYPE html>
                     <tr>
                         <td>Menu 1</td>
                         <td>
-                            <h3>Krkovička na grilu, hrachová kaše s cibulkou, restované brambory 1,7</h3>
+                            <h3>Smažené paličky v jogurtovo-chilli strouhance, bramborové lupínky, mrkvový salát 7</h3>
                         </td>
                         <td>
-                            <h3 class="dmenu-cena">94,- Kč</h3>
+                            <h3 class="dmenu-cena">99,- Kč</h3>
                         </td>
                     </tr>
 
                     <tr>
                         <td>Menu 2</td>
                         <td>
-                            <h3>Pizza Carbonara (smetana, sýr, slanina, cibule, rukola) 1,3,7</h3>
+                            <h3>Pizza Mirro (tomat, sýr, pikantní salám, cibule, niva) 1,3,7 </h3>
                         </td>
                         <td>
-                            <h3 class="dmenu-cena">104,- Kč</h3>
+                            <h3 class="dmenu-cena">109,- Kč</h3>
                         </td>
                     </tr>
 
                     <tr>
                         <td>Menu 3</td>
                         <td>
-                            <h3>Kuřecí smaženky, sýrová omáčka, bramborové pyré 1,3,7</h3>
+                            <h3>Mix gril, sázené vejce, bramborové pyré 1,3,7 </h3>
                         </td>
                         <td>
-                            <h3 class="dmenu-cena">114,- Kč</h3>
+                            <h3 class="dmenu-cena">119,- Kč</h3>
                         </td>
                     </tr>
 
                     <tr>
                         <td>Menu 4</td>
                         <td>
-                            <h3>Lasagne dello Cheff (široké nudle s boloňskou masovou směsí, kuřecím masem, cuketou, hříbky, smetanou), zapečené sýrem 1,3,7</h3>
+                            <h3>Risotto di Pollo (italská smetanová rýže s kuřecím masem a hříbkovou omáčkou), parmazán 7</h3>
+                        </td>
+                        <td>
+                            <h3 class="dmenu-cena">149,- Kč</h3>
+                        </td>
+                    </tr>
+
+                     
+                
+                    <tr>
+                        <td class="bg1" colspan="3">
+                            úterý                            <h3>1.2.2022</h3>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Polévka</td>
+                        <td>
+                            <h3>Drůbeží vývar se zeleninou a nudlemi 1,3,7,9  </h3>
+                        </td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
+                        <td>Menu 1</td>
+                        <td>
+                            <h3>Bavorské karbenátky, bramborová kaše, okurek 1,3,7  </h3>
+                        </td>
+                        <td>
+                            <h3 class="dmenu-cena">99,- Kč</h3>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Menu 2</td>
+                        <td>
+                            <h3>Pizza Cardinale (tomat, sýr, šunka, kukuřice) 1,3,7 </h3>
+                        </td>
+                        <td>
+                            <h3 class="dmenu-cena">109,- Kč</h3>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Menu 3</td>
+                        <td>
+                            <h3>Vepřová panenka plněná mozzarellou, hranolky, demi-glace 1,7</h3>
+                        </td>
+                        <td>
+                            <h3 class="dmenu-cena">119,- Kč</h3>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Menu 4</td>
+                        <td>
+                            <h3>Pannini s kuřecím masem, parmskou šunkou, ementálem, ledovým salátem a rajčaty, česnekový dip 1,3,7 </h3>
+                        </td>
+                        <td>
+                            <h3 class="dmenu-cena">149,- Kč</h3>
+                        </td>
+                    </tr>
+
+                     
+                
+                    <tr>
+                        <td class="bg1" colspan="3">
+                            středa                            <h3>2.2.2022</h3>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Polévka</td>
+                        <td>
+                            <h3>Čínská pikantní polévka s těstovinovou rýži 1,3,7,9</h3>
+                        </td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
+                        <td>Menu 1</td>
+                        <td>
+                            <h3>Masové kuličky v rajské omáčce, kolínka 1,3,7  </h3>
+                        </td>
+                        <td>
+                            <h3 class="dmenu-cena">99,- Kč</h3>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Menu 2</td>
+                        <td>
+                            <h3>Pizza Carbonara (smetana, sýr, slanina, cibule) 1,3,7 </h3>
+                        </td>
+                        <td>
+                            <h3 class="dmenu-cena">109,- Kč</h3>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Menu 3</td>
+                        <td>
+                            <h3>Smažená kuřecí kapsa plněná šunkou a uzeným sýrem, štouchané brambory s petrželkou 1,3,7 </h3>
+                        </td>
+                        <td>
+                            <h3 class="dmenu-cena">119,- Kč</h3>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Menu 4</td>
+                        <td>
+                            <h3>Grilovaný losos na zeleninovém salátě, ančovičková zálivka, bagetky </h3>
+                        </td>
+                        <td>
+                            <h3 class="dmenu-cena">149,- Kč</h3>
+                        </td>
+                    </tr>
+
+                     
+                
+                    <tr>
+                        <td class="bg1" colspan="3">
+                            čtvrtek                            <h3>3.2.2022</h3>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Polévka</td>
+                        <td>
+                            <h3>Uzená polévka s kroupami 9  </h3>
+                        </td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
+                        <td>Menu 1</td>
+                        <td>
+                            <h3>Smažený kuřecí řízek, vařené brambory 1,3,7 </h3>
+                        </td>
+                        <td>
+                            <h3 class="dmenu-cena">99,- Kč</h3>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Menu 2</td>
+                        <td>
+                            <h3>Pizza Americana (tomat, sýr, salám, šunka, kukuřice, kečup) 1,3,7 </h3>
+                        </td>
+                        <td>
+                            <h3 class="dmenu-cena">109,- Kč</h3>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Menu 3</td>
+                        <td>
+                            <h3>Roast Beef, mačkané brambory, tatarská omáčka 1,3,7 </h3>
+                        </td>
+                        <td>
+                            <h3 class="dmenu-cena">119,- Kč</h3>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Menu 4</td>
+                        <td>
+                            <h3>Cheeseburger, hranolky (hovězí mleté maso, ementál, kečup, hořčice, cibule, okurek 1,3,7 </h3>
+                        </td>
+                        <td>
+                            <h3 class="dmenu-cena">149,- Kč</h3>
+                        </td>
+                    </tr>
+
+                     
+                
+                    <tr>
+                        <td class="bg1" colspan="3">
+                            pátek                            <h3>4.2.2022</h3>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Polévka</td>
+                        <td>
+                            <h3>Kulajda s vejcem 3,7 </h3>
+                        </td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
+                        <td>Menu 1</td>
+                        <td>
+                            <h3>Vepřová kotleta na grilu s přírodní šťávou, opékané brambory 1</h3>
+                        </td>
+                        <td>
+                            <h3 class="dmenu-cena">99,- Kč</h3>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Menu 2</td>
+                        <td>
+                            <h3>Pizza Quattro formaggi 1,3,7  </h3>
+                        </td>
+                        <td>
+                            <h3 class="dmenu-cena">109,- Kč</h3>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Menu 3</td>
+                        <td>
+                            <h3>Kuřecí křidélka v medovo-pikantní marinádě, syrová omáčka 7</h3>
+                        </td>
+                        <td>
+                            <h3 class="dmenu-cena">119,- Kč</h3>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Menu 4</td>
+                        <td>
+                            <h3>Smažený cheddar, americké brambory s česnekem a Jalapeños, majonézový dip 1,3,7 </h3>
                         </td>
                         <td>
                             <h3 class="dmenu-cena">149,- Kč</h3>
@@ -560,8 +790,9 @@ const response = `<!DOCTYPE html>
 
 <script type="text/javascript" src="/public/frontend/js/lightbox.js"></script>
 <script type="text/javascript" src="/public/frontend/js/alcapone.js"></script>
-
-
+<!-- modal upozorneni -->
+xxinternNULL
+<!-- modal konec -->
 <script>
     function setTabs() {
         let availableWidth = $('#nav-bar2').outerWidth();
@@ -583,34 +814,9 @@ const response = `<!DOCTYPE html>
     }
 
     setTabs();
-    $(window).resize(_.debounce(setTabs, 200));
+    $(window).resize(debounce(setTabs, 200));
 
 
-</script>
-
-
-
-<div class="modal fade" tabindex="-1" role="dialog" id="upozorneni">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Svatomartínské hody</h4>
-            </div>
-            <div class="modal-body">
-                                                    <a href="">
-                    <img src="http://www.pizzaalcapone.cz/public/frontend/data/upozorneni/3/1635856413shutterstock.jpg" alt="Svatomartínské hody" class="img-responsive">
-                    </a>
-                            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-
-<script>
-    $( document ).ready(function() {
-        $('#upozorneni').modal('show')
-    });
 </script>
 
 
