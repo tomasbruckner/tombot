@@ -34,7 +34,7 @@ class Restaurant {
 
                     return resolve(slackMenu);
                 } catch (e) {
-                    return reject(body);
+                    return reject(e);
                 }
             });
         });

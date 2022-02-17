@@ -26,7 +26,37 @@ class UDrevaka extends Restaurant {
         }
 
         const nodes = $(`.item-day:nth-child(${dayIndex}) > .row > div`);
-        const dishes = [{
+
+        if (nodes.length > 8) {
+            return [{
+                dish: {
+                    name: nodes[0].children[0].data,
+                    price: "",
+                },
+            }, {
+                dish: {
+                    name: nodes[1].children[0].data,
+                    price: nodes[2].children[0].data,
+                },
+            }, {
+                dish: {
+                    name: nodes[3].children[0].data,
+                    price: nodes[4].children[0].data,
+                },
+            }, {
+                dish: {
+                    name: nodes[5].children[0].data,
+                    price: nodes[6].children[0].data,
+                },
+            }, {
+                dish: {
+                    name: nodes[7].children[0].data,
+                    price: nodes[8].children[0].data,
+                },
+            }];
+        }
+
+        return [{
             dish: {
                 name: nodes[0].children[0].data,
                 price: "",
@@ -34,26 +64,24 @@ class UDrevaka extends Restaurant {
         }, {
             dish: {
                 name: nodes[1].children[0].data,
-                price: nodes[2].children[0].data,
+                price: "",
+            },
+        }, {
+            dish: {
+                name: nodes[2].children[0].data,
+                price: "",
             },
         }, {
             dish: {
                 name: nodes[3].children[0].data,
-                price: nodes[4].children[0].data,
+                price: "",
             },
         }, {
             dish: {
-                name: nodes[5].children[0].data,
-                price: nodes[6].children[0].data,
-            },
-        }, {
-            dish: {
-                name: nodes[7].children[0].data,
-                price: nodes[8].children[0].data,
+                name: nodes[4].children[0].data,
+                price: "",
             },
         }];
-
-        return dishes;
     }
 }
 
