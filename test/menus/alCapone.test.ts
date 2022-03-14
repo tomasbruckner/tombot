@@ -12,19 +12,8 @@ describe("Al Capone", () => {
         testedClass = new AlCapone({get: requestMock});
     });
 
-    test("Resolve menu response", done => {
-        const menu = testedClass.getSlackMenu({channel: "channel"}, "apikey");
-
-        expect(requestMock.mock.calls.length).toBe(1);
-
-        const callback = requestMock.mock.calls[0][1];
-
-        callback(undefined, {statusCode: 200}, response);
-
-        menu.then(resultMenu => {
-            expect(resultMenu).toEqual(expectedSlackMenu);
-            done();
-        });
+    test("Resolve menu response", () => {
+        expect(testedClass.handleResponse(response)).toEqual(expectedSlackMenu);
     });
 
     afterEach(() => {
@@ -32,45 +21,40 @@ describe("Al Capone", () => {
     });
 });
 
-const expectedSlackMenu = {
-    "as_user": true,
-    "attachments": [
-        {
-            "color": "#5da7ac",
-            "fallback": "Restaurant menu",
-            "footer": "",
-            "text": "Polévka: Rajská",
-            "title": "Al Capone",
-            "title_link": "https://www.pizzaalcapone.cz/poledni-menu",
-        },
-        {
-            "color": "#5da7ac",
-            "fallback": "Restaurant menu",
-            "footer": "Cena: 119 Kč",
-            "text": "Čočka na kyselo s klobásou",
-        },
-        {
-            "color": "#5da7ac",
-            "fallback": "Restaurant menu",
-            "footer": "Cena: 129 Kč",
-            "text": "Tortilla s kuřecím stripsem",
-        },
-        {
-            "color": "#5da7ac",
-            "fallback": "Restaurant menu",
-            "footer": "Cena: 135 Kč",
-            "text": "Vepřová panenka s americkými bramborami",
-        },
-        {
-            "color": "#5da7ac",
-            "fallback": "Restaurant menu",
-            "footer": "Cena: 159 Kč",
-            "text": "Grilovaný losos se zeleným salátkem a rozpečenou bagetkou",
-        },
-    ],
-    "channel": "channel",
-    "text": "",
-};
+const expectedSlackMenu = [
+    {
+        "color": "#5da7ac",
+        "fallback": "Restaurant menu",
+        "footer": "",
+        "text": "Polévka: Hovězí vývar s bylinkovým kapáním 1,3,7,9",
+        "title": "Al Capone",
+        "title_link": "https://www.pizzaalcapone.cz/poledni-menu",
+    },
+    {
+        "color": "#5da7ac",
+        "fallback": "Restaurant menu",
+        "footer": "Cena: 99 Kč",
+        "text": "MENU 1: Srbská kotleta, krokety 1",
+    },
+    {
+        "color": "#5da7ac",
+        "fallback": "Restaurant menu",
+        "footer": "Cena: 109 Kč",
+        "text": "MENU 2: Pizza Carbonara (smetana, sýr, slanina, cibule, vejce)\n\t\t\t\t\t\t\t\t1,3,7",
+    },
+    {
+        "color": "#5da7ac",
+        "fallback": "Restaurant menu",
+        "footer": "Cena: 119 Kč",
+        "text": "MENU 3: Křupavé kuřecí nugetky, sýrová omáčka, mačkané brambory\n\t\t\t\t\t\t\t\t1,3,7",
+    },
+    {
+        "color": "#5da7ac",
+        "fallback": "Restaurant menu",
+        "footer": "Cena: 149 Kč",
+        "text": "MENU 4: Risotto con Salmone (krémové rizoto s grilovaným lososem, listovým špenátem,\n\t\t\t\t\t\t\t\tparmazánem a limetkou 4,7",
+    },
+];
 
 const response = `<!DOCTYPE html>
 <html lang="cs" class="external-fonts-loaded js-focus-visible">
@@ -78,364 +62,364 @@ const response = `<!DOCTYPE html>
 
 
 <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+\t<meta name="viewport"
+\t\tcontent="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
 
-    <!-- metas -->
-    <meta charset="utf-8">
+\t<!-- metas -->
+\t<meta charset="utf-8">
 
-    <meta name="description" content="">
-    <meta name="robots" content="">
-    <meta name="author" content="ArtFocus, ArtWeby.cz">
+\t<meta name="description" content="">
+\t<meta name="robots" content="">
+\t<meta name="author" content="ArtFocus, ArtWeby.cz">
 
-    <!-- Twitter Card data -->
-    <meta name="twitter:card" content="summary">
+\t<!-- Twitter Card data -->
+\t<meta name="twitter:card" content="summary">
 
-    <!-- Open Graph data -->
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Pizza Al Capone">
-    <meta property="og:title" content="Polední menu | Pizza Al Capone">
-    <meta property="og:description" content="">
-    <meta property="og:image" content="https://www.pizzaalcapone.cz/project/images/logo.jpg">
-    <meta property="og:url" content="https://www.pizzaalcapone.cz/poledni-menu">
+\t<!-- Open Graph data -->
+\t<meta property="og:type" content="website">
+\t<meta property="og:site_name" content="Pizza Al Capone">
+\t<meta property="og:title" content="Polední menu | Pizza Al Capone">
+\t<meta property="og:description" content="">
+\t<meta property="og:image" content="https://www.pizzaalcapone.cz/project/images/logo.jpg">
+\t<meta property="og:url" content="https://www.pizzaalcapone.cz/poledni-menu">
 
-    <link rel="canonical" href="https://www.pizzaalcapone.cz/poledni-menu">
+\t<link rel="canonical" href="https://www.pizzaalcapone.cz/poledni-menu">
 
-    <link rel="alternate" type="application/rss+xml" title="RSS" href="/service/rss/">
+\t<link rel="alternate" type="application/rss+xml" title="RSS" href="/service/rss/">
 
 
-    <!-- stylesheets -->
-    <link rel="stylesheet" href="/project/templates/boston/front.css?801417f0">
+\t<!-- stylesheets -->
+\t<link rel="stylesheet" href="/project/templates/boston/front.css?382c0f6b">
 
-        <link rel="stylesheet" href="/project/templates/boston/custom-colors.css?1973ac59">
-        <link rel="stylesheet" href="/project/templates/boston/custom-dimension-properties.css?481dc2b7">
-        <link rel="stylesheet" href="/project/templates/boston/custom.css?f1d6c06c">
+\t<link rel="stylesheet" href="/project/templates/boston/custom-colors.css?658d3346">
+\t<link rel="stylesheet" href="/project/templates/boston/custom-dimension-properties.css?8cabe18b">
+\t<link rel="stylesheet" href="/project/templates/boston/custom.css?f1d6c06c">
 
-    <!-- icons -->
+\t<!-- icons -->
 
-        <link rel="shortcut icon"
-              
-              
-              
-              href="/project/favicon.ico"
-       >
+\t<link rel="shortcut icon" href="/project/favicon.ico">
 
-    <!-- javascript -->
-<script>
-\tvar APPLICATION_BASEPATH = "";
+\t<!-- javascript -->
+\t<script>
+\t\tvar APPLICATION_BASEPATH = "";
 \tvar AF_MONEY_DECIMALS = 2;
-</script>
+\t</script>
 
-    <link href="https://fonts.googleapis.com/css2?family=Spartan:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Source Sans Pro:300,400,700,900&amp;subset=latin-ext" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Exo 2:300,400,700,900&amp;subset=latin-ext" rel="stylesheet">
+\t<link href="https://fonts.googleapis.com/css2?family=Spartan:wght@300;400;500;600;700;800;900&display=swap"
+\t\trel="stylesheet">
+\t<link href="https://fonts.googleapis.com/css?family=Source Sans Pro:300,400,700,900&amp;subset=latin-ext"
+\t\trel="stylesheet">
+\t<link href="https://fonts.googleapis.com/css?family=Exo 2:300,400,700,900&amp;subset=latin-ext" rel="stylesheet">
 
-    <script src="/temp/22ab4e92.js?4d9285d1"></script>
+\t<script src="/temp/22ab4e92.js?5d78abae"></script>
 
-    <link rel="stylesheet" href="/components/bower/fancybox/source/jquery.fancybox.css?f86d0749">
+\t<link rel="stylesheet" href="/components/bower/fancybox/source/jquery.fancybox.css?f86d0749">
 
-    
 
-    <!--[if lt IE 9]>
-    <script src="/temp/200e6cab.js?016b4970"></script>
+
+\t<!--[if lt IE 9]>
+    <script src="/temp/200e6cab.js?abcdc154"></script>
     <![endif]-->
 
-    <title id="snippet--title">Polední menu | Pizza Al Capone</title>
-\t\t
+\t<title id="snippet--title">Polední menu | Pizza Al Capone</title>
+
 </head>
 
-\t
-\t<body class="sub">
-<script>
-\tvar af = af || {};
+
+<body class="sub">
+\t<script>
+\t\tvar af = af || {};
 \taf.campaignTracking = {
 \t\tconfig: {
 \t\t\ttarget: "https://www.pizzaalcapone.cz/poledni-menu?do=campaignTracking-track",
-\t\t\ttoken: "go8s4m3fd1",
+\t\t\ttoken: "9wn0lka01v",
 \t\t\tlocation: window.location
 \t\t},
 \t\tdata: {
 \t\t\turl: window.location.href,
-\t\t\treferrer: ""
+\t\t\treferrer: "https://www.pizzaalcapone.cz/poledni-menu?id=0fda65605cdd11eca4000cc47a0ca484&do=chooseAlcBranch"
 \t\t}
 \t};
-</script>
-<script src="/temp/80a4abf2.js?5b391bfe" async defer></script>
+\t</script>
+\t<script src="/temp/80a4abf2.js?0ece297a" async defer></script>
 
-<div id="snippet--analytics:start"></div>
+\t<div id="snippet--analytics:start"></div>
 
-\t\t\t<!-- page content -->
-<div id="snippet--cartInfo.modal"></div>
+\t<!-- page content -->
+\t<div id="snippet--cartInfo.modal"></div>
 
-<div id="snippet--flashMessages">
+\t<div id="snippet--flashMessages">
 
-</div>
-
-
+\t</div>
 
 
 
-<script>
-\t$('#site-info-message .close-info-message').on('click', function () {
+
+
+\t<script>
+\t\t$('#site-info-message .close-info-message').on('click', function () {
 \t\t$(this).parents('#site-info-message').slideUp();
 \t\tCookies.set('site-info-message-' + $(this).data('info-message'), true, {expires: 7776000});
 \t});
-</script>
+\t</script>
 
-<header id="header" class="wrap">
-    <div class="top">
-        <div class="in">
-            <ul>
-                <li class="branch">
-                        <a href="#" id="choose-branch">vyberte restauraci <i class="flaticon-right-arrow-1"></i></a>
-                </li>
-                <li>
-                        <a href="tel:">Brno: +420 541 210 555 a Rajhrad: +420 547 212 916</a></li>
-                <li><a href="mailto:info@pizzaalcapone.cz"><span>info@pizzaalcapone.cz</span></a></li>
-                <li><a href="/kontakt">Kontakty</a></li>
-            </ul>
-        </div>
-    </div>
-    <div class="nav">
-        <div class="in">
+\t<header id="header" class="wrap">
+\t\t<div class="top">
+\t\t\t<div class="in">
+\t\t\t\t<ul>
+\t\t\t\t\t<li class="branch">
+\t\t\t\t\t\t<span>Brno</span>
+\t\t\t\t\t\t<a href="#" id="choose-branch">změnit restauraci <i class="flaticon-right-arrow-1"></i></a>
+\t\t\t\t\t</li>
+\t\t\t\t\t<li>
+\t\t\t\t\t\t<a>tel.:</a> <a href="tel:+420 541 210 555">+420 541 210 555</a></li>
+\t\t\t\t\t<li><a href="mailto:info@pizzaalcapone.cz"><span>info@pizzaalcapone.cz</span></a></li>
+\t\t\t\t\t<li><a href="/kontakt">Kontakty</a></li>
+\t\t\t\t</ul>
+\t\t\t</div>
+\t\t</div>
+\t\t<div class="nav">
+\t\t\t<div class="in">
 
-            <div class="logo">
+\t\t\t\t<div class="logo">
 
 
 
 
-    <a class="" href="/">
-        <img logo src="/upload/images/logo-alcapone.png" >
+\t\t\t\t\t<a class="" href="/">
+\t\t\t\t\t\t<img logo src="/upload/images/logo-alcapone.png" >
     </a>
 
-            </div>
+\t\t\t\t</div>
 
-            <ul class="toggles">
-                <li class="header-search">
-                    <span class="search-toggle"><i class="flaticon-search"></i></span>
-                    <div class="hidden-mobile">
+\t\t\t\t<ul class="toggles">
+\t\t\t\t\t<li class="header-search">
+\t\t\t\t\t\t<span class="search-toggle"><i class="flaticon-search"></i></span>
+\t\t\t\t\t\t<div class="hidden-mobile">
 
 
-<form action="/vyhledavani" method="get" id="frm-search-search" class="search toggle">
-    <ul>
-        <li class="keyword">
-            <input type="text" name="search" placeholder="Chci najít..." id="suggest-desktop" required data-nette-rules='[{"op":":filled","msg":"Pole Hledat: by mělo být vyplněné."}]' class="sg-input search-suggestion" autocomplete="off">
+\t\t\t\t\t\t\t<form action="/vyhledavani" method="get" id="frm-search-search" class="search toggle">
+\t\t\t\t\t\t\t\t<ul>
+\t\t\t\t\t\t\t\t\t<li class="keyword">
+\t\t\t\t\t\t\t\t\t\t<input type="text" name="search" placeholder="Chci najít..." id="suggest-desktop" required data-nette-rules='[{"op":":filled","msg":"Pole Hledat: by mělo být vyplněné."}]' class="sg-input search-suggestion" autocomplete="off">
         </li>
-        <li class="submit">
-            <button type="submit" name="send" value=""><i class="flaticon-search"></i></button>
-        </li>
-    </ul>
-    <div class="cleaner"></div>
+\t\t\t\t\t\t\t\t\t<li class="submit">
+\t\t\t\t\t\t\t\t\t\t<button type="submit" name="send" value=""><i class="flaticon-search"></i></button>
+\t\t\t\t\t\t\t\t\t</li>
+\t\t\t\t\t\t\t\t</ul>
+\t\t\t\t\t\t\t\t<div class="cleaner"></div>
 
-    <div class="suggestion search-suggestion-html" style="z-index:5000;"></div>
+\t\t\t\t\t\t\t\t<div class="suggestion search-suggestion-html" style="z-index:5000;"></div>
 
-<input type="hidden" name="do" value="search-search-submit"><!--[if IE]><input type=IEbug disabled style="display:none"><![endif]-->
-</form>
-
-
-                    </div>
-                </li>
+\t\t\t\t\t\t\t\t<input type="hidden" name="do" value="search-search-submit">
+\t\t\t\t\t\t\t\t<!--[if IE]><input type=IEbug disabled style="display:none"><![endif]-->
+\t\t\t\t\t\t\t</form>
 
 
-
+\t\t\t\t\t\t</div>
+\t\t\t\t\t</li>
 
 
 
 
-<li class="header-user">
-\t<a class="user-toggle" href="#"><i class="flaticon-user"></i></a>
-</li>
-
-                <li id="snippet--cartInfo:summary">
-                    
 
 
 
-\t<a class="basket-toggle" href="/kosik">
-\t\t<i class="flaticon-shopping-cart"></i>
+\t\t\t\t\t<li class="header-user">
+\t\t\t\t\t\t<a class="user-toggle" href="#"><i class="flaticon-user"></i></a>
+\t\t\t\t\t</li>
 
-\t\t\t<span>Prázdný košík</span>
-\t</a>
-
-                </li>
-                <li><span class="menu-toggle"><i class="flaticon-menu"></i></span></li>
-            </ul>
-            <nav id="crazy-menu-test" class="menu toggle">
+\t\t\t\t\t<li id="snippet--cartInfo:summary">
 
 
 
-    <div id="crazy-menu" class="main">
-        <ul>
-            
-                <li class="crazy-item ">
-                    <a href="/jidelni-listek" class="has-submenu">
-                        OBJEDNAT JÍDLO <i
+
+\t\t\t\t\t\t<a class="basket-toggle" href="/kosik">
+\t\t\t\t\t\t\t<i class="flaticon-shopping-cart"></i>
+
+\t\t\t\t\t\t\t<span>Prázdný košík</span>
+\t\t\t\t\t\t</a>
+
+\t\t\t\t\t</li>
+\t\t\t\t\t<li><span class="menu-toggle"><i class="flaticon-menu"></i></span></li>
+\t\t\t\t</ul>
+\t\t\t\t<nav id="crazy-menu-test" class="menu toggle">
+
+
+
+\t\t\t\t\t<div id="crazy-menu" class="main">
+\t\t\t\t\t\t<ul>
+
+\t\t\t\t\t\t\t<li class="crazy-item ">
+\t\t\t\t\t\t\t\t<a href="/jidelni-listek" class="has-submenu">
+\t\t\t\t\t\t\t\t\tOBJEDNAT JÍDLO <i
                                 class="flaticon-down-arrow"></i>
-                    </a>
-                    <div class="submenu">
-                        <div class="item">
-                            
-                            <a href="/pizza">
-                                <h2>Pizza</h2>
-                            </a>
-                            <ul>
-                            </ul>
-                        </div>
-                        <div class="item">
-                            
-                            <a href="/testoviny">
-                                <h2>Těstoviny</h2>
-                            </a>
-                            <ul>
-                            </ul>
-                        </div>
-                        <div class="item">
-                            
-                            <a href="/burgery">
-                                <h2>Burgery</h2>
-                            </a>
-                            <ul>
-                            </ul>
-                        </div>
-                        <div class="item">
-                            
-                            <a href="/smazene">
-                                <h2>Smažené</h2>
-                            </a>
-                            <ul>
-                            </ul>
-                        </div>
-                        <div class="item">
-                            
-                            <a href="/polevky">
-                                <h2>Polévky</h2>
-                            </a>
-                            <ul>
-                            </ul>
-                        </div>
-                        <div class="item">
-                            
-                            <a href="/predkrmy">
-                                <h2>Předkrmy</h2>
-                            </a>
-                            <ul>
-                            </ul>
-                        </div>
-                        <div class="item">
-                            
-                            <a href="/rizota">
-                                <h2>Rizota</h2>
-                            </a>
-                            <ul>
-                            </ul>
-                        </div>
-                        <div class="item">
-                            
-                            <a href="/ryby">
-                                <h2>Ryby</h2>
-                            </a>
-                            <ul>
-                            </ul>
-                        </div>
-                        <div class="item">
-                            
-                            <a href="/prilohy-a-salaty">
-                                <h2>Přílohy a saláty</h2>
-                            </a>
-                            <ul>
-                            </ul>
-                        </div>
-                        <div class="item">
-                            
-                            <a href="/maso-a-omacky">
-                                <h2>Maso a omáčky</h2>
-                            </a>
-                            <ul>
-                            </ul>
-                        </div>
-                        <div class="item">
-                            
-                            <a href="/dezerty">
-                                <h2>Dezerty</h2>
-                            </a>
-                            <ul>
-                            </ul>
-                        </div>
-                    </div>
-                </li>
+\t\t\t\t\t\t\t\t</a>
+\t\t\t\t\t\t\t\t<div class="submenu">
+\t\t\t\t\t\t\t\t\t<div class="item">
 
-                <li class="crazy-item ">
-                    <a href="/poledni-menu">
-                        POLEDNÍ MENU                     </a>
-                </li>
+\t\t\t\t\t\t\t\t\t\t<a href="/pizza">
+\t\t\t\t\t\t\t\t\t\t\t<h2>Pizza</h2>
+\t\t\t\t\t\t\t\t\t\t</a>
+\t\t\t\t\t\t\t\t\t\t<ul>
+\t\t\t\t\t\t\t\t\t\t</ul>
+\t\t\t\t\t\t\t\t\t</div>
+\t\t\t\t\t\t\t\t\t<div class="item">
 
-                <li class="crazy-item ">
-                    <a href="/o-nas">
-                        O NÁS                     </a>
-                </li>
+\t\t\t\t\t\t\t\t\t\t<a href="/testoviny">
+\t\t\t\t\t\t\t\t\t\t\t<h2>Těstoviny</h2>
+\t\t\t\t\t\t\t\t\t\t</a>
+\t\t\t\t\t\t\t\t\t\t<ul>
+\t\t\t\t\t\t\t\t\t\t</ul>
+\t\t\t\t\t\t\t\t\t</div>
+\t\t\t\t\t\t\t\t\t<div class="item">
 
-                <li class="crazy-item hidden">
-                    <a href="/fotogalerie" class="has-submenu">
-                        FOTOGALERIE <i
+\t\t\t\t\t\t\t\t\t\t<a href="/burgery">
+\t\t\t\t\t\t\t\t\t\t\t<h2>Burgery</h2>
+\t\t\t\t\t\t\t\t\t\t</a>
+\t\t\t\t\t\t\t\t\t\t<ul>
+\t\t\t\t\t\t\t\t\t\t</ul>
+\t\t\t\t\t\t\t\t\t</div>
+\t\t\t\t\t\t\t\t\t<div class="item">
+
+\t\t\t\t\t\t\t\t\t\t<a href="/smazene">
+\t\t\t\t\t\t\t\t\t\t\t<h2>Smažené</h2>
+\t\t\t\t\t\t\t\t\t\t</a>
+\t\t\t\t\t\t\t\t\t\t<ul>
+\t\t\t\t\t\t\t\t\t\t</ul>
+\t\t\t\t\t\t\t\t\t</div>
+\t\t\t\t\t\t\t\t\t<div class="item">
+
+\t\t\t\t\t\t\t\t\t\t<a href="/polevky">
+\t\t\t\t\t\t\t\t\t\t\t<h2>Polévky</h2>
+\t\t\t\t\t\t\t\t\t\t</a>
+\t\t\t\t\t\t\t\t\t\t<ul>
+\t\t\t\t\t\t\t\t\t\t</ul>
+\t\t\t\t\t\t\t\t\t</div>
+\t\t\t\t\t\t\t\t\t<div class="item">
+
+\t\t\t\t\t\t\t\t\t\t<a href="/predkrmy">
+\t\t\t\t\t\t\t\t\t\t\t<h2>Předkrmy</h2>
+\t\t\t\t\t\t\t\t\t\t</a>
+\t\t\t\t\t\t\t\t\t\t<ul>
+\t\t\t\t\t\t\t\t\t\t</ul>
+\t\t\t\t\t\t\t\t\t</div>
+\t\t\t\t\t\t\t\t\t<div class="item">
+
+\t\t\t\t\t\t\t\t\t\t<a href="/rizota">
+\t\t\t\t\t\t\t\t\t\t\t<h2>Rizota</h2>
+\t\t\t\t\t\t\t\t\t\t</a>
+\t\t\t\t\t\t\t\t\t\t<ul>
+\t\t\t\t\t\t\t\t\t\t</ul>
+\t\t\t\t\t\t\t\t\t</div>
+\t\t\t\t\t\t\t\t\t<div class="item">
+
+\t\t\t\t\t\t\t\t\t\t<a href="/ryby">
+\t\t\t\t\t\t\t\t\t\t\t<h2>Ryby</h2>
+\t\t\t\t\t\t\t\t\t\t</a>
+\t\t\t\t\t\t\t\t\t\t<ul>
+\t\t\t\t\t\t\t\t\t\t</ul>
+\t\t\t\t\t\t\t\t\t</div>
+\t\t\t\t\t\t\t\t\t<div class="item">
+
+\t\t\t\t\t\t\t\t\t\t<a href="/prilohy-a-salaty">
+\t\t\t\t\t\t\t\t\t\t\t<h2>Přílohy a saláty</h2>
+\t\t\t\t\t\t\t\t\t\t</a>
+\t\t\t\t\t\t\t\t\t\t<ul>
+\t\t\t\t\t\t\t\t\t\t</ul>
+\t\t\t\t\t\t\t\t\t</div>
+\t\t\t\t\t\t\t\t\t<div class="item">
+
+\t\t\t\t\t\t\t\t\t\t<a href="/maso-a-omacky">
+\t\t\t\t\t\t\t\t\t\t\t<h2>Maso a omáčky</h2>
+\t\t\t\t\t\t\t\t\t\t</a>
+\t\t\t\t\t\t\t\t\t\t<ul>
+\t\t\t\t\t\t\t\t\t\t</ul>
+\t\t\t\t\t\t\t\t\t</div>
+\t\t\t\t\t\t\t\t\t<div class="item">
+
+\t\t\t\t\t\t\t\t\t\t<a href="/dezerty">
+\t\t\t\t\t\t\t\t\t\t\t<h2>Dezerty</h2>
+\t\t\t\t\t\t\t\t\t\t</a>
+\t\t\t\t\t\t\t\t\t\t<ul>
+\t\t\t\t\t\t\t\t\t\t</ul>
+\t\t\t\t\t\t\t\t\t</div>
+\t\t\t\t\t\t\t\t</div>
+\t\t\t\t\t\t\t</li>
+
+\t\t\t\t\t\t\t<li class="crazy-item ">
+\t\t\t\t\t\t\t\t<a href="/poledni-menu">
+\t\t\t\t\t\t\t\t\tPOLEDNÍ MENU </a>
+\t\t\t\t\t\t\t</li>
+
+\t\t\t\t\t\t\t<li class="crazy-item ">
+\t\t\t\t\t\t\t\t<a href="/o-nas">
+\t\t\t\t\t\t\t\t\tO NÁS </a>
+\t\t\t\t\t\t\t</li>
+
+\t\t\t\t\t\t\t<li class="crazy-item hidden">
+\t\t\t\t\t\t\t\t<a href="/fotogalerie" class="has-submenu">
+\t\t\t\t\t\t\t\t\tFOTOGALERIE <i
                                 class="flaticon-down-arrow"></i>
-                    </a>
-                    <div class="submenu">
-                        <div class="item">
-                            
-                            <a href="/restaurace-brno">
-                                <h2>Al Capone Brno</h2>
-                            </a>
-                            <ul>
-                            </ul>
-                        </div>
-                        <div class="item">
-                            
-                            <a href="/restaurace-rajhrad">
-                                <h2>Al Capone Rajhrad</h2>
-                            </a>
-                            <ul>
-                            </ul>
-                        </div>
-                    </div>
-                </li>
-                <li class="space"></li>
-                <li class="more ">
-                    <span class="menu-toggle"><i class="flaticon-menu"></i></span>
-                </li>
-        </ul>
-    </div>
+\t\t\t\t\t\t\t\t</a>
+\t\t\t\t\t\t\t\t<div class="submenu">
+\t\t\t\t\t\t\t\t\t<div class="item">
 
-    <div class="other" id="other-items">
-        <ul>
-            <li class="hidden">
-                
-                <a href="/jidelni-listek">
-                    <span>OBJEDNAT JÍDLO</span>
-                </a>
-            </li>
-            <li class="hidden">
-                
-                <a href="/poledni-menu">
-                    <span>POLEDNÍ MENU</span>
-                </a>
-            </li>
-            <li class="hidden">
-                
-                <a href="/o-nas">
-                    <span>O NÁS</span>
-                </a>
-            </li>
-            <li>
-                
-                <a href="/fotogalerie">
-                    <span>FOTOGALERIE</span>
-                </a>
-            </li>
-        </ul>
-    </div>
+\t\t\t\t\t\t\t\t\t\t<a href="/restaurace-brno">
+\t\t\t\t\t\t\t\t\t\t\t<h2>Al Capone Brno</h2>
+\t\t\t\t\t\t\t\t\t\t</a>
+\t\t\t\t\t\t\t\t\t\t<ul>
+\t\t\t\t\t\t\t\t\t\t</ul>
+\t\t\t\t\t\t\t\t\t</div>
+\t\t\t\t\t\t\t\t\t<div class="item">
+
+\t\t\t\t\t\t\t\t\t\t<a href="/restaurace-rajhrad">
+\t\t\t\t\t\t\t\t\t\t\t<h2>Al Capone Rajhrad</h2>
+\t\t\t\t\t\t\t\t\t\t</a>
+\t\t\t\t\t\t\t\t\t\t<ul>
+\t\t\t\t\t\t\t\t\t\t</ul>
+\t\t\t\t\t\t\t\t\t</div>
+\t\t\t\t\t\t\t\t</div>
+\t\t\t\t\t\t\t</li>
+\t\t\t\t\t\t\t<li class="space"></li>
+\t\t\t\t\t\t\t<li class="more ">
+\t\t\t\t\t\t\t\t<span class="menu-toggle"><i class="flaticon-menu"></i></span>
+\t\t\t\t\t\t\t</li>
+\t\t\t\t\t\t</ul>
+\t\t\t\t\t</div>
+
+\t\t\t\t\t<div class="other" id="other-items">
+\t\t\t\t\t\t<ul>
+\t\t\t\t\t\t\t<li class="hidden">
+
+\t\t\t\t\t\t\t\t<a href="/jidelni-listek">
+\t\t\t\t\t\t\t\t\t<span>OBJEDNAT JÍDLO</span>
+\t\t\t\t\t\t\t\t</a>
+\t\t\t\t\t\t\t</li>
+\t\t\t\t\t\t\t<li class="hidden">
+
+\t\t\t\t\t\t\t\t<a href="/poledni-menu">
+\t\t\t\t\t\t\t\t\t<span>POLEDNÍ MENU</span>
+\t\t\t\t\t\t\t\t</a>
+\t\t\t\t\t\t\t</li>
+\t\t\t\t\t\t\t<li class="hidden">
+
+\t\t\t\t\t\t\t\t<a href="/o-nas">
+\t\t\t\t\t\t\t\t\t<span>O NÁS</span>
+\t\t\t\t\t\t\t\t</a>
+\t\t\t\t\t\t\t</li>
+\t\t\t\t\t\t\t<li>
+
+\t\t\t\t\t\t\t\t<a href="/fotogalerie">
+\t\t\t\t\t\t\t\t\t<span>FOTOGALERIE</span>
+\t\t\t\t\t\t\t\t</a>
+\t\t\t\t\t\t\t</li>
+\t\t\t\t\t\t</ul>
+\t\t\t\t\t</div>
 
 
-<script>
-\tfunction crazyMenu() {
+\t\t\t\t\t<script>
+\t\t\t\t\t\tfunction crazyMenu() {
 \t\t//console.log('test');
     \tlet $crazyMenu = $('#crazy-menu ul');
 \t\tlet $menuBox = $('#header .nav .in');
@@ -525,33 +509,34 @@ const response = `<!DOCTYPE html>
 
 \t\tcrazyMenu();
 \t});
-</script>
+\t\t\t\t\t</script>
 
-            </nav>
+\t\t\t\t</nav>
 
-            <div class="visible-mobile">
+\t\t\t\t<div class="visible-mobile">
 
 
-<form action="/vyhledavani" method="get" id="frm-search-search" class="search toggle">
-    <ul>
-        <li class="keyword">
-            <input type="text" name="search" placeholder="Chci najít..." id="suggest-desktop" required data-nette-rules='[{"op":":filled","msg":"Pole Hledat: by mělo být vyplněné."}]' class="sg-input search-suggestion" autocomplete="off">
+\t\t\t\t\t<form action="/vyhledavani" method="get" id="frm-search-search" class="search toggle">
+\t\t\t\t\t\t<ul>
+\t\t\t\t\t\t\t<li class="keyword">
+\t\t\t\t\t\t\t\t<input type="text" name="search" placeholder="Chci najít..." id="suggest-desktop" required data-nette-rules='[{"op":":filled","msg":"Pole Hledat: by mělo být vyplněné."}]' class="sg-input search-suggestion" autocomplete="off">
         </li>
-        <li class="submit">
-            <button type="submit" name="send" value=""><i class="flaticon-search"></i></button>
-        </li>
-    </ul>
-    <div class="cleaner"></div>
+\t\t\t\t\t\t\t<li class="submit">
+\t\t\t\t\t\t\t\t<button type="submit" name="send" value=""><i class="flaticon-search"></i></button>
+\t\t\t\t\t\t\t</li>
+\t\t\t\t\t\t</ul>
+\t\t\t\t\t\t<div class="cleaner"></div>
 
-    <div class="suggestion search-suggestion-html" style="z-index:5000;"></div>
+\t\t\t\t\t\t<div class="suggestion search-suggestion-html" style="z-index:5000;"></div>
 
-<input type="hidden" name="do" value="search-search-submit"><!--[if IE]><input type=IEbug disabled style="display:none"><![endif]-->
-</form>
+\t\t\t\t\t\t<input type="hidden" name="do" value="search-search-submit">
+\t\t\t\t\t\t<!--[if IE]><input type=IEbug disabled style="display:none"><![endif]-->
+\t\t\t\t\t</form>
 
 
 
-<script>
-\t$(function () {
+\t\t\t\t\t<script>
+\t\t\t\t\t\t$(function () {
 \t\tvar suggestion = $('.search-suggestion-html');
 \t\tvar searchBox = $(".search-suggestion");
 
@@ -619,31 +604,33 @@ const response = `<!DOCTYPE html>
 \t\t\t}
 \t\t});
 \t});
-</script>
-            </div>
-        </div>
-    </div>
-</header>
+\t\t\t\t\t</script>
+\t\t\t\t</div>
+\t\t\t</div>
+\t\t</div>
+\t</header>
 
-<div id="branch-popup-back"></div>
-<div id="branch-popup" style="display: none">
-    <div class="branch-popup-front"><h2>Vyberte si prosím pobočku</h2></div>
-    <div class="branch-popup-front">
-        <div>
-            <a href="/poledni-menu?id=0fda65605cdd11eca4000cc47a0ca484&amp;do=chooseAlcBranch">
-                <img src="/upload/images/brno.jpg">
+\t<div id="branch-popup-back"></div>
+\t<div id="branch-popup" style="display: none">
+\t\t<div class="branch-popup-front">
+\t\t\t<h2>Vyberte si prosím pobočku</h2>
+\t\t</div>
+\t\t<div class="branch-popup-front">
+\t\t\t<div>
+\t\t\t\t<a href="/poledni-menu?id=0fda65605cdd11eca4000cc47a0ca484&amp;do=chooseAlcBranch">
+\t\t\t\t\t<img src="/upload/images/brno.jpg">
             </a>
-        </div>
-        <div>
-            <a href="/poledni-menu?id=f8ea20c05cdc11ec9cd70cc47a0ca484&amp;do=chooseAlcBranch">
-                <img src="/upload/images/rajhrad-3.jpg">
+\t\t\t</div>
+\t\t\t<div>
+\t\t\t\t<a href="/poledni-menu?id=f8ea20c05cdc11ec9cd70cc47a0ca484&amp;do=chooseAlcBranch">
+\t\t\t\t\t<img src="/upload/images/rajhrad-3.jpg">
             </a>
-        </div>
-    </div>
-</div>
+\t\t\t</div>
+\t\t</div>
+\t</div>
 
-<script>
-    $(function () {
+\t<script>
+\t\t$(function () {
         $('#choose-branch').on('click', function () {
             $('#branch-popup-back').toggle();
             $('#branch-popup').toggle();
@@ -658,349 +645,380 @@ const response = `<!DOCTYPE html>
             ev.stopPropagation();
         });
 
-            $(function () {
-                $('#branch-popup-back').show();
-                $('#branch-popup').show();
-            });
     })
-</script>
+\t</script>
 
 
-<section class="wrap">
+\t<section class="wrap">
 
 
 
-<div class="breadcrumbs">
-\t<div class="in">
-\t\t<a href="/">Úvodní strana</a>
-\t\t<i class="flaticon-right-arrow"></i>
+\t\t<div class="breadcrumbs">
+\t\t\t<div class="in">
+\t\t\t\t<a href="/">Úvodní strana</a>
+\t\t\t\t<i class="flaticon-right-arrow"></i>
 
-POLEDNÍ MENU\t\t\t
-\t</div>
-</div>
-
-\t<div class="in">
-\t\t<div class="content">
-\t\t\t<h1>Polední menu</h1>
-\t\t\t\t<p><div class="ckeditor" data-ckeditor-type="doctrine" data-ckeditor-id="93" data-ckeditor-options='{"key":"content","class":"Plugins\\\\Structure\\\\Models\\\\Data"}'><p>Vychutnejte si u nás naše obědová menu.</p>
-
-<div style="text-align:left;">
-<h2>Pondělí</h2>
-
-<p>Polévka:&nbsp;Franfurtská</p>
-
-<div class="image-clearfix" style="border-bottom: 1px solid black;">
-<p>Čočka na kyselo s klobásou <span style="float:right;">119 Kč</span></p>
-</div>
-
-<div class="image-clearfix" style="border-bottom: 1px solid black;">
-<p>Tortilla s kuřecím stripsem<span style="float:right;">129 Kč</span></p>
-</div>
-
-<div class="image-clearfix" style="border-bottom: 1px solid black;">
-<p>Vepřová panenka s americkými bramborami<span style="float:right;">135 Kč</span></p>
-</div>
-
-<div class="image-clearfix" style="border-bottom: 3px solid black;">
-<p>Grilovaný losos se zeleným salátkem a rozpečenou bagetkou<span style="float:right;">159 Kč</span></p>
-</div>
-
-<h2><br>
-Úterý</h2>
-
-<p>Polévka: Rajská</p>
-
-<div class="image-clearfix" style="border-bottom: 1px solid black;">
-<p>Čočka na kyselo s klobásou <span style="float:right;">119 Kč</span></p>
-</div>
-
-<div class="image-clearfix" style="border-bottom: 1px solid black;">
-<p>Tortilla s kuřecím stripsem<span style="float:right;">129 Kč</span></p>
-</div>
-
-<div class="image-clearfix" style="border-bottom: 1px solid black;">
-<p>Vepřová panenka s americkými bramborami<span style="float:right;">135 Kč</span></p>
-</div>
-
-<div class="image-clearfix" style="border-bottom: 3px solid black;">
-<p>Grilovaný losos se zeleným salátkem a rozpečenou bagetkou<span style="float:right;">159 Kč</span></p>
-</div>
-
-<h2><br>
-Středa</h2>
-
-<p>Polévka: Kulajda</p>
-
-<div class="image-clearfix" style="border-bottom: 1px solid black;">
-<p>Čočka na kyselo s klobásou <span style="float:right;">119 Kč</span></p>
-</div>
-
-<div class="image-clearfix" style="border-bottom: 1px solid black;">
-<p>Tortilla s kuřecím stripsem<span style="float:right;">129 Kč</span></p>
-</div>
-
-<div class="image-clearfix" style="border-bottom: 1px solid black;">
-<p>Vepřová panenka s americkými bramborami<span style="float:right;">135 Kč</span></p>
-</div>
-
-<div class="image-clearfix" style="border-bottom: 3px solid black;">
-<p>Grilovaný losos se zeleným salátkem a rozpečenou bagetkou<span style="float:right;">159 Kč</span></p>
-</div>
-
-<h2><br>
-Čtvrtek</h2>
-
-<p>Polévka: Selská</p>
-
-<div class="image-clearfix" style="border-bottom: 1px solid black;">
-<p>Čočka na kyselo s klobásou <span style="float:right;">119 Kč</span></p>
-</div>
-
-<div class="image-clearfix" style="border-bottom: 1px solid black;">
-<p>Tortilla s kuřecím stripsem<span style="float:right;">129 Kč</span></p>
-</div>
-
-<div class="image-clearfix" style="border-bottom: 1px solid black;">
-<p>Vepřová panenka s americkými bramborami<span style="float:right;">135 Kč</span></p>
-</div>
-
-<div class="image-clearfix" style="border-bottom: 3px solid black;">
-<p>Grilovaný losos se zeleným salátkem a rozpečenou bagetkou<span style="float:right;">159 Kč</span></p>
-</div>
-
-<h2><br>
-Pátek</h2>
-
-<p>Polévka: Gulášová</p>
-
-<div class="image-clearfix" style="border-bottom: 1px solid black;">
-<p>Čočka na kyselo s klobásou <span style="float:right;">119 Kč</span></p>
-</div>
-
-<div class="image-clearfix" style="border-bottom: 1px solid black;">
-<p>Tortilla s kuřecím stripsem<span style="float:right;">129 Kč</span></p>
-</div>
-
-<div class="image-clearfix" style="border-bottom: 1px solid black;">
-<p>Vepřová panenka s americkými bramborami<span style="float:right;">135 Kč</span></p>
-</div>
-
-<div class="image-clearfix" style="border-bottom: 3px solid black;">
-<p>Grilovaný losos se zeleným salátkem a rozpečenou bagetkou<span style="float:right;">159 Kč</span></p>
-</div>
-</div>
-</div></p>
+\t\t\t\tPOLEDNÍ MENU
+\t\t\t</div>
 \t\t</div>
 
-\t</div>
-</section>
+\t\t<div class="in">
+\t\t\t<div class="content">
+\t\t\t\t<h1>Polední menu</h1>
+\t\t\t\t<p>
+\t\t\t\t\t<h2 style="text-align: center;">Vychutnejte si&nbsp;naše obědová menu v naší brněnské pobočce</h2>
+
+\t\t\t\t\t<p style="text-align: center;">Tento týden můžete vybírat z následující nabídky:</p>
+
+\t\t\t\t\t<div style="text-align:left;">
+\t\t\t\t\t\t<h2>Pondělí 14.3.2022</h2>
+
+\t\t\t\t\t\t<p>Polévka:&nbsp;Hovězí vývar s bylinkovým kapáním 1,3,7,9</p>
+
+\t\t\t\t\t\t<div class="image-clearfix" style="border-bottom: 1px solid black;">
+\t\t\t\t\t\t\t<p>MENU 1: Srbská kotleta, krokety 1<span style="float:right;">99 Kč</span></p>
+\t\t\t\t\t\t</div>
+
+\t\t\t\t\t\t<div class="image-clearfix" style="border-bottom: 1px solid black;">
+\t\t\t\t\t\t\t<p>MENU 2: Pizza Carbonara (smetana, sýr, slanina, cibule, vejce)
+\t\t\t\t\t\t\t\t1,3,7<span style="float:right;">109 Kč</span></p>
+\t\t\t\t\t\t</div>
+
+\t\t\t\t\t\t<div class="image-clearfix" style="border-bottom: 1px solid black;">
+\t\t\t\t\t\t\t<p>MENU 3: Křupavé kuřecí nugetky, sýrová omáčka, mačkané brambory
+\t\t\t\t\t\t\t\t1,3,7<span style="float:right;">119 Kč</span></p>
+\t\t\t\t\t\t</div>
+
+\t\t\t\t\t\t<div class="image-clearfix" style="border-bottom: 3px solid black;">
+\t\t\t\t\t\t\t<p>MENU 4: Risotto con Salmone (krémové rizoto s grilovaným lososem, listovým špenátem,
+\t\t\t\t\t\t\t\tparmazánem a limetkou 4,7<span style="float:right;">149 Kč</span></p>
+\t\t\t\t\t\t</div>
+
+\t\t\t\t\t\t<h2><br>
+Úterý 15.3.2022</h2>
+
+\t\t\t\t\t\t\t<p>Polévka: Hráškový krém 7</p>
+
+\t\t\t\t\t\t\t<div class="image-clearfix" style="border-bottom: 1px solid black;">
+\t\t\t\t\t\t\t\t<p>MENU 1: Karbenátky s mozzarellou, vařené brambory, okurek
+\t\t\t\t\t\t\t\t\t1,3,7<span style="float:right;">99 Kč</span></p>
+\t\t\t\t\t\t\t</div>
+
+\t\t\t\t\t\t\t<div class="image-clearfix" style="border-bottom: 1px solid black;">
+\t\t\t\t\t\t\t\t<p>MENU 2: Pizza Buffala (tomat, mozzarella, chorizo, rajčata, pepř)
+\t\t\t\t\t\t\t\t\t1,3,7<span style="float:right;">109 Kč</span></p>
+\t\t\t\t\t\t\t</div>
+
+\t\t\t\t\t\t\t<div class="image-clearfix" style="border-bottom: 1px solid black;">
+\t\t\t\t\t\t\t\t<p>MENU 3: Zapečená krkovička se sýrem a smetanou, hranolky
+\t\t\t\t\t\t\t\t\t1,7<span style="float:right;">119 Kč</span></p>
+\t\t\t\t\t\t\t</div>
+
+\t\t\t\t\t\t\t<div class="image-clearfix" style="border-bottom: 3px solid black;">
+\t\t\t\t\t\t\t\t<p>MENU 4: Kuřecí Tikka Masala, tortilla 1,3,7<span style="float:right;">149 Kč</span>
+\t\t\t\t\t\t\t\t</p>
+\t\t\t\t\t\t\t</div>
+
+\t\t\t\t\t\t\t<h2><br>
+Středa 16.3.2022</h2>
+
+\t\t\t\t\t\t\t\t<p>Polévka: Bramboračka s houbami 1</p>
+
+\t\t\t\t\t\t\t\t<div class="image-clearfix" style="border-bottom: 1px solid black;">
+\t\t\t\t\t\t\t\t\t<p>MENU 1: Kuře na paprice, kolínka 1,3,7
+\t\t\t\t\t\t\t\t\t\t<span style="float:right;">99 Kč</span></p>
+\t\t\t\t\t\t\t\t</div>
+
+\t\t\t\t\t\t\t\t<div class="image-clearfix" style="border-bottom: 1px solid black;">
+\t\t\t\t\t\t\t\t\t<p>MENU 2: Pizza Quattro Staggioni (1/4 sýr, 1/4 šunka, 1/4 žampiony, 1/4 slanina)
+\t\t\t\t\t\t\t\t\t\t1,3,7<span style="float:right;">109 Kč</span></p>
+\t\t\t\t\t\t\t\t</div>
+
+\t\t\t\t\t\t\t\t<div class="image-clearfix" style="border-bottom: 1px solid black;">
+\t\t\t\t\t\t\t\t\t<p>MENU 3: Smažená vepřová kapsa plněná nivou, bramborová kaše 1,3,7
+\t\t\t\t\t\t\t\t\t\t<span style="float:right;">119 Kč</span></p>
+\t\t\t\t\t\t\t\t</div>
+
+\t\t\t\t\t\t\t\t<div class="image-clearfix" style="border-bottom: 3px solid black;">
+\t\t\t\t\t\t\t\t\t<p>MENU 4: Burger s trhaným vepřovým masem, ementálem, ledovým salátem, rajčetem,
+\t\t\t\t\t\t\t\t\t\tmajonézou, hranolky 1,3,7<span style="float:right;">149 Kč</span></p>
+\t\t\t\t\t\t\t\t</div>
+
+\t\t\t\t\t\t\t\t<h2><br>
+Čtvrtek 17.3.2022</h2>
+
+\t\t\t\t\t\t\t\t\t<p>Polévka: Valašská kyselica s uzeninou 1,7</p>
+
+\t\t\t\t\t\t\t\t\t<div class="image-clearfix" style="border-bottom: 1px solid black;">
+\t\t\t\t\t\t\t\t\t\t<p>MENU 1: Pečené kuře s nádivkou, petrželková rýže, zelný salát 1,3,7
+\t\t\t\t\t\t\t\t\t\t\t<span style="float:right;">99 Kč</span></p>
+\t\t\t\t\t\t\t\t\t</div>
+
+\t\t\t\t\t\t\t\t\t<div class="image-clearfix" style="border-bottom: 1px solid black;">
+\t\t\t\t\t\t\t\t\t\t<p>MENU 2: Pizza Al Capone (tomat, sýr, šunka, salám, žampiony, vejce)
+\t\t\t\t\t\t\t\t\t\t\t1,3,7<span style="float:right;">109 Kč</span></p>
+\t\t\t\t\t\t\t\t\t</div>
+
+\t\t\t\t\t\t\t\t\t<div class="image-clearfix" style="border-bottom: 1px solid black;">
+\t\t\t\t\t\t\t\t\t\t<p>MENU 3: Krůtí řízek v bylinkové strouhance, mačkané brambory s polníčkem
+\t\t\t\t\t\t\t\t\t\t\t1,3,7 <span style="float:right;">119 Kč</span></p>
+\t\t\t\t\t\t\t\t\t</div>
+
+\t\t\t\t\t\t\t\t\t<div class="image-clearfix" style="border-bottom: 3px solid black;">
+\t\t\t\t\t\t\t\t\t\t<p>MENU 4: Zeleninový salát s pečenými paprikami, olivami, sušenou šunkou,
+\t\t\t\t\t\t\t\t\t\t\tparmazánem, zálivkou, pitta chléb
+\t\t\t\t\t\t\t\t\t\t\t1,3,4,7,10<span style="float:right;">149 Kč</span></p>
+\t\t\t\t\t\t\t\t\t</div>
+
+\t\t\t\t\t\t\t\t\t<h2><br>
+Pátek 18.3.2022</h2>
+
+\t\t\t\t\t\t\t\t\t\t<p>Polévka: Žampiónový smetanový krém 1,7</p>
+
+\t\t\t\t\t\t\t\t\t\t<div class="image-clearfix" style="border-bottom: 1px solid black;">
+\t\t\t\t\t\t\t\t\t\t\t<p>MENU 1: Vepřový vrabec, bílé zelí, houskový knedlík
+\t\t\t\t\t\t\t\t\t\t\t\t1,3,7<span style="float:right;">99 Kč</span></p>
+\t\t\t\t\t\t\t\t\t\t</div>
+
+\t\t\t\t\t\t\t\t\t\t<div class="image-clearfix" style="border-bottom: 1px solid black;">
+\t\t\t\t\t\t\t\t\t\t\t<p>MENU 2: Pizza Bologna (tomat, sýr, grilované kuřecí kousky, cheddar, BBQ,
+\t\t\t\t\t\t\t\t\t\t\t\tkukuřice) 1,3,7<span style="float:right;">109 Kč</span></p>
+\t\t\t\t\t\t\t\t\t\t</div>
+
+\t\t\t\t\t\t\t\t\t\t<div class="image-clearfix" style="border-bottom: 1px solid black;">
+\t\t\t\t\t\t\t\t\t\t\t<p>MENU 3: Filírované kuřecí prsíčko na zeleninovém pyré, vařené brambory s
+\t\t\t\t\t\t\t\t\t\t\t\tlibečkem 1<span style="float:right;">119 Kč</span></p>
+\t\t\t\t\t\t\t\t\t\t</div>
+
+\t\t\t\t\t\t\t\t\t\t<div class="image-clearfix" style="border-bottom: 3px solid black;">
+\t\t\t\t\t\t\t\t\t\t\t<p>MENU 4: Hovězí roštěná na houbách s hráškem, americké brambory 1
+\t\t\t\t\t\t\t\t\t\t\t\t<span style="float:right;">149 Kč</span></p>
+\t\t\t\t\t\t\t\t\t\t</div>
+\t\t\t\t\t</div>
+\t\t\t\t</p>
+\t\t\t</div>
+
+\t\t</div>
+\t</section>
 
 
 
 
 
 
-    <style>
+\t<style>
 \t\t#newsletter .in ul li.email input.sg-input {
 \t\t\tbackground-color: #ffffff;
 \t\t}
-    </style>
-
-    
-    <section id="newsletter" class="wrap" style="background-image: url('/upload/images/newletter-linka.jpg');">
+\t</style>
 
 
-<form class="in" action="/" method="post" id="frm-banner-subscriptionControl-form">
-    <p>Dovezeme vám novinky</p>
-    <h2>Přihlašte se k odběru newsletterů</h2>
-    <ul>
-        <li class="email">
-            <span>
+\t<section id="newsletter" class="wrap" style="background-image: url('/upload/images/newletter-linka.jpg');">
+
+
+\t\t<form class="in" action="/" method="post" id="frm-banner-subscriptionControl-form">
+\t\t\t<p>Dovezeme vám novinky</p>
+\t\t\t<h2>Přihlašte se k odběru newsletterů</h2>
+\t\t\t<ul>
+\t\t\t\t<li class="email">
+\t\t\t\t\t<span>
                 <input type="text" name="email" id="frm-banner-subscriptionControl-form-email" required data-nette-rules='[{"op":":filled","msg":"Pole E-mail: by mělo být vyplněné."},{"op":":email","msg":"Zadejte e-mail ve správném formátu."}]' class="sg-input" placeholder="Vaše e-mailová adresa">
             </span>
-        </li>
-        <li class="submit">
-            <button class="sg-button black icon right-arrow" type="submit" name="send" value="Přihlásit">
+\t\t\t\t</li>
+\t\t\t\t<li class="submit">
+\t\t\t\t\t<button class="sg-button black icon right-arrow" type="submit" name="send" value="Přihlásit">
                 Přihlásit se k odběru <i class="flaticon-right-arrow-1"></i>
             </button>
-        </li>
-    </ul>
-    <div class="agree">
-        <label for="frm-banner-subscriptionControl-form-agree"><input type="checkbox" name="agree" id="frm-banner-subscriptionControl-form-agree" required data-nette-rules='[{"op":":filled","msg":"Musíte protvrdit souhlas se zpracováním osobních údajů"}]'> Souhlasím se <a target="_blank" href="/zpracovani-osobnich-udaju">zpracováním osobních údajů</a> . </label>
-    </div>
-<input type="hidden" name="_aspm_" value="http://" class="aspm-control"><input type="hidden" name="_aspm_delay_" value="d949e0db9b"><input type="hidden" name="_do" value="banner-subscriptionControl-form-submit"></form>
-    </section>
+\t\t\t\t</li>
+\t\t\t</ul>
+\t\t\t<div class="agree">
+\t\t\t\t<label for="frm-banner-subscriptionControl-form-agree"><input type="checkbox" name="agree" id="frm-banner-subscriptionControl-form-agree" required data-nette-rules='[{"op":":filled","msg":"Musíte protvrdit souhlas se zpracováním osobních údajů"}]'> Souhlasím se <a target="_blank" href="/zpracovani-osobnich-udaju">zpracováním osobních údajů</a> . </label>
+\t\t\t</div>
+\t\t\t<input type="hidden" name="_aspm_" value="http://" class="aspm-control"><input type="hidden" name="_aspm_delay_" value="d943ad4e4e"><input type="hidden" name="_do" value="banner-subscriptionControl-form-submit"></form>
+\t</section>
 
 
-<footer id="footer" class="wrap">
-    <div class="in">
-
-
-
-
-
-
-    <div class="box ">
-        
-            <h4>O nákupu <i class="flaticon-down-arrow"></i></h4>
-        <div class="content">
-                <ul>
-                    <li>
-                        
-                        <a href="/o-nas">O nás</a>
-                    </li>
-                    <li>
-                        
-                        <a href="/obchodni-podminky">Obchodní podmínky</a>
-                    </li>
-                    <li>
-                        
-                        <a href="/zasady-zpracovani-osobnich-udaju">Zásady zpracování osobních údajů</a>
-                    </li>
-                    <li>
-                        
-                        <a href="/kontakt">Kontakty</a>
-                    </li>
-                </ul>
-        </div>
-    </div>
-    <div class="box ">
-        
-            <h4>Menu <i class="flaticon-down-arrow"></i></h4>
-        <div class="content">
-                <ul>
-                    <li>
-                        
-                        <a href="/jidelni-listek">Hlavní menu</a>
-                    </li>
-                    <li>
-                        
-                        <a href="/poledni-menu">Polední menu</a>
-                    </li>
-                </ul>
-        </div>
-    </div>
-    <div class="box ">
-        
-            <h4>Kategorie <i class="flaticon-down-arrow"></i></h4>
-        <div class="content">
-                <ul>
-                    <li>
-                        
-                        <a href="/pizza">Pizza</a>
-                    </li>
-                    <li>
-                        
-                        <a href="/testoviny">Těstoviny</a>
-                    </li>
-                    <li>
-                        
-                        <a href="/burgery">Burgery</a>
-                    </li>
-                    <li>
-                        
-                        <a href="/smazene">Smažené</a>
-                    </li>
-                    <li>
-                        
-                        <a href="/polevky">Polévky</a>
-                    </li>
-                    <li>
-                        
-                        <a href="/predkrmy">Předkrmy</a>
-                    </li>
-                    <li>
-                        
-                        <a href="/rizota">Rizota</a>
-                    </li>
-                    <li>
-                        
-                        <a href="/ryby">Ryby</a>
-                    </li>
-                    <li>
-                        
-                        <a href="/prilohy-a-salaty">Přílohy a saláty</a>
-                    </li>
-                    <li>
-                        
-                        <a href="/maso-a-omacky">Maso a omáčky</a>
-                    </li>
-                    <li>
-                        
-                        <a href="/dezerty">Dezerty</a>
-                    </li>
-                </ul>
-        </div>
-    </div>
-
-
-        <div class="box payment">
+\t<footer id="footer" class="wrap">
+\t\t<div class="in">
 
 
 
 
 
-        <h4>Platební možnosti</h4>
-        <div class="logos">
-            <ul>
-                <li>
-                    <img Visa src="/tmpl/boston/img/default/visa.svg" >
+
+\t\t\t<div class="box ">
+
+\t\t\t\t<h4>O nákupu <i class="flaticon-down-arrow"></i></h4>
+\t\t\t\t<div class="content">
+\t\t\t\t\t<ul>
+\t\t\t\t\t\t<li>
+
+\t\t\t\t\t\t\t<a href="/o-nas">O nás</a>
+\t\t\t\t\t\t</li>
+\t\t\t\t\t\t<li>
+
+\t\t\t\t\t\t\t<a href="/obchodni-podminky">Obchodní podmínky</a>
+\t\t\t\t\t\t</li>
+\t\t\t\t\t\t<li>
+
+\t\t\t\t\t\t\t<a href="/zasady-zpracovani-osobnich-udaju">Zásady zpracování osobních údajů</a>
+\t\t\t\t\t\t</li>
+\t\t\t\t\t\t<li>
+
+\t\t\t\t\t\t\t<a href="/kontakt">Kontakty</a>
+\t\t\t\t\t\t</li>
+\t\t\t\t\t</ul>
+\t\t\t\t</div>
+\t\t\t</div>
+\t\t\t<div class="box ">
+
+\t\t\t\t<h4>Menu <i class="flaticon-down-arrow"></i></h4>
+\t\t\t\t<div class="content">
+\t\t\t\t\t<ul>
+\t\t\t\t\t\t<li>
+
+\t\t\t\t\t\t\t<a href="/jidelni-listek">Hlavní menu</a>
+\t\t\t\t\t\t</li>
+\t\t\t\t\t\t<li>
+
+\t\t\t\t\t\t\t<a href="/poledni-menu">Polední menu</a>
+\t\t\t\t\t\t</li>
+\t\t\t\t\t</ul>
+\t\t\t\t</div>
+\t\t\t</div>
+\t\t\t<div class="box ">
+
+\t\t\t\t<h4>Kategorie <i class="flaticon-down-arrow"></i></h4>
+\t\t\t\t<div class="content">
+\t\t\t\t\t<ul>
+\t\t\t\t\t\t<li>
+
+\t\t\t\t\t\t\t<a href="/pizza">Pizza</a>
+\t\t\t\t\t\t</li>
+\t\t\t\t\t\t<li>
+
+\t\t\t\t\t\t\t<a href="/testoviny">Těstoviny</a>
+\t\t\t\t\t\t</li>
+\t\t\t\t\t\t<li>
+
+\t\t\t\t\t\t\t<a href="/burgery">Burgery</a>
+\t\t\t\t\t\t</li>
+\t\t\t\t\t\t<li>
+
+\t\t\t\t\t\t\t<a href="/smazene">Smažené</a>
+\t\t\t\t\t\t</li>
+\t\t\t\t\t\t<li>
+
+\t\t\t\t\t\t\t<a href="/polevky">Polévky</a>
+\t\t\t\t\t\t</li>
+\t\t\t\t\t\t<li>
+
+\t\t\t\t\t\t\t<a href="/predkrmy">Předkrmy</a>
+\t\t\t\t\t\t</li>
+\t\t\t\t\t\t<li>
+
+\t\t\t\t\t\t\t<a href="/rizota">Rizota</a>
+\t\t\t\t\t\t</li>
+\t\t\t\t\t\t<li>
+
+\t\t\t\t\t\t\t<a href="/ryby">Ryby</a>
+\t\t\t\t\t\t</li>
+\t\t\t\t\t\t<li>
+
+\t\t\t\t\t\t\t<a href="/prilohy-a-salaty">Přílohy a saláty</a>
+\t\t\t\t\t\t</li>
+\t\t\t\t\t\t<li>
+
+\t\t\t\t\t\t\t<a href="/maso-a-omacky">Maso a omáčky</a>
+\t\t\t\t\t\t</li>
+\t\t\t\t\t\t<li>
+
+\t\t\t\t\t\t\t<a href="/dezerty">Dezerty</a>
+\t\t\t\t\t\t</li>
+\t\t\t\t\t</ul>
+\t\t\t\t</div>
+\t\t\t</div>
+
+
+\t\t\t<div class="box payment">
+
+
+
+
+
+\t\t\t\t<h4>Platební možnosti</h4>
+\t\t\t\t<div class="logos">
+\t\t\t\t\t<ul>
+\t\t\t\t\t\t<li>
+\t\t\t\t\t\t\t<img Visa src="/tmpl/boston/img/default/visa.svg" >
                 </li>
-                <li>
-                    <img Mastercard src="/tmpl/boston/img/default/mastercard1.svg" >
+\t\t\t\t\t\t<li>
+\t\t\t\t\t\t\t<img Mastercard src="/tmpl/boston/img/default/mastercard1.svg" >
                 </li>
-            </ul>
-        </div>
+\t\t\t\t\t</ul>
+\t\t\t\t</div>
 
 
 
 
 
 
+\t\t\t\t<h4>Sociální sítě</h4>
+\t\t\t\t<div class="social">
+\t\t\t\t\t<ul>
+\t\t\t\t\t\t<li>
+
+\t\t\t\t\t\t\t<a class="facebook" href="https://www.facebook.com/pizzaalcaponebrno/" target="_blank">
+\t\t\t\t\t\t\t\t<i class="flaticon-facebook"></i>
+\t\t\t\t\t\t\t</a>
+\t\t\t\t\t\t</li>
+\t\t\t\t\t</ul>
+\t\t\t\t</div>
 
 
-        </div>
-    </div>
-    <div class="in copyright">
-        <p>Copyright 2022 <a href="" target="_blank"></a>. Všechna práva vyhrazena.</p>
-        <p class="author">Vytvořila <a href="https://www.hipromotion.cz/" target="_blank">Hi Promotion</a> <span>|</span> Powered by <a href="https://www.shopfocus.cz/" target="_blank">ShopFocus</a></p>
-    </div>
-</footer>
+\t\t\t</div>
+\t\t</div>
+\t\t<div class="in copyright">
+\t\t\t<p>Copyright 2022 <a href="" target="_blank"></a>. Všechna práva vyhrazena.</p>
+\t\t\t<p class="author">Vytvořila <a href="https://www.hipromotion.cz/" target="_blank">Hi Promotion</a>
+\t\t\t\t<span>|</span> Powered by <a href="https://www.shopfocus.cz/" target="_blank">ShopFocus</a></p>
+\t\t</div>
+\t</footer>
 
-<!-- Modal -->
+\t<!-- Modal -->
 
-<div id="login" class="sg-modal">
-\t<div class="in">
-\t\t<form action="/poledni-menu" method="post" id="frm-user-loginForm" class="form" data-ajax-container="self">
-\t\t\t<div class="content">
-\t\t\t\t<h2>Přihlášení</h2>
-\t\t\t\t<ul>
-\t\t\t\t\t<li>
-\t\t\t\t\t\t<label class="title" for="modal-login">E-mail</label>
-\t\t\t\t\t\t<span class="form">
+\t<div id="login" class="sg-modal">
+\t\t<div class="in">
+\t\t\t<form action="/poledni-menu" method="post" id="frm-user-loginForm" class="form" data-ajax-container="self">
+\t\t\t\t<div class="content">
+\t\t\t\t\t<h2>Přihlášení</h2>
+\t\t\t\t\t<ul>
+\t\t\t\t\t\t<li>
+\t\t\t\t\t\t\t<label class="title" for="modal-login">E-mail</label>
+\t\t\t\t\t\t\t<span class="form">
 \t\t\t\t\t\t\t<input type="text" name="email" id="frm-user-loginForm-email" required data-nette-rules='[{"op":":filled","msg":"Zadejte e-mail."},{"op":":email","msg":"Zadejte e-mail ve správném tvaru uzivatel&#64;example.com"}]' class="sg-input">
 \t\t\t\t\t\t</span>
-\t\t\t\t\t</li>
-\t\t\t\t\t<li>
-\t\t\t\t\t\t<label class="title" for="modal-password">Heslo</label>
-\t\t\t\t\t\t<span class="form">
+\t\t\t\t\t\t</li>
+\t\t\t\t\t\t<li>
+\t\t\t\t\t\t\t<label class="title" for="modal-password">Heslo</label>
+\t\t\t\t\t\t\t<span class="form">
 \t\t\t\t\t\t\t<input type="password" name="password" id="frm-user-loginForm-password" required data-nette-rules='[{"op":":filled","msg":"Pole Heslo: by mělo být vyplněné."}]' class="sg-input">
 \t\t\t\t\t\t</span>
-\t\t\t\t\t</li>
-\t\t\t\t</ul>
-\t\t\t\t<p class="nav">
-\t\t\t\t\t<button class="sg-button black icon right-arrow" type="submit" name="send" value="Přihlásit se">Přihlásit <i class="flaticon-right-arrow-1"></i></button>
-\t\t\t\t</p>
-\t\t\t\t<span class="close"><i class="flaticon-close"></i></span>
-\t\t\t\t<p>
-\t\t\t\t\t<a href="/zapomenute-heslo">Zapomenuté heslo (obnovení hesla)</a><br>
+\t\t\t\t\t\t</li>
+\t\t\t\t\t</ul>
+\t\t\t\t\t<p class="nav">
+\t\t\t\t\t\t<button class="sg-button black icon right-arrow" type="submit" name="send" value="Přihlásit se">Přihlásit <i class="flaticon-right-arrow-1"></i></button>
+\t\t\t\t\t</p>
+\t\t\t\t\t<span class="close"><i class="flaticon-close"></i></span>
+\t\t\t\t\t<p>
+\t\t\t\t\t\t<a href="/zapomenute-heslo">Zapomenuté heslo (obnovení hesla)</a><br>
 \t\t\t\t\tNemáte účet? <a href="/registrace" target="_blank">Registrujte se</a>
-\t\t\t\t</p>
-\t\t\t</div>
-\t\t<input type="hidden" name="_aspm_" value="http://" class="aspm-control"><input type="hidden" name="_aspm_delay_" value="d949e04e9d"><input type="hidden" name="_do" value="user-loginForm-submit"></form>
+\t\t\t\t\t</p>
+\t\t\t\t</div>
+\t\t\t\t<input type="hidden" name="_aspm_" value="http://" class="aspm-control"><input type="hidden" name="_aspm_delay_" value="d943b2d30a"><input type="hidden" name="_do" value="user-loginForm-submit"></form>
 
+\t\t</div>
 \t</div>
-</div>
 
 
 \t<script type="application/ld+json">
@@ -1018,51 +1036,57 @@ Pátek</h2>
         }
     ]
 }
-</script>
+\t</script>
 
 
-<div class="cookie-law-wrapper">
-    <div class="page cookie-law">
-        <div class="text">
-            <div class="cookie-law">
-<p>Provozovateli webu, společnost ROBE GROUP S.R.O., HRNČÍŘSKÁ 6, BRNO, 60200, IČO:05891043 a&nbsp;společnost WERO GROUP S.R.O., Tovární 22, Rajhrad, 66461, IČO:05891876,&nbsp;jako správci osobních údajů, zpracovávají na webu&nbsp;<a href="http://www.pizzaalcapone.cz/" rel="noreferrer" target="_blank">www.pizzaalcapone.cz</a>&nbsp;soubory cookies, které jsou potřebné pro fungování webových stránek a pro analytické účely&nbsp;a v případě Vašeho souhlasu také pro remarketing.&nbsp;</p>
-</div>
+\t<div class="cookie-law-wrapper">
+\t\t<div class="page cookie-law">
+\t\t\t<div class="text">
+\t\t\t\t<div class="cookie-law">
+\t\t\t\t\t<p>Provozovateli webu, společnost ROBE GROUP S.R.O., HRNČÍŘSKÁ 6, BRNO, 60200, IČO:05891043
+\t\t\t\t\t\ta&nbsp;společnost WERO GROUP S.R.O., Tovární 22, Rajhrad, 66461, IČO:05891876,&nbsp;jako správci
+\t\t\t\t\t\tosobních údajů, zpracovávají na webu&nbsp;<a href="http://www.pizzaalcapone.cz/"
+\t\t\t\t\t\t\trel="noreferrer" target="_blank">www.pizzaalcapone.cz</a>&nbsp;soubory cookies, které jsou
+\t\t\t\t\t\tpotřebné pro fungování webových stránek a pro analytické účely&nbsp;a v případě Vašeho souhlasu
+\t\t\t\t\t\ttaké pro remarketing.&nbsp;</p>
+\t\t\t\t</div>
 
-        </div>
-        <div class="buttons">
-            <a class="more sg-button black" target="_blank" href="/zpracovani-osobnich-udaju">Více informací</a>
-            <a class="close sg-button" href="#">Zavřít</a>
-        </div>
-    </div>
-</div>
-\t\t<!-- javascript -->
+\t\t\t</div>
+\t\t\t<div class="buttons">
+\t\t\t\t<a class="more sg-button black" target="_blank" href="/zpracovani-osobnich-udaju">Více informací</a>
+\t\t\t\t<a class="close sg-button" href="#">Zavřít</a>
+\t\t\t</div>
+\t\t</div>
+\t</div>
+\t<!-- javascript -->
 
-<script>
-    var _hwq = _hwq || [];
+\t<script>
+\t\tvar _hwq = _hwq || [];
     _hwq.push(['setKey', "test"]);_hwq.push(['setTopPos', '160']);_hwq.push(['showWidget', '21']);(function() {
         var ho = document.createElement('script'); ho.type = 'text/javascript'; ho.async = true;
         ho.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.' + "heureka.cz" + '/direct/i/gjs.php?n=wdgt&sak=' + "test";
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ho, s);
     })();
-</script>
-<div id="snippet--analytics:end">
+\t</script>
+\t<div id="snippet--analytics:end">
 
 
 
-</div>
-
-\t\t
-
-
-<script src="/temp/b40b1ada.js?4980f309"></script>
-
-<script src="/temp/033b1aee.js?e80c378a"></script>
-
-<script src="/temp/3e974379.js?fdda142f"></script>
+\t</div>
 
 
 
 
-\t</body>
+\t<script src="/temp/b40b1ada.js?8ce42bfe"></script>
+
+\t<script src="/temp/033b1aee.js?85f7377b"></script>
+
+\t<script src="/temp/3e974379.js?4e4af06c"></script>
+
+
+
+
+</body>
+
 </html>
 `;

@@ -1,6 +1,7 @@
 import * as cheerio from "cheerio";
 import { SlackAttachment } from "../common/interfaces";
 import Restaurant from "./Restaurant";
+import * as bent from "bent";
 
 class AlCapone extends Restaurant {
     protected url: string = "https://www.pizzaalcapone.cz/poledni-menu";
@@ -11,7 +12,39 @@ class AlCapone extends Restaurant {
         title_link: "https://www.pizzaalcapone.cz/poledni-menu",
     };
 
-    protected handleResponse(body: string) {
+    protected async getMenu(_: string) {
+        const getIntro = bent("https://www.pizzaalcapone.cz/poledni-menu", "GET");
+        const r = await getIntro();
+        const phpCookie = r.headers["set-cookie"].filter(x => x.startsWith("PHP"))[0].split(";")[0];
+        const introText = await r.text();
+        const redirectUrl = introText.match(/<a href=\"(\/poledni-menu\?id=[a-zA-Z0-9]+&amp;do=chooseAlcBranch)\">/i)[1].replace("&amp;", "&");
+
+
+        const getAllCookies = bent("https://www.pizzaalcapone.cz" + redirectUrl, "GET", 302, {
+            cookie: "_nss=1; " + phpCookie,
+            referer: "https://www.pizzaalcapone.cz/poledni-menu",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36",
+            "cache-control": "no-cache",
+            "sec-fetch-mode": "navigate",
+            "sec-fetch-site": "none",
+            "sec-fetch-user": "?1",
+        });
+        const cookiesResponse = await getAllCookies();
+
+        const getFinalMenu = bent("https://www.pizzaalcapone.cz/poledni-menu", "GET", 200, {
+            cookie: cookiesResponse.headers["set-cookie"].map(x => x.split(";")[0]).join(";"),
+            referer: "https://www.pizzaalcapone.cz/poledni-menu",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36",
+            "cache-control": "no-cache",
+            "sec-fetch-mode": "navigate",
+            "sec-fetch-site": "none",
+            "sec-fetch-user": "?1",
+        });
+
+        return this.handleResponse((await getFinalMenu()).text());
+    }
+
+    public handleResponse(body: string) {
         const $ = cheerio.load(body);
         const dishes = this.getDishes($);
 
@@ -20,8 +53,6 @@ class AlCapone extends Restaurant {
 
     private getDishes($) {
         const dayIndex = new Date().getDay();
-        const nodes = $(`div > h2:nth-child(${dayIndex + 1}) + p`);
-        const nodes2 = $(`div > h2:nth-child(${dayIndex + 1}) + p + div`);
 
         const dishes = [{
             dish: {
