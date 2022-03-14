@@ -1,7 +1,7 @@
 import * as cheerio from "cheerio";
 import { SlackAttachment } from "../common/interfaces";
 import Restaurant from "./Restaurant";
-import * as bent from "bent";
+import bent from "bent";
 
 class AlCapone extends Restaurant {
     protected url: string = "https://www.pizzaalcapone.cz/poledni-menu";
@@ -41,7 +41,9 @@ class AlCapone extends Restaurant {
             "sec-fetch-user": "?1",
         });
 
-        return this.handleResponse((await getFinalMenu()).text());
+        const finalMenu = await (await getFinalMenu()).text();
+
+        return this.handleResponse(finalMenu);
     }
 
     public handleResponse(body: string) {
