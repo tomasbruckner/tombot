@@ -17,6 +17,7 @@
   "license": "ISC",
   "dependencies": {
     "@slack/client": "^5.0.2",
+    "bent": "^7.3.12",
     "cron": "^1.8.2",
     "cheerio": "^1.0.0-rc.2",
     "node-cron": "^3.0.0",
