@@ -11,18 +11,18 @@ const ZOMATO_KEY = process.env.ZOMATO;
 const CHANNEL = process.env.CHANNEL;
 
 const rtm = new RTMClient(SLACK_TOKEN, {
-    useRtmConnect: true,
+  useRtmConnect: true,
 });
 
 const web = new WebClient(SLACK_TOKEN);
 
 new Bot(
-    SLACK_TOKEN,
-    ZOMATO_KEY,
-    CHANNEL,
-    new DayInfo(new NameDays(), new PublicHolidays()),
-    rtm,
-    web,
-    new RestaurantHandler(),
-    CronJob,
+  SLACK_TOKEN,
+  ZOMATO_KEY,
+  CHANNEL,
+  new DayInfo(new NameDays(), new PublicHolidays()),
+  rtm,
+  web,
+  new RestaurantHandler(),
+  CronJob
 ).start();

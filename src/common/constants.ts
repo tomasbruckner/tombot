@@ -1,6 +1,7 @@
 export const ALCAPONE_REGEX = /\b(alcapone|capone)(\b|\?)/i;
 
 export const DREVAK_REGEX = /\b(drevak)(\b|\?)/i;
+export const KAREL_REGEX = /\b(karel|karla)(\b|\?)/i;
 
 export const TAO_REGEX = /\b(tao)(\b|\?)/i;
 
