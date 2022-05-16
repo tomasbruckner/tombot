@@ -224,6 +224,7 @@ Check out these commands:
         help
         alcapone
         drevak
+        karel
         lightofindia
         selepka
         tao

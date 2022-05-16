@@ -1,3 +1,3 @@
 export enum SlackChannels {
-    DirectMessage = "D",
+  DirectMessage = "D",
 }

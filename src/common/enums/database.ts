@@ -1,4 +1,4 @@
 export enum Database {
-    NameDays,
-    PublicHolidays,
+  NameDays,
+  PublicHolidays,
 }
