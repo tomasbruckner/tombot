@@ -349,7 +349,7 @@ Check out these commands:
                 text: " all",
             });
 
-            const NUMBER_OF_EXPECTED_MENUS = 5;
+            const NUMBER_OF_EXPECTED_MENUS = 6;
             expect(promises.length).toBe(NUMBER_OF_EXPECTED_MENUS);
         });
     });

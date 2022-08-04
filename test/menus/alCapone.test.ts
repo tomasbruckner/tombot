@@ -26,34 +26,34 @@ const expectedSlackMenu = [
         "color": "#5da7ac",
         "fallback": "Restaurant menu",
         "footer": "",
-        "text": "Polévka: Hovězí vývar s bylinkovým kapáním 1,3,7,9",
+        "text": "Polévka: Valašská kyselica s uzeninou 1,7",
         "title": "Al Capone",
-        "title_link": "https://www.pizzaalcapone.cz/poledni-menu",
+        "title_link": "https://www.pizzaalcapone.cz/poledni-menu"
     },
     {
         "color": "#5da7ac",
         "fallback": "Restaurant menu",
         "footer": "Cena: 99 Kč",
-        "text": "MENU 1: Srbská kotleta, krokety 1",
+        "text": "MENU 1: Pečené kuře s nádivkou, petrželková rýže, zelný salát 1,3,7"
     },
     {
         "color": "#5da7ac",
         "fallback": "Restaurant menu",
         "footer": "Cena: 109 Kč",
-        "text": "MENU 2: Pizza Carbonara (smetana, sýr, slanina, cibule, vejce)\n\t\t\t\t\t\t\t\t1,3,7",
+        "text": "MENU 2: Pizza Al Capone (tomat, sýr, šunka, salám, žampiony, vejce)\n\t\t\t\t\t\t\t\t\t\t\t1,3,7"
     },
     {
         "color": "#5da7ac",
         "fallback": "Restaurant menu",
         "footer": "Cena: 119 Kč",
-        "text": "MENU 3: Křupavé kuřecí nugetky, sýrová omáčka, mačkané brambory\n\t\t\t\t\t\t\t\t1,3,7",
+        "text": "MENU 3: Krůtí řízek v bylinkové strouhance, mačkané brambory s polníčkem\n\t\t\t\t\t\t\t\t\t\t\t1,3,7"
     },
     {
         "color": "#5da7ac",
         "fallback": "Restaurant menu",
         "footer": "Cena: 149 Kč",
-        "text": "MENU 4: Risotto con Salmone (krémové rizoto s grilovaným lososem, listovým špenátem,\n\t\t\t\t\t\t\t\tparmazánem a limetkou 4,7",
-    },
+        "text": "MENU 4: Zeleninový salát s pečenými paprikami, olivami, sušenou šunkou,\n\t\t\t\t\t\t\t\t\t\t\tparmazánem, zálivkou, pitta chléb\n\t\t\t\t\t\t\t\t\t\t\t1,3,4,7,10"
+    }
 ];
 
 const response = `<!DOCTYPE html>
