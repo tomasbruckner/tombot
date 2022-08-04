@@ -61,7 +61,7 @@ class Bot {
   public getCronSettings() {
     return {
       cronTime: "0 8 * * 1-5",
-      onTick: this.sendAllByCron.bind(this),
+      onTick: () => this.sendAllByCron(),
       start: false,
       timeZone: "Europe/Prague",
     };
@@ -116,7 +116,7 @@ class Bot {
         messagePromises.push(this.sendMenu(Restaurants.Drevak, message));
       }
 
-      if (KAREL_REGEX.test(message.text)) {
+      if (all || KAREL_REGEX.test(message.text)) {
         messagePromises.push(this.sendMenu(Restaurants.Karel, message));
       }
 
