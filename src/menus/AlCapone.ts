@@ -90,7 +90,7 @@ class AlCapone extends Restaurant {
             `div > h2:nth-child(${6 * (dayIndex - 1) + 1}) + p + div`
           )[0].children[1].children[0].data.trim(),
           price: $(`div > h2:nth-child(${6 * (dayIndex - 1) + 1}) + p + div`)[0]
-            .children[1].children[1].children[0].data,
+            .children[1].children[1].children[0]?.data,
         },
       },
       {
@@ -100,7 +100,7 @@ class AlCapone extends Restaurant {
           )[0].children[1].children[0].data.trim(),
           price: $(
             `div > h2:nth-child(${6 * (dayIndex - 1) + 1}) + p + div + div`
-          )[0].children[1].children[1].children[0].data,
+          )[0].children[1].children[1].children[0]?.data,
         },
       },
       {
@@ -114,7 +114,7 @@ class AlCapone extends Restaurant {
             `div > h2:nth-child(${
               6 * (dayIndex - 1) + 1
             }) + p + div + div + div`
-          )[0].children[1].children[1].children[0].data,
+          )[0].children[1].children[1].children[0]?.data,
         },
       },
       {
@@ -128,7 +128,7 @@ class AlCapone extends Restaurant {
             `div > h2:nth-child(${
               6 * (dayIndex - 1) + 1
             }) + p + div + div + div + div`
-          )[0].children[1].children[1].children[0].data,
+          )[0].children[1].children[1].children[0]?.data,
         },
       },
     ];
