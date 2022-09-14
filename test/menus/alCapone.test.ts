@@ -8,7 +8,7 @@ describe("Al Capone", () => {
     beforeAll(() => {
         requestMock = jest.fn();
         const mockDate: any = function () {
-            this.getDay = () => 3;
+            this.getDay = () => 4;
         };
 
         global.Date = mockDate;
