@@ -81,7 +81,7 @@ class AlCapone extends Restaurant {
         {
           dish: {
             name: $(
-              `div > h2:nth-child(${6 * (dayIndex - 1) + 2}) + p`
+              `div > h2:nth-child(${6 * (dayIndex - 2) + 2}) + p`
             )[0].children[0].data.trim(),
             price: "",
           },
@@ -89,20 +89,20 @@ class AlCapone extends Restaurant {
         {
           dish: {
             name: $(
-              `div > h2:nth-child(${6 * (dayIndex - 1) + 2}) + p + div`
+              `div > h2:nth-child(${6 * (dayIndex - 2) + 2}) + p + div`
             )[0].children[1].children[0].data.trim(),
             price: $(
-              `div > h2:nth-child(${6 * (dayIndex - 1) + 2}) + p + div`
+              `div > h2:nth-child(${6 * (dayIndex - 2) + 2}) + p + div`
             )[0].children[1].children[1]?.children[0]?.data,
           },
         },
         {
           dish: {
             name: $(
-              `div > h2:nth-child(${6 * (dayIndex - 1) + 2}) + p + div + div`
+              `div > h2:nth-child(${6 * (dayIndex - 2) + 2}) + p + div + div`
             )[0].children[1].children[0].data.trim(),
             price: $(
-              `div > h2:nth-child(${6 * (dayIndex - 1) + 2}) + p + div + div`
+              `div > h2:nth-child(${6 * (dayIndex - 2) + 2}) + p + div + div`
             )[0].children[1].children[1]?.children[0]?.data,
           },
         },
@@ -110,12 +110,12 @@ class AlCapone extends Restaurant {
           dish: {
             name: $(
               `div > h2:nth-child(${
-                6 * (dayIndex - 1) + 2
+                6 * (dayIndex - 2) + 2
               }) + p + div + div + div`
             )[0].children[1].children[0].data.trim(),
             price: $(
               `div > h2:nth-child(${
-                6 * (dayIndex - 1) + 2
+                6 * (dayIndex - 2) + 2
               }) + p + div + div + div`
             )[0].children[1].children[1]?.children[0]?.data,
           },
@@ -124,12 +124,12 @@ class AlCapone extends Restaurant {
           dish: {
             name: $(
               `div > h2:nth-child(${
-                6 * (dayIndex - 1) + 2
+                6 * (dayIndex - 2) + 2
               }) + p + div + div + div + div`
             )[0].children[1].children[0].data.trim(),
             price: $(
               `div > h2:nth-child(${
-                6 * (dayIndex - 1) + 2
+                6 * (dayIndex - 2) + 2
               }) + p + div + div + div + div`
             )[0].children[1].children[1]?.children[0]?.data,
           },
