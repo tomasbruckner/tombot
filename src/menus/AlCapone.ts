@@ -74,121 +74,176 @@ class AlCapone extends Restaurant {
 
   private getDishes($) {
     const dayIndex = new Date().getDay();
-    let dishes = [];
+    let dishes;
 
-    if (dayIndex > 1) {
-      dishes = [
+    for (const parser of [this.getDishesV1, this.getDishesV2]) {
+      try {
+        dishes = parser($, dayIndex);
+        break;
+      } catch {}
+    }
+
+    if (!dishes) {
+      throw new Error("not found");
+    }
+
+    this.normalizePrices(dishes);
+
+    return dishes;
+  }
+
+  private getDishesV1($, dayIndex: number) {
+    return [
+      {
+        dish: {
+          name: $(
+            `div > h2:nth-of-type(${dayIndex + 1}) + p`
+          )[0].children[0].data.trim(),
+          price: "",
+        },
+      },
+      {
+        dish: {
+          name: $(
+            `div > h2:nth-of-type(${dayIndex + 1}) + p + p`
+          )[0].children[0].data.trim(),
+          price: $(
+            `div > h2:nth-of-type(${dayIndex + 1}) + p + p > span`
+          )[0].children[0].data.trim(),
+        },
+      },
+      {
+        dish: {
+          name: $(
+            `div > h2:nth-of-type(${dayIndex + 1}) + p + p + div > p`
+          )[0].children[0].data.trim(),
+          price: $(`div > h2:nth-of-type(${dayIndex + 1}) + p + p + div > p`)[0]
+            .children[2]?.data,
+        },
+      },
+      {
+        dish: {
+          name: $(
+            `div > h2:nth-of-type(${dayIndex + 1}) + p + p + div + div`
+          )[0].children[1].children[0].data.trim(),
+          price: $(
+            `div > h2:nth-of-type(${dayIndex + 1}) + p + p + div + div`
+          )[0].children[1].children[1]?.children[0]?.data,
+        },
+      },
+      {
+        dish: {
+          name: $(
+            `div > h2:nth-of-type(${dayIndex + 1}) + p + p + div + div + div`
+          )[0].children[1].children[0].data.trim(),
+          price: $(
+            `div > h2:nth-of-type(${dayIndex + 1}) + p + p + div + div + div`
+          )[0].children[1].children[1]?.children[0]?.data,
+        },
+      },
+    ];
+  }
+
+  private getDishesV2($, dayIndex: number) {
+    return [
+      {
+        dish: {
+          name: $(
+            `div > h2:nth-of-type(${dayIndex + 1}) + p`
+          )[0].children[0].data.trim(),
+          price: "",
+        },
+      },
+      {
+        dish: {
+          name: $(
+            `div > h2:nth-of-type(${dayIndex + 1}) + p + div > p`
+          )[0].children[0].data.trim(),
+          price: $(
+            `div > h2:nth-of-type(${dayIndex + 1}) + p + div > p > span`
+          )[0].children[0].data.trim(),
+        },
+      },
+      {
+        dish: {
+          name: $(
+            `div > h2:nth-of-type(${dayIndex + 1}) + p + div + div > p`
+          )[0].children[0].data.trim(),
+          price: $(
+            `div > h2:nth-of-type(${dayIndex + 1}) + p + div + div > p > span`
+          )[0].children[0]?.data.trim(),
+        },
+      },
+      {
+        dish: {
+          name: $(
+            `div > h2:nth-of-type(${dayIndex + 1}) + p + div + div + div > p`
+          )[0].children[0].data.trim(),
+          price: $(
+            `div > h2:nth-of-type(${dayIndex + 1}) + p + div + div + div > p > span`
+          )[0].children[0]?.data.trim(),
+        },
+      },
+      {
+        dish: {
+          name: $(
+            `div > h2:nth-of-type(${dayIndex + 1}) + p + div + div + div + div > p`
+          )[0].children[0].data.trim(),
+          price: $(
+            `div > h2:nth-of-type(${dayIndex + 1}) + p + div + div + div + div > p > span`
+          )[0].children[0]?.data.trim(),
+        },
+      },
+    ];
+  }
+
+  private getDishesV3($, dayIndex: number) {
+    if (dayIndex <= 1) {
+      return [
         {
           dish: {
-            name: $(
-              `div > h2:nth-child(${6 * (dayIndex - 2) + 2}) + p`
-            )[0].children[0].data.trim(),
+            name: $(`div > h2:nth-child(5) + p`)[0].children[0].data.trim(),
             price: "",
           },
         },
         {
           dish: {
-            name: $(
-              `div > h2:nth-child(${6 * (dayIndex - 2) + 2}) + p + div`
-            )[0].children[1].children[0].data.trim(),
-            price: $(
-              `div > h2:nth-child(${6 * (dayIndex - 2) + 2}) + p + div`
-            )[0].children[1].children[1]?.children[0]?.data,
-          },
-        },
-        {
-          dish: {
-            name: $(
-              `div > h2:nth-child(${6 * (dayIndex - 2) + 2}) + p + div + div`
-            )[0].children[1].children[0].data.trim(),
-            price: $(
-              `div > h2:nth-child(${6 * (dayIndex - 2) + 2}) + p + div + div`
-            )[0].children[1].children[1]?.children[0]?.data,
-          },
-        },
-        {
-          dish: {
-            name: $(
-              `div > h2:nth-child(${
-                6 * (dayIndex - 2) + 2
-              }) + p + div + div + div`
-            )[0].children[1].children[0].data.trim(),
-            price: $(
-              `div > h2:nth-child(${
-                6 * (dayIndex - 2) + 2
-              }) + p + div + div + div`
-            )[0].children[1].children[1]?.children[0]?.data,
-          },
-        },
-        {
-          dish: {
-            name: $(
-              `div > h2:nth-child(${
-                6 * (dayIndex - 2) + 2
-              }) + p + div + div + div + div`
-            )[0].children[1].children[0].data.trim(),
-            price: $(
-              `div > h2:nth-child(${
-                6 * (dayIndex - 2) + 2
-              }) + p + div + div + div + div`
-            )[0].children[1].children[1]?.children[0]?.data,
-          },
-        },
-      ];
-    } else {
-      dishes = [
-        {
-          dish: {
-            name: $(
-                `div > h2:nth-child(5) + p`
-            )[0].children[0].data.trim(),
-            price: "",
-          },
-        },
-        {
-          dish: {
-            name: $(
-                `div > h2:nth-child(5) + p + p`
-            )[0].children[0].data.trim(),
+            name: $(`div > h2:nth-child(5) + p + p`)[0].children[0].data.trim(),
             price: $(`div > h2:nth-child(5) + p + p`)[0].next?.data?.trim(),
           },
         },
         {
           dish: {
             name: $(
-                `div > h2:nth-child(5) + p + p + p`
+              `div > h2:nth-child(5) + p + p + p`
+            )[0].children[0].data.trim(),
+            price: $(`div > h2:nth-child(5) + p + p + p`)[0].next?.data?.trim(),
+          },
+        },
+        {
+          dish: {
+            name: $(
+              `div > h2:nth-child(5) + p + p + p + p`
             )[0].children[0].data.trim(),
             price: $(
-                `div > h2:nth-child(5) + p + p + p`
+              `div > h2:nth-child(5) + p + p + p + p`
             )[0].next?.data?.trim(),
           },
         },
         {
           dish: {
             name: $(
-                `div > h2:nth-child(5) + p + p + p + p`
+              `div > h2:nth-child(5) + p + p + p + p + p`
             )[0].children[0].data.trim(),
             price: $(
-                `div > h2:nth-child(5) + p + p + p + p`
-            )[0].next?.data?.trim(),
-          },
-        },
-        {
-          dish: {
-            name: $(
-                `div > h2:nth-child(5) + p + p + p + p + p`
-            )[0].children[0].data.trim(),
-            price: $(
-                `div > h2:nth-child(5) + p + p + p + p + p`
+              `div > h2:nth-child(5) + p + p + p + p + p`
             )[0].next?.data?.trim(),
           },
         },
       ];
     }
 
-    this.normalizePrices(dishes);
-
-    return dishes;
+    throw new Error("test");
   }
 
   private normalizePrices(dishes: any[]) {
@@ -198,7 +253,7 @@ class AlCapone extends Restaurant {
         continue;
       }
 
-      const price = matches[0]
+      const price = matches[0];
       dish.name = dish.name.trim().replace(/ ?\d+ ?Kč ?/i, "");
       dish.price = price;
     }
