@@ -1,77 +1,224 @@
 import AlCapone from "../../src/menus/AlCapone";
 
 describe("Al Capone", () => {
-    let requestMock;
-    let testedClass: AlCapone;
-    const originalDate = global.Date;
+  let requestMock;
+  let testedClass: AlCapone;
+  const originalDate = global.Date;
 
-    beforeAll(() => {
-        requestMock = jest.fn();
-        const mockDate: any = function () {
-            this.getDay = () => 4;
-        };
+  beforeAll(() => {
+    requestMock = jest.fn();
+    const mockDate: any = function () {
+      this.getDay = () => 3;
+    };
 
-        global.Date = mockDate;
-    });
+    global.Date = mockDate;
+  });
 
-    beforeEach(() => {
-        testedClass = new AlCapone({get: requestMock});
-    });
+  beforeEach(() => {
+    testedClass = new AlCapone({ get: requestMock });
+  });
 
+  afterAll(() => {
+    global.Date = originalDate;
+  });
 
-    afterAll(() => {
-        global.Date = originalDate;
-    });
+  test("Resolve menu response", () => {
+    for (let i = 1; i <= 5; i++) {
+      // @ts-ignore
+      global.Date = function () {
+        this.getDay = () => i;
+      };
+      expect(testedClass.handleResponse(response)).toEqual(
+        expectedSlackMenu[i - 1]
+      );
+    }
+  });
 
-    test("Resolve menu response", () => {
-        expect(testedClass.handleResponse(response)).toEqual(expectedSlackMenu);
-    });
-
-    afterEach(() => {
-        requestMock.mockReset();
-    });
+  afterEach(() => {
+    requestMock.mockReset();
+  });
 });
 
 const expectedSlackMenu = [
+  [
     {
-        "color": "#5da7ac",
-        "fallback": "Restaurant menu",
-        "footer": "",
-        "text": "Polévka: Čočková polévka s uzeninou 1",
-        "title": "Al Capone",
-        "title_link": "https://www.pizzaalcapone.cz/poledni-menu"
+      color: "#5da7ac",
+      fallback: "Restaurant menu",
+      footer: "",
+      text: "Polévka: Zeleninová krémová polévka 1,7",
+      title: "Al Capone",
+      title_link: "https://www.pizzaalcapone.cz/poledni-menu",
     },
     {
-        "color": "#5da7ac",
-        "fallback": "Restaurant menu",
-        "footer": "Cena: 109 Kč",
-        "text": "MENU 1: Vepřová pečeně, červené zelí, restované gnocchi 1,3,7"
+      color: "#5da7ac",
+      fallback: "Restaurant menu",
+      footer: "Cena: 109 Kč",
+      text: "MENU 1: Grilované kuřecí medailonky s přírodní šťávou, opékané brambory 1",
     },
     {
-        "color": "#5da7ac",
-        "fallback": "Restaurant menu",
-        "footer": "Cena: 119 Kč",
-        "text": "MENU 2: Pizza Quattro formaggi s kozími rohy  1,3,7"
+      color: "#5da7ac",
+      fallback: "Restaurant menu",
+      footer: "Cena: 119 Kč",
+      text: "MENU 2: Pizza Quattro formaggi se slaninou 1,3,7",
     },
     {
-        "color": "#5da7ac",
-        "fallback": "Restaurant menu",
-        "footer": "Cena: 129 Kč",
-        "text": "MENU 3: Kuřecí prsíčka zabalená ve slaninovém kabátku, cheddarová omáčka, štouchané brambory 1,7"
+      color: "#5da7ac",
+      fallback: "Restaurant menu",
+      footer: "Cena: 129 Kč",
+      text: "MENU 3: Smažené vepřové řízečky, bramborová kaše 1,3,7",
     },
     {
-        "color": "#5da7ac",
-        "fallback": "Restaurant menu",
-        "footer": "Cena: 159 Kč",
-        "text": "MENU 4: Smažený africký sumeček, bramborové pyré, limetková majonéza 1,3,4,7"
-    }
+      color: "#5da7ac",
+      fallback: "Restaurant menu",
+      footer: "Cena: 159Kč",
+      text: "MENU 4: Grilovaný losos na zeleninovém salátě, limetková zálivka, bagetky 1,3,4,7,10",
+    },
+  ],
+  [
+    {
+      color: "#5da7ac",
+      fallback: "Restaurant menu",
+      footer: "",
+      text: "Polévka: Polévka s kapáním 1,3,7,9",
+      title: "Al Capone",
+      title_link: "https://www.pizzaalcapone.cz/poledni-menu",
+    },
+    {
+      color: "#5da7ac",
+      fallback: "Restaurant menu",
+      footer: "Cena: 109 Kč",
+      text: "MENU 1: Marinovaná krkovička s česnekovým dipem, americké brambory 1,7",
+    },
+    {
+      color: "#5da7ac",
+      fallback: "Restaurant menu",
+      footer: "Cena: 119 Kč",
+      text: "MENU 2: Pizza Paolo (tomat, sýr, šunka, salám, uzený sýr) 1,3,7",
+    },
+    {
+      color: "#5da7ac",
+      fallback: "Restaurant menu",
+      footer: "Cena: 129 Kč",
+      text: "MENU 3: Smažená kuřecí kapsa plněná slaninou a nivou, bramborové pyré    1,3,7",
+    },
+    {
+      color: "#5da7ac",
+      fallback: "Restaurant menu",
+      footer: "Cena: 159 Kč",
+      text: "MENU 4:  Quesadilla s kuřecími stripsy, cheddarem, BBQ, kukuřicí 1,3,7",
+    },
+  ],
+  [
+    {
+      color: "#5da7ac",
+      fallback: "Restaurant menu",
+      footer: "",
+      text: "Polévka: Bramboračka s houbami 1",
+      title: "Al Capone",
+      title_link: "https://www.pizzaalcapone.cz/poledni-menu",
+    },
+    {
+      color: "#5da7ac",
+      fallback: "Restaurant menu",
+      footer: "Cena: 109 Kč",
+      text: "MENU 1: Penne Quattro formaggi s kuřecím masem, sypané sýrem 1,3,7",
+    },
+    {
+      color: "#5da7ac",
+      fallback: "Restaurant menu",
+      footer: "Cena: 119 Kč",
+      text: "MENU 2: Pizza Venezia (tomat, sýr, šunka, slanina, žampiony) 1,3,7",
+    },
+    {
+      color: "#5da7ac",
+      fallback: "Restaurant menu",
+      footer: "Cena: 129 Kč",
+      text: "MENU 3: Vepřový Texas steak,BBQ, hranolky 1",
+    },
+    {
+      color: "#5da7ac",
+      fallback: "Restaurant menu",
+      footer: "Cena: 159 Kč",
+      text: "MENU 4: Smažené masové kuličky plněné mozzarellou, mačkané brambory, mátová majonéza, zelný salát 1,3,7",
+    },
+  ],
+  [
+    {
+      color: "#5da7ac",
+      fallback: "Restaurant menu",
+      footer: "",
+      text: "Polévka: Kulajda s vejcem 1,3,7",
+      title: "Al Capone",
+      title_link: "https://www.pizzaalcapone.cz/poledni-menu",
+    },
+    {
+      color: "#5da7ac",
+      fallback: "Restaurant menu",
+      footer: "Cena: 109 Kč",
+      text: "MENU 1: Čevabčici, hořčice, cibule, vařené brambory 1,3,7,10",
+    },
+    {
+      color: "#5da7ac",
+      fallback: "Restaurant menu",
+      footer: "Cena: 119 Kč",
+      text: "MENU 2: Pizza Americana (tomat, sýr, šunka, salám, kukuřice, kečup) 1,3,7",
+    },
+    {
+      color: "#5da7ac",
+      fallback: "Restaurant menu",
+      footer: "Cena: 129 Kč",
+      text: "MENU 3: Kuřecí filet na pečených žampionech, krokety 1",
+    },
+    {
+      color: "#5da7ac",
+      fallback: "Restaurant menu",
+      footer: "Cena: 159 Kč",
+      text: "MENU 4: Burger Al Capone, hranolky 1,3,7",
+    },
+  ],
+  [
+    {
+      color: "#5da7ac",
+      fallback: "Restaurant menu",
+      footer: "",
+      text: "Polévka: Hovězí vývar se zeleninou a nudlemi 1,3,7,9",
+      title: "Al Capone",
+      title_link: "https://www.pizzaalcapone.cz/poledni-menu",
+    },
+    {
+      color: "#5da7ac",
+      fallback: "Restaurant menu",
+      footer: "Cena: 109 Kč",
+      text: "MENU 1: Zapečené selské brambory s kuřecím masem, mrkvový salát 7",
+    },
+    {
+      color: "#5da7ac",
+      fallback: "Restaurant menu",
+      footer: "Cena: 119 Kč",
+      text: "MENU 2: Pizza Mia (tomat, sýr, salám, ostrá klobáska, niva) 1,3,7",
+    },
+    {
+      color: "#5da7ac",
+      fallback: "Restaurant menu",
+      footer: "Cena: 129 Kč",
+      text: "MENU 3: Vepřová panenka plněná uzeným sýrem, steakové hranolky, bylinková omáčka 1,7",
+    },
+    {
+      color: "#5da7ac",
+      fallback: "Restaurant menu",
+      footer: "Cena: 159 Kč",
+      text: "MENU 4: Grilovaná mozzarella v parmské šunce na salátě, bagetky 1,3,7,10",
+    },
+  ],
 ];
 
-const response = `<html lang="cs" class="external-fonts-loaded js-focus-visible no-touch"><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+const response = `<!DOCTYPE html>
+<!-- saved from url=(0041)https://www.pizzaalcapone.cz/poledni-menu -->
+<html lang="cs" class="external-fonts-loaded js-focus-visible no-touch"><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
 
     <!-- metas -->
-    <meta charset="utf-8">
+    
 
     <meta name="description" content="">
     <meta name="robots" content="">
@@ -90,61 +237,63 @@ const response = `<html lang="cs" class="external-fonts-loaded js-focus-visible 
 
     <link rel="canonical" href="https://www.pizzaalcapone.cz/poledni-menu">
 
-    <link rel="alternate" type="application/rss+xml" title="RSS" href="/service/rss/">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="https://www.pizzaalcapone.cz/service/rss/">
 
 
     <!-- stylesheets -->
-    <link rel="stylesheet" href="/project/templates/boston/front.css?62a241a7">
+    <link rel="stylesheet" href="./Polední menu _ Pizza Al Capone_files/front.css">
 
-        <link rel="stylesheet" href="/project/templates/boston/custom-colors.css?658d3346">
-        <link rel="stylesheet" href="/project/templates/boston/custom-dimension-properties.css?8cabe18b">
-        <link rel="stylesheet" href="/project/templates/boston/custom.css?f1d6c06c">
+        <link rel="stylesheet" href="./Polední menu _ Pizza Al Capone_files/custom-colors.css">
+        <link rel="stylesheet" href="./Polední menu _ Pizza Al Capone_files/custom-dimension-properties.css">
+        <link rel="stylesheet" href="./Polední menu _ Pizza Al Capone_files/custom.css">
 
     <!-- icons -->
 
-        <link rel="shortcut icon" href="/project/favicon.ico">
+        <link rel="shortcut icon" href="https://www.pizzaalcapone.cz/project/favicon.ico">
 
     <!-- javascript -->
-<script type="text/javascript" async="" src="https://ssl.heureka.cz/direct/i/gjs.php?n=wdgt&amp;sak=test"></script><script>
-\tvar APPLICATION_BASEPATH = "";
-\tvar AF_MONEY_DECIMALS = 2;
+<script type="text/javascript" async="" src="./Polední menu _ Pizza Al Capone_files/gjs.php"></script><script>
+    var APPLICATION_BASEPATH = "";
+    var AF_MONEY_DECIMALS = 0;
+    var AF_MONEY_SYMBOL = "CZK";
+    var afProject = {};
 </script>
 
-    <link href="https://fonts.googleapis.com/css2?family=Spartan:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Source Sans Pro:300,400,700,900&amp;subset=latin-ext" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Exo 2:300,400,700,900&amp;subset=latin-ext" rel="stylesheet">
+    <link href="./Polední menu _ Pizza Al Capone_files/css2" rel="stylesheet">
+    <link href="./Polední menu _ Pizza Al Capone_files/css" rel="stylesheet">
+    <link href="./Polední menu _ Pizza Al Capone_files/css(1)" rel="stylesheet">
 
-    <script src="/temp/22ab4e92.js?86af7d71"></script>
+    <script src="./Polední menu _ Pizza Al Capone_files/22ab4e92.js.download"></script>
 
-    <link rel="stylesheet" href="/components/bower/fancybox/source/jquery.fancybox.css?f86d0749">
+    <link rel="stylesheet" href="./Polední menu _ Pizza Al Capone_files/jquery.fancybox.css">
 
     
 
     <!--[if lt IE 9]>
-    <script src="/temp/200e6cab.js?b13876b4"></script>
+    <script src="/temp/200e6cab.js?51ba2020"></script>
     <![endif]-->
 
     <title id="snippet--title">Polední menu | Pizza Al Capone</title>
 \t\t
-<script src="/components/bower/smalot-bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script><script src="/components/bower/smalot-bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.cs.js"></script><style type="text/css">.fancybox-margin{margin-right:17px;}</style></head>
+<script src="./Polední menu _ Pizza Al Capone_files/bootstrap-datetimepicker.js.download"></script><script src="./Polední menu _ Pizza Al Capone_files/bootstrap-datetimepicker.cs.js.download"></script><style type="text/css">.fancybox-margin{margin-right:17px;}</style></head>
 
 \t
-\t<body class="sub" data-new-gr-c-s-check-loaded="14.1079.0" data-gr-ext-installed="">
+\t<body class="sub" data-new-gr-c-s-check-loaded="14.1085.0" data-gr-ext-installed="">
 <script>
 \tvar af = af || {};
 \taf.campaignTracking = {
 \t\tconfig: {
-\t\t\ttarget: "https://www.pizzaalcapone.cz/poledni-menu?do=campaignTracking-track",
-\t\t\ttoken: "qfc90i7loc",
+\t\t\ttarget: "/poledni-menu",
+\t\t\ttoken: "g7iashg3gu",
 \t\t\tlocation: window.location
 \t\t},
 \t\tdata: {
 \t\t\turl: window.location.href,
-\t\t\treferrer: "https://www.pizzaalcapone.cz/poledni-menu"
+\t\t\treferrer: "https://www.pizzaalcapone.cz/"
 \t\t}
 \t};
 </script>
-<script src="/temp/80a4abf2.js?90c61016" async="" defer=""></script>
+<script src="./Polední menu _ Pizza Al Capone_files/329b33c0.js.download" async="" defer=""></script>
 
 <div id="snippet--analytics:start">
 
@@ -189,12 +338,12 @@ const response = `<html lang="cs" class="external-fonts-loaded js-focus-visible 
             <ul>
                 <li class="branch">
                         <span>Brno</span>
-                        <a href="#" id="choose-branch">změnit restauraci <i class="flaticon-right-arrow-1"></i></a>
+                        <a href="https://www.pizzaalcapone.cz/poledni-menu#" id="choose-branch">změnit restauraci <i class="flaticon-right-arrow-1"></i></a>
                 </li>
                 <li>
                         <a>tel.:</a> <a href="tel:+420 541 210 555">+420 541 210 555</a></li>
                 <li><a href="mailto:info@pizzaalcapone.cz"><span>info@pizzaalcapone.cz</span></a></li>
-                <li><a href="/kontakt">Kontakty</a></li>
+                <li><a href="https://www.pizzaalcapone.cz/kontakt">Kontakty</a></li>
             </ul>
         </div>
     </div>
@@ -206,8 +355,8 @@ const response = `<html lang="cs" class="external-fonts-loaded js-focus-visible 
 
 
 
-    <a class="" href="/">
-        <img logo="" src="/upload/images/logo-alcapone.png">
+    <a class="" href="https://www.pizzaalcapone.cz/">
+        <img title="logo" src="./Polední menu _ Pizza Al Capone_files/logo-alcapone.png" class="bitmap">
     </a>
 
             </div>
@@ -218,7 +367,7 @@ const response = `<html lang="cs" class="external-fonts-loaded js-focus-visible 
                     <div class="hidden-mobile">
 
 
-<form action="/vyhledavani" method="get" id="frm-search-search" class="search toggle" novalidate="">
+<form action="https://www.pizzaalcapone.cz/vyhledavani" method="get" id="frm-search-search" class="search toggle" novalidate="">
     <ul>
         <li class="keyword">
             <input type="text" name="search" placeholder="Chci najít..." id="suggest-desktop" required="" data-nette-rules="[{&quot;op&quot;:&quot;:filled&quot;,&quot;msg&quot;:&quot;Pole Hledat: by mělo být vyplněné.&quot;}]" class="sg-input search-suggestion" autocomplete="off">
@@ -245,7 +394,7 @@ const response = `<html lang="cs" class="external-fonts-loaded js-focus-visible 
 
 
 <li class="header-user">
-\t<a class="user-toggle" href="#"><i class="flaticon-user"></i></a>
+\t<a class="user-toggle" href="https://www.pizzaalcapone.cz/poledni-menu#"><i class="flaticon-user"></i></a>
 </li>
 
                 <li id="snippet--cartInfo:summary">
@@ -253,7 +402,7 @@ const response = `<html lang="cs" class="external-fonts-loaded js-focus-visible 
 
 
 
-\t<a class="basket-toggle" href="/kosik">
+\t<a class="basket-toggle" href="https://www.pizzaalcapone.cz/kosik">
 \t\t<i class="flaticon-shopping-cart"></i>
 
 \t\t\t<span>Prázdný košík</span>
@@ -270,13 +419,13 @@ const response = `<html lang="cs" class="external-fonts-loaded js-focus-visible 
         <ul>
             
                 <li class="crazy-item">
-                    <a href="/jidelni-listek" class="has-submenu">
+                    <a href="https://www.pizzaalcapone.cz/jidelni-listek" class="has-submenu">
                         OBJEDNAT JÍDLO <i class="flaticon-down-arrow"></i>
                     </a>
                     <div class="submenu">
                         <div class="item">
                             
-                            <a href="/pizza">
+                            <a href="https://www.pizzaalcapone.cz/pizza">
                                 <h2>Pizza</h2>
                             </a>
                             <ul>
@@ -284,7 +433,7 @@ const response = `<html lang="cs" class="external-fonts-loaded js-focus-visible 
                         </div>
                         <div class="item">
                             
-                            <a href="/testoviny">
+                            <a href="https://www.pizzaalcapone.cz/testoviny">
                                 <h2>Těstoviny</h2>
                             </a>
                             <ul>
@@ -292,7 +441,7 @@ const response = `<html lang="cs" class="external-fonts-loaded js-focus-visible 
                         </div>
                         <div class="item">
                             
-                            <a href="/burgery">
+                            <a href="https://www.pizzaalcapone.cz/burgery">
                                 <h2>Burgery</h2>
                             </a>
                             <ul>
@@ -300,7 +449,7 @@ const response = `<html lang="cs" class="external-fonts-loaded js-focus-visible 
                         </div>
                         <div class="item">
                             
-                            <a href="/smazene">
+                            <a href="https://www.pizzaalcapone.cz/smazene">
                                 <h2>Smažené</h2>
                             </a>
                             <ul>
@@ -308,7 +457,7 @@ const response = `<html lang="cs" class="external-fonts-loaded js-focus-visible 
                         </div>
                         <div class="item">
                             
-                            <a href="/polevky">
+                            <a href="https://www.pizzaalcapone.cz/polevky">
                                 <h2>Polévky</h2>
                             </a>
                             <ul>
@@ -316,7 +465,7 @@ const response = `<html lang="cs" class="external-fonts-loaded js-focus-visible 
                         </div>
                         <div class="item">
                             
-                            <a href="/predkrmy">
+                            <a href="https://www.pizzaalcapone.cz/predkrmy">
                                 <h2>Předkrmy</h2>
                             </a>
                             <ul>
@@ -324,7 +473,7 @@ const response = `<html lang="cs" class="external-fonts-loaded js-focus-visible 
                         </div>
                         <div class="item">
                             
-                            <a href="/rizota">
+                            <a href="https://www.pizzaalcapone.cz/rizota">
                                 <h2>Rizota</h2>
                             </a>
                             <ul>
@@ -332,7 +481,7 @@ const response = `<html lang="cs" class="external-fonts-loaded js-focus-visible 
                         </div>
                         <div class="item">
                             
-                            <a href="/ryby">
+                            <a href="https://www.pizzaalcapone.cz/ryby">
                                 <h2>Ryby</h2>
                             </a>
                             <ul>
@@ -340,7 +489,7 @@ const response = `<html lang="cs" class="external-fonts-loaded js-focus-visible 
                         </div>
                         <div class="item">
                             
-                            <a href="/prilohy-a-salaty">
+                            <a href="https://www.pizzaalcapone.cz/prilohy-a-salaty">
                                 <h2>Přílohy a saláty</h2>
                             </a>
                             <ul>
@@ -348,7 +497,7 @@ const response = `<html lang="cs" class="external-fonts-loaded js-focus-visible 
                         </div>
                         <div class="item">
                             
-                            <a href="/maso-a-omacky">
+                            <a href="https://www.pizzaalcapone.cz/maso-a-omacky">
                                 <h2>Maso a omáčky</h2>
                             </a>
                             <ul>
@@ -356,7 +505,7 @@ const response = `<html lang="cs" class="external-fonts-loaded js-focus-visible 
                         </div>
                         <div class="item">
                             
-                            <a href="/dezerty">
+                            <a href="https://www.pizzaalcapone.cz/dezerty">
                                 <h2>Dezerty</h2>
                             </a>
                             <ul>
@@ -366,23 +515,23 @@ const response = `<html lang="cs" class="external-fonts-loaded js-focus-visible 
                 </li>
 
                 <li class="crazy-item">
-                    <a href="/poledni-menu">
+                    <a href="https://www.pizzaalcapone.cz/poledni-menu">
                         POLEDNÍ MENU                     </a>
                 </li>
 
                 <li class="crazy-item">
-                    <a href="/o-nas">
+                    <a href="https://www.pizzaalcapone.cz/o-nas">
                         O NÁS                     </a>
                 </li>
 
                 <li class="crazy-item">
-                    <a href="/fotogalerie" class="has-submenu">
+                    <a href="https://www.pizzaalcapone.cz/fotogalerie" class="has-submenu">
                         FOTOGALERIE <i class="flaticon-down-arrow"></i>
                     </a>
                     <div class="submenu">
                         <div class="item">
                             
-                            <a href="/restaurace-brno">
+                            <a href="https://www.pizzaalcapone.cz/restaurace-brno">
                                 <h2>Al Capone Brno</h2>
                             </a>
                             <ul>
@@ -390,7 +539,7 @@ const response = `<html lang="cs" class="external-fonts-loaded js-focus-visible 
                         </div>
                         <div class="item">
                             
-                            <a href="/restaurace-rajhrad">
+                            <a href="https://www.pizzaalcapone.cz/restaurace-rajhrad">
                                 <h2>Al Capone Rajhrad</h2>
                             </a>
                             <ul>
@@ -409,25 +558,25 @@ const response = `<html lang="cs" class="external-fonts-loaded js-focus-visible 
         <ul>
             <li class="hidden">
                 
-                <a href="/jidelni-listek">
+                <a href="https://www.pizzaalcapone.cz/jidelni-listek">
                     <span>OBJEDNAT JÍDLO</span>
                 </a>
             </li>
             <li class="hidden">
                 
-                <a href="/poledni-menu">
+                <a href="https://www.pizzaalcapone.cz/poledni-menu">
                     <span>POLEDNÍ MENU</span>
                 </a>
             </li>
             <li class="hidden">
                 
-                <a href="/o-nas">
+                <a href="https://www.pizzaalcapone.cz/o-nas">
                     <span>O NÁS</span>
                 </a>
             </li>
             <li class="hidden">
                 
-                <a href="/fotogalerie">
+                <a href="https://www.pizzaalcapone.cz/fotogalerie">
                     <span>FOTOGALERIE</span>
                 </a>
             </li>
@@ -533,7 +682,7 @@ const response = `<html lang="cs" class="external-fonts-loaded js-focus-visible 
             <div class="visible-mobile">
 
 
-<form action="/vyhledavani" method="get" id="frm-search-search" class="search toggle" novalidate="">
+<form action="https://www.pizzaalcapone.cz/vyhledavani" method="get" id="frm-search-search" class="search toggle" novalidate="">
     <ul>
         <li class="keyword">
             <input type="text" name="search" placeholder="Chci najít..." id="suggest-desktop" required="" data-nette-rules="[{&quot;op&quot;:&quot;:filled&quot;,&quot;msg&quot;:&quot;Pole Hledat: by mělo být vyplněné.&quot;}]" class="sg-input search-suggestion" autocomplete="off">
@@ -631,13 +780,13 @@ const response = `<html lang="cs" class="external-fonts-loaded js-focus-visible 
     <div class="branch-popup-front"><h2>Vyberte si prosím pobočku</h2></div>
     <div class="branch-popup-front">
         <div>
-            <a href="/poledni-menu?id=0fda65605cdd11eca4000cc47a0ca484&amp;do=chooseAlcBranch">
-                <img src="/upload/images/brno.jpg">
+            <a href="https://www.pizzaalcapone.cz/poledni-menu?id=0fda65605cdd11eca4000cc47a0ca484&amp;do=chooseAlcBranch">
+                <img src="./Polední menu _ Pizza Al Capone_files/brno.jpg">
             </a>
         </div>
         <div>
-            <a href="/poledni-menu?id=f8ea20c05cdc11ec9cd70cc47a0ca484&amp;do=chooseAlcBranch">
-                <img src="/upload/images/rajhrad-3.jpg">
+            <a href="https://www.pizzaalcapone.cz/poledni-menu?id=f8ea20c05cdc11ec9cd70cc47a0ca484&amp;do=chooseAlcBranch">
+                <img src="./Polední menu _ Pizza Al Capone_files/rajhrad-3.jpg">
             </a>
         </div>
     </div>
@@ -669,7 +818,7 @@ const response = `<html lang="cs" class="external-fonts-loaded js-focus-visible 
 
 <div class="breadcrumbs">
 \t<div class="in">
-\t\t<a href="/">Úvodní strana</a>
+\t\t<a href="https://www.pizzaalcapone.cz/">Úvodní strana</a>
 \t\t<i class="flaticon-right-arrow"></i>
 
 POLEDNÍ MENU\t\t\t
@@ -683,116 +832,153 @@ POLEDNÍ MENU\t\t\t
 
 <p style="text-align: center;">Tento týden můžete vybírat z následující nabídky&nbsp;</p>
 
-<h2 style="font-style:italic;"><font face="Georgia, serif">Pondělí 12<span style="font-family:Arial,Helvetica,sans-serif;">.09.2022</span><span style="font-family:Times New Roman,Times,serif;"></span></font></h2>
+<h2>Pondělí 31.10.2022</h2>
 
-<p>Polévka: Bramboračka s houbami 1</p>
+<p>Polévka: Zeleninová krémová polévka 1,7</p>
 
-<p>MENU 1: Fettuccine s kuřecím masem a listovým špenátem, sypané sýrem 1,3,7&nbsp;</p>
-109 Kč
-
-<p>MENU 2: Pizza Cardinale s kukuřicí 1,3,7</p>
-119 Kč
-
-<p>MENU 3: Smažená vepřová kotleta plněná ementálem, bramborová kaše 1,3,7&nbsp;</p>
-129 Kč
-
-<p>MENU 4: &nbsp;Mix listových salátů se zelím, rukolou, polníčkem, vlašskými ořechy, balkánským sýrem, krevetami, toustíky 1,3,4,7,10</p>
-159 Kč
-
-<p>Rajčatový salát s cibulí 40,-&nbsp;</p>
-
-<div style="text-align:left;">
 <div class="image-clearfix" style="border-bottom: 1px solid black;">
+<p>MENU 1: Grilované kuřecí medailonky s přírodní šťávou, opékané brambory 1<span style="float:right;">109 Kč</span></p>
+</div>
+
+<div class="image-clearfix" style="border-bottom: 1px solid black;">
+<p>MENU 2: Pizza Quattro formaggi se slaninou 1,3,7<span style="float:right;">119 Kč</span></p>
+</div>
+
+<div class="image-clearfix" style="border-bottom: 1px solid black;">
+<p>MENU 3: Smažené vepřové řízečky, bramborová kaše 1,3,7<span style="float:right;">129 Kč</span></p>
+</div>
+
+<div class="image-clearfix" style="border-bottom: 1px solid black;">
+<p>MENU 4: Grilovaný losos na zeleninovém salátě, limetková zálivka, bagetky 1,3,4,7,10<span style="float:right;">159Kč</span></p>
+</div>
+
+<p></p>
+
+<div class="image-clearfix" style="border-bottom: 1px solid black;">
+<p>Zeleninový salát <span style="float:right;">40 Kč</span></p>
+</div>
+
+<div class="image-clearfix" style="border-bottom: 3px solid black;">
+<p><span style="float:right;"> </span></p>
+</div>
+
+<h2><br>
+Úterý 01.11.&nbsp;2022</h2>
+
+<p>Polévka: Polévka s kapáním 1,3,7,9</p>
+
+<div class="image-clearfix" style="border-bottom: 1px solid black;">
+<p>MENU 1: Marinovaná krkovička s česnekovým dipem, americké brambory 1,7<span style="float:right;">109 Kč</span></p>
+</div>
+
+<div class="image-clearfix" style="border-bottom: 1px solid black;">
+<p>MENU 2: Pizza Paolo (tomat, sýr, šunka, salám, uzený sýr) 1,3,7<span style="float:right;">119 Kč</span></p>
+</div>
+
+<div class="image-clearfix" style="border-bottom: 1px solid black;">
+<p>MENU 3: Smažená kuřecí kapsa plněná slaninou a nivou, bramborové pyré &nbsp; &nbsp;1,3,7<span style="float:right;">129 Kč</span></p>
+</div>
+
+<div class="image-clearfix" style="border-bottom: 1px solid black;">
+<p>MENU 4:&nbsp; Quesadilla s kuřecími stripsy, cheddarem, BBQ, kukuřicí 1,3,7<span style="float:right;">159 Kč</span></p>
+</div>
+
+<p></p>
+
+<div class="image-clearfix" style="border-bottom: 1px solid black;">
+<p>Zeleninový salát<span style="float:right;">40 Kč</span></p>
+</div>
+
+<div class="image-clearfix" style="border-bottom: 3px solid black;">
+<p><span style="float:right;"></span></p>
+</div>
+
+<p><span style="font-size: 36px;"><strong></strong></span></p>
+
+<h2><br>
+Středa 02.11.2022</h2>
+
+<p>Polévka: Bramboračka s houbami 1<span style="float:right;"></span></p>
+
+<div class="image-clearfix" style="border-bottom: 1px solid black;">
+<p>MENU 1: Penne Quattro formaggi s kuřecím masem, sypané sýrem 1,3,7<span style="float:right;">109 Kč</span></p>
+</div>
+
+<div class="image-clearfix" style="border-bottom: 1px solid black;">
+<p>MENU 2: Pizza Venezia (tomat, sýr, šunka, slanina, žampiony) 1,3,7<span style="float:right;">119 Kč</span></p>
+</div>
+
+<div class="image-clearfix" style="border-bottom: 1px solid black;">
+<p>MENU 3: Vepřový Texas steak,BBQ, hranolky 1<span style="float:right;">129 Kč</span></p>
+</div>
+
+<div class="image-clearfix" style="border-bottom: 1px solid black;">
+<p>MENU 4: Smažené masové kuličky plněné mozzarellou, mačkané brambory, mátová majonéza, zelný salát 1,3,7<span style="float:right;">159 Kč</span></p>
+</div>
+
+<p></p>
+
+<div class="image-clearfix" style="border-bottom: 1px solid black;">
+<p>Zeleninový salát<span style="float:right;">40 Kč</span></p>
+</div>
+
+<div class="image-clearfix" style="border-bottom: 3px solid black;">
 <p><span style="float:right;"></span></p>
 </div>
 
 <h2><br>
-Úterý 13.09. 2022</h2>
+Čtvrtek 03.11.2022</h2>
 
-<p>Polévka: Hovězí vývar s kapáním 1,3,7,9&nbsp;</p>
+<p>Polévka: Kulajda s vejcem 1,3,7&nbsp;</p>
 
 <div class="image-clearfix" style="border-bottom: 1px solid black;">
-<p>MENU 1: Holandský řízek, vařené brambory s petrželkou 109 Kč</p>
+<p>MENU 1: Čevabčici, hořčice, cibule, vařené brambory 1,3,7,10<span style="float:right;">109 Kč</span></p>
 </div>
 
 <div class="image-clearfix" style="border-bottom: 1px solid black;">
-<p>MENU 2: Pizza Al Capone (tomat,sýr, šunka, salám, žampiony, vejce) 1,3,7&nbsp; &nbsp; 119 Kč</p>
+<p>MENU 2: Pizza Americana (tomat, sýr, šunka, salám, kukuřice, kečup) 1,3,7<span style="float:right;">119 Kč</span></p>
 </div>
 
 <div class="image-clearfix" style="border-bottom: 1px solid black;">
-<p>MENU 3: Panenská svíčková na grilu, Demi glace, opékané brambory 1<span style="float:right;">129 Kč</span></p>
+<p>MENU 3: Kuřecí filet na pečených žampionech, krokety 1<span style="float:right;">129 Kč</span></p>
+</div>
+
+<div class="image-clearfix" style="border-bottom: 1px solid black;">
+<p>MENU 4: Burger Al Capone, hranolky 1,3,7<span style="float:right;">159 Kč</span></p>
+</div>
+
+<p></p>
+
+<div class="image-clearfix" style="border-bottom: 1px solid black;">
+<p>Zeleninový salát<span style="float:right;">40 Kč</span></p>
 </div>
 
 <div class="image-clearfix" style="border-bottom: 3px solid black;">
-<p>MENU 4:&nbsp; Pečená kachna bílé zelí, karlovarský knedlík 1,3,7&nbsp; &nbsp; 159 Kč</p>
+<p><span style="float:right;"></span></p>
 </div>
-Rajčatový salát s cibulí 40,-
 
 <h2><br>
-Středa 14.09. 2022</h2>
+Pátek 04.11.2022</h2>
 
-<p>Polévka: Gulášová polévka 1</p>
+<p>Polévka: Hovězí vývar se zeleninou a nudlemi&nbsp;1,3,7,9</p>
 
-<div class="image-clearfix" style="border-bottom: 1px solid black;">
-<p>MENU 1: Masové kuličky v rajské omáčce, kolínka 1,3,7&nbsp;<span style="float:right;">109 Kč</span></p>
-</div>
+<p>MENU 1: Zapečené selské brambory s kuřecím masem, mrkvový salát 7<span style="float:right;">109 Kč</span></p>
 
 <div class="image-clearfix" style="border-bottom: 1px solid black;">
-<p>MENU 2: Pizza Carbonara (smetana, sýr, slanina,cibule, vejce) 1,3,7<span style="float:right;">119 Kč</span></p>
+<p>MENU 2: Pizza Mia (tomat, sýr, salám, ostrá klobáska, niva) 1,3,7<span style="float:right;">&nbsp;</span>119 Kč</p>
 </div>
 
 <div class="image-clearfix" style="border-bottom: 1px solid black;">
-<p>MENU 3: Kuřecí prsíčka v bramborové slámě, mačkané brambory, zelný salát 1,3,7&nbsp; &nbsp; 129 Kč</p>
-</div>
-
-<div class="image-clearfix" style="border-bottom: 3px solid black;">
-<p>MENU 4: Roštěná na grilu s opečenou slaninou, , sázené vejce, smetanové brambory&nbsp; &nbsp;159 Kč</p>
-</div>
-Rajčatový salát s cibulí 40,-
-
-<h2><br>
-Čtvrtek 15.09. 2022</h2>
-
-<p>Polévka: Čočková polévka s uzeninou 1</p>
-
-<div class="image-clearfix" style="border-bottom: 1px solid black;">
-<p>MENU 1: Vepřová pečeně, červené zelí, restované gnocchi 1,3,7&nbsp;<span style="float:right;">109 Kč</span></p>
+<p>MENU 3: Vepřová panenka plněná uzeným sýrem, steakové hranolky, bylinková omáčka 1,7<span style="float:right;">129 Kč</span></p>
 </div>
 
 <div class="image-clearfix" style="border-bottom: 1px solid black;">
-<p>MENU 2: Pizza Quattro formaggi s kozími rohy&nbsp;&nbsp;1,3,7<span style="float:right;">119 Kč</span></p>
+<p>MENU 4: Grilovaná mozzarella v parmské šunce na salátě, bagetky 1,3,7,10<span style="float:right;">159 Kč</span></p>
 </div>
 
 <div class="image-clearfix" style="border-bottom: 1px solid black;">
-<p>MENU 3: Kuřecí prsíčka zabalená ve slaninovém kabátku, cheddarová omáčka, štouchané brambory 1,7&nbsp; &nbsp;129 Kč</p>
+<p>Zeleninový salát<span style="float:right;">40 Kč</span></p>
 </div>
-
-<div class="image-clearfix" style="border-bottom: 3px solid black;">
-<p>MENU 4: Smažený africký sumeček, bramborové pyré, limetková majonéza 1,3,4,7&nbsp; 159 Kč</p>
-</div>
-Rajčatový salát s cibulí 40,-
-
-<h2><br>
-Pátek 16.09.2022</h2>
-
-<p>Polévka: Hovězí vývar se zeleninou a nudlemi 1,3,7,9&nbsp;</p>
-
-<div class="image-clearfix" style="border-bottom: 1px solid black;">
-<p>MENU 1: Krkovička na grilu, pepřová omáčka, americké brambory 1,7&nbsp; &nbsp;109 Kč</p>
-</div>
-
-<div class="image-clearfix" style="border-bottom: 1px solid black;">
-<p>MENU 2: Pizza Tricolore (1/3 sýr, 1/3 salám, 1/3 šunka) 1,3,7&nbsp;<span style="float:right;">119Kč</span></p>
-</div>
-
-<div class="image-clearfix" style="border-bottom: 1px solid black;">
-<p>MENU 3: Smažené kuřecí a vepřové řízečky, bramborová kaše 1,3,7&nbsp; &nbsp; 129 Kč</p>
-</div>
-
-<div class="image-clearfix" style="border-bottom: 3px solid black;">
-<p>MENU 4: Žampiony plněné mletým masem a sýrem, steakové hranolky 1&nbsp; &nbsp; &nbsp;159 Kč</p>
-</div>
-Rajčatový salát s cibulí 40,-</div>
 <p></p>
 \t\t</div>
 
@@ -811,10 +997,10 @@ Rajčatový salát s cibulí 40,-</div>
     </style>
 
     
-    <section id="newsletter" class="wrap" style="background-image: url('/upload/images/newletter-linka.jpg');">
+    <section id="newsletter" class="wrap" style="background-image: url(&#39;/upload/images/newletter-linka.jpg&#39;);">
 
 
-<form class="in" action="/" method="post" id="frm-banner-subscriptionControl-form" novalidate="">
+<form class="in" action="https://www.pizzaalcapone.cz/" method="post" id="frm-banner-subscriptionControl-form" novalidate="">
     <p>Dovezeme vám novinky</p>
     <h2>Přihlašte se k odběru newsletterů</h2>
     <ul>
@@ -830,9 +1016,9 @@ Rajčatový salát s cibulí 40,-</div>
         </li>
     </ul>
     <div class="agree">
-        <label for="frm-banner-subscriptionControl-form-agree"><div class="icheckbox_square-black" style="position: relative;"><input type="checkbox" name="agree" id="frm-banner-subscriptionControl-form-agree" required="" data-nette-rules="[{&quot;op&quot;:&quot;:filled&quot;,&quot;msg&quot;:&quot;Musíte protvrdit souhlas se zpracováním osobních údajů&quot;}]" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> Souhlasím se <a target="_blank" href="/zpracovani-osobnich-udaju">zpracováním osobních údajů</a> . </label>
+        <label for="frm-banner-subscriptionControl-form-agree"><div class="icheckbox_square-black" style="position: relative;"><input type="checkbox" name="agree" id="frm-banner-subscriptionControl-form-agree" required="" data-nette-rules="[{&quot;op&quot;:&quot;:filled&quot;,&quot;msg&quot;:&quot;Musíte protvrdit souhlas se zpracováním osobních údajů&quot;}]" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> Souhlasím se <a target="_blank" href="https://www.pizzaalcapone.cz/zpracovani-osobnich-udaju">zpracováním osobních údajů</a> . </label>
     </div>
-<input type="hidden" name="_aspm_" value="" class="aspm-control" style="display: none;"><input type="hidden" name="_aspm_delay_" value="d92f2d3f23"><input type="hidden" name="_do" value="banner-subscriptionControl-form-submit"></form>
+<input type="hidden" name="_aspm_" value="" class="aspm-control" style="display: none;"><input type="hidden" name="_aspm_delay_" value="d993a94dab"><input type="hidden" name="_do" value="banner-subscriptionControl-form-submit"></form>
     </section>
 
 
@@ -851,19 +1037,19 @@ Rajčatový salát s cibulí 40,-</div>
                 <ul>
                     <li>
                         
-                        <a href="/o-nas">O nás</a>
+                        <a href="https://www.pizzaalcapone.cz/o-nas">O nás</a>
                     </li>
                     <li>
                         
-                        <a href="/obchodni-podminky">Obchodní podmínky</a>
+                        <a href="https://www.pizzaalcapone.cz/obchodni-podminky">Obchodní podmínky</a>
                     </li>
                     <li>
                         
-                        <a href="/zasady-zpracovani-osobnich-udaju">Zásady zpracování osobních údajů</a>
+                        <a href="https://www.pizzaalcapone.cz/zasady-zpracovani-osobnich-udaju">Zásady zpracování osobních údajů</a>
                     </li>
                     <li>
                         
-                        <a href="/kontakt">Kontakty</a>
+                        <a href="https://www.pizzaalcapone.cz/kontakt">Kontakty</a>
                     </li>
                 </ul>
         </div>
@@ -875,11 +1061,11 @@ Rajčatový salát s cibulí 40,-</div>
                 <ul>
                     <li>
                         
-                        <a href="/jidelni-listek">Hlavní menu</a>
+                        <a href="https://www.pizzaalcapone.cz/jidelni-listek">Hlavní menu</a>
                     </li>
                     <li>
                         
-                        <a href="/poledni-menu">Polední menu</a>
+                        <a href="https://www.pizzaalcapone.cz/poledni-menu">Polední menu</a>
                     </li>
                 </ul>
         </div>
@@ -891,47 +1077,47 @@ Rajčatový salát s cibulí 40,-</div>
                 <ul>
                     <li>
                         
-                        <a href="/pizza">Pizza</a>
+                        <a href="https://www.pizzaalcapone.cz/pizza">Pizza</a>
                     </li>
                     <li>
                         
-                        <a href="/testoviny">Těstoviny</a>
+                        <a href="https://www.pizzaalcapone.cz/testoviny">Těstoviny</a>
                     </li>
                     <li>
                         
-                        <a href="/burgery">Burgery</a>
+                        <a href="https://www.pizzaalcapone.cz/burgery">Burgery</a>
                     </li>
                     <li>
                         
-                        <a href="/smazene">Smažené</a>
+                        <a href="https://www.pizzaalcapone.cz/smazene">Smažené</a>
                     </li>
                     <li>
                         
-                        <a href="/polevky">Polévky</a>
+                        <a href="https://www.pizzaalcapone.cz/polevky">Polévky</a>
                     </li>
                     <li>
                         
-                        <a href="/predkrmy">Předkrmy</a>
+                        <a href="https://www.pizzaalcapone.cz/predkrmy">Předkrmy</a>
                     </li>
                     <li>
                         
-                        <a href="/rizota">Rizota</a>
+                        <a href="https://www.pizzaalcapone.cz/rizota">Rizota</a>
                     </li>
                     <li>
                         
-                        <a href="/ryby">Ryby</a>
+                        <a href="https://www.pizzaalcapone.cz/ryby">Ryby</a>
                     </li>
                     <li>
                         
-                        <a href="/prilohy-a-salaty">Přílohy a saláty</a>
+                        <a href="https://www.pizzaalcapone.cz/prilohy-a-salaty">Přílohy a saláty</a>
                     </li>
                     <li>
                         
-                        <a href="/maso-a-omacky">Maso a omáčky</a>
+                        <a href="https://www.pizzaalcapone.cz/maso-a-omacky">Maso a omáčky</a>
                     </li>
                     <li>
                         
-                        <a href="/dezerty">Dezerty</a>
+                        <a href="https://www.pizzaalcapone.cz/dezerty">Dezerty</a>
                     </li>
                 </ul>
         </div>
@@ -948,10 +1134,10 @@ Rajčatový salát s cibulí 40,-</div>
         <div class="logos">
             <ul>
                 <li>
-                    <img visa="" src="/tmpl/boston/img/default/visa.svg">
+                    <img visa="" src="./Polední menu _ Pizza Al Capone_files/visa.svg">
                 </li>
                 <li>
-                    <img mastercard="" src="/tmpl/boston/img/default/mastercard1.svg">
+                    <img mastercard="" src="./Polední menu _ Pizza Al Capone_files/mastercard1.svg">
                 </li>
             </ul>
         </div>
@@ -977,7 +1163,7 @@ Rajčatový salát s cibulí 40,-</div>
         </div>
     </div>
     <div class="in copyright">
-        <p>Copyright 2022 <a href="" target="_blank"></a>. Všechna práva vyhrazena.</p>
+        <p>Copyright 2022 <a href="https://www.pizzaalcapone.cz/poledni-menu" target="_blank"></a>. Všechna práva vyhrazena.</p>
         <p class="author">Vytvořila <a href="https://www.hipromotion.cz/" target="_blank">Hi Promotion</a> <span>|</span> Powered by <a href="https://www.shopfocus.cz/" target="_blank">ShopFocus</a></p>
     </div>
 </footer>
@@ -986,7 +1172,7 @@ Rajčatový salát s cibulí 40,-</div>
 
 <div id="login" class="sg-modal">
 \t<div class="in">
-\t\t<form action="/poledni-menu" method="post" id="frm-user-loginForm" class="form" data-ajax-container="self" novalidate="">
+\t\t<form action="https://www.pizzaalcapone.cz/poledni-menu" method="post" id="frm-user-loginForm" class="form" data-ajax-container="self" novalidate="">
 \t\t\t<div class="content">
 \t\t\t\t<h2>Přihlášení</h2>
 \t\t\t\t<ul>
@@ -1008,11 +1194,11 @@ Rajčatový salát s cibulí 40,-</div>
 \t\t\t\t</p>
 \t\t\t\t<span class="close"><i class="flaticon-close"></i></span>
 \t\t\t\t<p>
-\t\t\t\t\t<a href="/zapomenute-heslo">Zapomenuté heslo (obnovení hesla)</a><br>
-\t\t\t\t\tNemáte účet? <a href="/registrace" target="_blank">Registrujte se</a>
+\t\t\t\t\t<a href="https://www.pizzaalcapone.cz/zapomenute-heslo">Zapomenuté heslo (obnovení hesla)</a><br>
+\t\t\t\t\tNemáte účet? <a href="https://www.pizzaalcapone.cz/registrace" target="_blank">Registrujte se</a>
 \t\t\t\t</p>
 \t\t\t</div>
-\t\t<input type="hidden" name="_aspm_" value="" class="aspm-control" style="display: none;"><input type="hidden" name="_aspm_delay_" value="d99ede90f4"><input type="hidden" name="_do" value="user-loginForm-submit"></form>
+\t\t<input type="hidden" name="_aspm_" value="" class="aspm-control" style="display: none;"><input type="hidden" name="_aspm_delay_" value="d993ba9029"><input type="hidden" name="_do" value="user-loginForm-submit"></form>
 
 \t</div>
 </div>
@@ -1053,16 +1239,18 @@ Rajčatový salát s cibulí 40,-</div>
 
 
 
+
+
 </div>
 
 \t\t
 
 
-<script src="/temp/1788a895.js?5c67edac"></script>
+<script src="./Polední menu _ Pizza Al Capone_files/1788a895.js.download"></script>
 
-<script src="/temp/d05fa59e.js?1ede4ff7"></script>
+<script src="./Polední menu _ Pizza Al Capone_files/93114430.js.download"></script>
 
-<script src="/temp/3e974379.js?4a3f9711"></script>
+<script src="./Polední menu _ Pizza Al Capone_files/c46d61a3.js.download"></script>
 
 
 
