@@ -1,5 +1,6 @@
 export enum Restaurants {
   AlCapone,
+  Caruso,
   Drevak,
   LightOfIndia,
   Selepka,

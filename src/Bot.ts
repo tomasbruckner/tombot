@@ -2,7 +2,7 @@ import { RTMCallResult, RTMClient, WebClient } from "@slack/client";
 import { CronJob } from "cron";
 import {
   ALCAPONE_REGEX,
-  ALL_REGEX,
+  ALL_REGEX, CARUSO_REGEX,
   DREVAK_REGEX,
   HELP_REGEX,
   JOKE_REGEX,
@@ -128,6 +128,10 @@ class Bot {
         messagePromises.push(this.sendMenu(Restaurants.LightOfIndia, message));
       }
 
+      if (all || CARUSO_REGEX.test(message.text)) {
+        messagePromises.push(this.sendMenu(Restaurants.Caruso, message));
+      }
+
       if (SELEPKA_REGEX.test(message.text)) {
         messagePromises.push(this.sendMenu(Restaurants.Selepka, message));
       }
@@ -180,6 +184,7 @@ class Bot {
 Check out these commands:
         help
         alcapone
+        caruso
         drevak
         karel
         lightofindia
