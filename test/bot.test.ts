@@ -223,6 +223,7 @@ describe("Bot", () => {
 Check out these commands:
         help
         alcapone
+        caruso
         drevak
         karel
         lightofindia
@@ -349,7 +350,7 @@ Check out these commands:
                 text: " all",
             });
 
-            const NUMBER_OF_EXPECTED_MENUS = 6;
+            const NUMBER_OF_EXPECTED_MENUS = 7;
             expect(promises.length).toBe(NUMBER_OF_EXPECTED_MENUS);
         });
     });
