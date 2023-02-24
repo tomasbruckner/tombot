@@ -4,48 +4,161 @@ describe("Caruso", () => {
     let requestMock;
     let testedClass: Caruso;
     const originalDate = global.Date;
-    let mockDate;
 
     beforeAll(() => {
         requestMock = jest.fn();
-        mockDate = function () {
-            this.getDay = () => 2;
+        const mockDate: any = function () {
+            this.getDay = () => 3;
         };
 
         global.Date = mockDate;
-    });
-
-    afterAll(() => {
-        global.Date = originalDate;
     });
 
     beforeEach(() => {
         testedClass = new Caruso({get: requestMock});
     });
 
+    afterAll(() => {
+        global.Date = originalDate;
+    });
+
+    test("Resolve menu response - Monday", () => {
+        // @ts-ignore
+        global.Date = function () {
+            this.getDay = () => 1;
+        };
+        expect(testedClass.handleResponse(response)).toEqual(
+            expectedSlackMenu[0]
+        );
+    });
+
+    test("Resolve menu response - Tuesday", () => {
+        // @ts-ignore
+        global.Date = function () {
+            this.getDay = () => 2;
+        };
+        expect(testedClass.handleResponse(response)).toEqual(
+            expectedSlackMenu[1]
+        );
+    });
+
+    test("Resolve menu response - Wednesday", () => {
+        // @ts-ignore
+        global.Date = function () {
+            this.getDay = () => 3;
+        };
+        expect(testedClass.handleResponse(response)).toEqual(
+            expectedSlackMenu[2]
+        );
+    });
+
+    test("Resolve menu response - Thursday", () => {
+        // @ts-ignore
+        global.Date = function () {
+            this.getDay = () => 4;
+        };
+        expect(testedClass.handleResponse(response)).toEqual(
+            expectedSlackMenu[3]
+        );
+    });
+
+    test("Resolve menu response - Friday", () => {
+        // @ts-ignore
+        global.Date = function () {
+            this.getDay = () => 5;
+        };
+        expect(testedClass.handleResponse(response)).toEqual(
+            expectedSlackMenu[4]
+        );
+    });
+
     afterEach(() => {
         requestMock.mockReset();
     });
-
-    test("Resolve menu response", done => {
-        const menu = testedClass.getSlackMenu({channel: "channel"}, "apikey");
-
-        expect(requestMock.mock.calls.length).toBe(1);
-
-        const callback = requestMock.mock.calls[0][1];
-
-        callback(undefined, {statusCode: 200}, response);
-
-        menu.then(resultMenu => {
-            expect(resultMenu).toEqual(expectedSlackMenu);
-            done();
-        });
-    });
 });
 
-const expectedSlackMenu = {
-    "as_user": true,
-    "attachments": [
+const expectedSlackMenu = [
+    [
+        {
+            "color": "#5BBB47",
+            "fallback": "Restaurant menu",
+            "footer": "Cena: 135 Kč (https://carusopizza.cz/cs/pizza-brno-olomouc/1-margherita.html#/velikost-velka_35_cm)",
+            "text": "*Margherita* (Pizza) - rajčatový protlak, mozzarella",
+            "title": "Caruso",
+            "title_link": "https://www.carusorestaurant.cz/denni-obedove-menu/"
+        },
+        {
+            "color": "#5BBB47",
+            "fallback": "Restaurant menu",
+            "footer": "Cena: 139 Kč (https://carusopizza.cz/cs/pizza-brno-olomouc/1022-sbagliata.html#/velikost-velka_35_cm)",
+            "text": "*Sbagliata* (Pizza) - rajčatový protlak, mozzarella, pikantní salám, kukuřice"
+        },
+        {
+            "color": "#5BBB47",
+            "fallback": "Restaurant menu",
+            "footer": "Cena: 149 Kč (https://carusopizza.cz/cs/pizza-brno-olomouc/1013-tricolore.html#/velikost-velka_35_cm)",
+            "text": "*Tricolore* (Pizza) - smetanový základ, mozzarella, salám spianata, hermelín, špenát"
+        },
+        {
+            "color": "#5BBB47",
+            "fallback": "Restaurant menu",
+            "footer": "Cena: 139 Kč (https://carusopizza.cz/cs/penne/116-rigatoni-carbonara.html)",
+            "text": "*Penne Carbonara* (Těstoviny) - 2 vejce, italská domácí pancetta, parmezán, cibule, pepř"
+        },
+        {
+            "color": "#5BBB47",
+            "fallback": "Restaurant menu",
+            "footer": "Cena: 139 Kč (https://carusopizza.cz/cs/spaghetti/131-spaghetti-bolognese.html)",
+            "text": "*Spaghetti Bolognese* (Těstoviny) - mleté maso (hovězí a vepřové), zelenina, rajčata"
+        },
+        {
+            "color": "#5BBB47",
+            "fallback": "Restaurant menu",
+            "footer": "Cena: 135 Kč (https://carusopizza.cz/cs/rozvoz-salatu-v-brne-a-olomouci/1050-alpina.html#/ingredience_navic-zadna_dalsi_ingredience)",
+            "text": "*Alpina* (Salát) - římský salát, ledový salát, kuřecí maso, paprikový dressing, kukuřice, plísňový sýr, sůl, pizza pane"
+        }
+    ],
+    [
+        {
+            "color": "#5BBB47",
+            "fallback": "Restaurant menu",
+            "footer": "Cena: 135 Kč (https://carusopizza.cz/cs/pizza-brno-olomouc/24-concordia.html#/velikost-velka_35_cm)",
+            "text": "*Concordia* (Pizza) - smetana, mozzarella, šunka, parmezán, pepř",
+            "title": "Caruso",
+            "title_link": "https://www.carusorestaurant.cz/denni-obedove-menu/"
+        },
+        {
+            "color": "#5BBB47",
+            "fallback": "Restaurant menu",
+            "footer": "Cena: 139 Kč (https://carusopizza.cz/cs/pizza-brno-olomouc/13-golosona.html#/velikost-velka_35_cm)",
+            "text": "*Golosona* (Pizza) - rajčatový protlak, mozzarella, dušená šunka, slanina, paprikový salám"
+        },
+        {
+            "color": "#5BBB47",
+            "fallback": "Restaurant menu",
+            "footer": "Cena: 149 Kč (https://carusopizza.cz/cs/pizza-brno-olomouc/1000-saporita.html#/velikost-velka_35_cm)",
+            "text": "*Saporita* (Pizza) - rajčatový protlak, mozzarella, italský salám napoli, žampiony, hermelín"
+        },
+        {
+            "color": "#5BBB47",
+            "fallback": "Restaurant menu",
+            "footer": "Cena: 139 Kč (https://carusopizza.cz/cs/fusilli/1004-fusilli-pollo-spinaci.html)",
+            "text": "*Fusilli Pollo Spinaci* (Těstoviny) - kuřecí maso, špenát, smetana"
+        },
+        {
+            "color": "#5BBB47",
+            "fallback": "Restaurant menu",
+            "footer": "Cena: 139 Kč (https://carusopizza.cz/cs/tagliatelle/1074-tagliatelle-amatriciana.html)",
+            "text": "*Tagliatelle Amatriciana* (Těstoviny) - rajčata, domácí italská pancetta, cibule, chilli drcené, černé olivy"
+        },
+        {
+            "color": "#5BBB47",
+            "fallback": "Restaurant menu",
+            "footer": "Cena: 135 Kč (https://carusopizza.cz/cs/rozvoz-salatu-v-brne-a-olomouci/119-tirolese.html#/ingredience_navic-zadna_dalsi_ingredience)",
+            "text": "*Montana* (Salát) - ledový salát, římský salát, rukola, černé olivy, sušená rajčata, slanina, parmazán, pizza pane"
+        }
+    ],
+    [
         {
             "color": "#5BBB47",
             "fallback": "Restaurant menu",
@@ -85,12 +198,87 @@ const expectedSlackMenu = {
             "text": "*Caesar* (Salát) - kuřecí maso, římský salát, dresink, krutony, parmazán, pizza pane"
         }
     ],
-    "channel": "channel",
-    "text": ""
-};
-
-
-
+    [
+        {
+            "color": "#5BBB47",
+            "fallback": "Restaurant menu",
+            "footer": "Cena: 135 Kč (https://carusopizza.cz/cs/pizza-brno-olomouc/1047-funghi.html#/velikost-velka_35_cm)",
+            "text": "*Funghi* (Pizza) - rajčatový protlak, mozzarella, žampiony",
+            "title": "Caruso",
+            "title_link": "https://www.carusorestaurant.cz/denni-obedove-menu/"
+        },
+        {
+            "color": "#5BBB47",
+            "fallback": "Restaurant menu",
+            "footer": "Cena: 139 Kč (https://carusopizza.cz/cs/pizza-brno-olomouc/16-contadina.html#/velikost-velka_35_cm)",
+            "text": "*Contadina* (Pizza) - rajčatový protlak, mozzarella, salám, slanina, žampióny"
+        },
+        {
+            "color": "#5BBB47",
+            "fallback": "Restaurant menu",
+            "footer": "Cena: 149 Kč (https://carusopizza.cz/cs/pizza-brno-olomouc/30-speciale.html#/velikost-velka_35_cm)",
+            "text": "*Speciale* (Pizza) - smetana, mozzarella, domácí italská slanina pancetta, žampióny, parmezan"
+        },
+        {
+            "color": "#5BBB47",
+            "fallback": "Restaurant menu",
+            "footer": "Cena: 139 Kč",
+            "text": "Tagliatele Carbonara"
+        },
+        {
+            "color": "#5BBB47",
+            "fallback": "Restaurant menu",
+            "footer": "Cena: 149 Kč (https://carusopizza.cz/cs/gnocchi/107-gnocchi-bolognese.html)",
+            "text": "*Gnocchi Bolognese* (Těstoviny) - mleté maso (hovězí a vepřové), zelenina, rajčata"
+        },
+        {
+            "color": "#5BBB47",
+            "fallback": "Restaurant menu",
+            "footer": "Cena: 135 Kč (https://carusopizza.cz/cs/rozvoz-salatu-v-brne-a-olomouci/121-primavera.html#/ingredience_navic-zadna_dalsi_ingredience)",
+            "text": "*Primavera* (Salát) - ledový a římský salát, kukuřice, tuňák, černé olivy, červená cibule, rajčata, vejce, olivový olej, pizza pane"
+        }
+    ],
+    [
+        {
+            "color": "#5BBB47",
+            "fallback": "Restaurant menu",
+            "footer": "Cena: 135 Kč (https://carusopizza.cz/cs/pizza-brno-olomouc/9-prosciutto.html#/velikost-velka_35_cm)",
+            "text": "*Prosciutto* (Pizza) - rajčatový protlak, mozzarella, dušená šunka",
+            "title": "Caruso",
+            "title_link": "https://www.carusorestaurant.cz/denni-obedove-menu/"
+        },
+        {
+            "color": "#5BBB47",
+            "fallback": "Restaurant menu",
+            "footer": "Cena: 139 Kč (https://carusopizza.cz/cs/pizza-brno-olomouc/8-hawai.html#/velikost-velka_35_cm)",
+            "text": "*Hawai* (Pizza) - smetana, mozzarella, šunka, ananas"
+        },
+        {
+            "color": "#5BBB47",
+            "fallback": "Restaurant menu",
+            "footer": "Cena: 149 Kč (https://carusopizza.cz/cs/pizza-brno-olomouc/1000-saporita.html#/velikost-velka_35_cm)",
+            "text": "*Saporita* (Pizza) - rajčatový protlak, mozzarella, italský salám napoli, žampiony, hermelín"
+        },
+        {
+            "color": "#5BBB47",
+            "fallback": "Restaurant menu",
+            "footer": "Cena: 139 Kč (https://carusopizza.cz/cs/penne/1003-rigatoni-pollo-spinaci.html)",
+            "text": "*Penne Pollo Spinaci* (Těstoviny) - kuřecí maso, špenát, smetana"
+        },
+        {
+            "color": "#5BBB47",
+            "fallback": "Restaurant menu",
+            "footer": "Cena: 139 Kč (https://carusopizza.cz/cs/spaghetti/1073-spagety-bolognese.html)",
+            "text": "*Spaghetti Amatriciana* (Těstoviny) - rajčata, domácí italská pancetta, cibule, chilli drcené, černé olivy"
+        },
+        {
+            "color": "#5BBB47",
+            "fallback": "Restaurant menu",
+            "footer": "Cena: 135 Kč (https://carusopizza.cz/cs/rozvoz-salatu-v-brne-a-olomouci/119-tirolese.html#/ingredience_navic-zadna_dalsi_ingredience)",
+            "text": "*Montana* (Salát) - ledový salát, římský salát, rukola, černé olivy, sušená rajčata, slanina, parmazán, pizza pane"
+        }
+    ]
+];
 
 const response = `
 <!DOCTYPE html>
@@ -133,7 +321,7 @@ const response = `
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:description" content="Každý den nabízíme zvýhodněné obědové menu od 119 Kč. Zastavte se u nás v italské restauraci v Brně a Olomouci. Těšíme se na vaši návštěvu." />
 <meta name="twitter:title" content="Denní zvýhodněné obědové menu | Caruso Pizza &amp; Pasta Brno a Olomouc" />
-<script type='application/ld+json' class='yoast-schema-graph yoast-schema-graph--main'>{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.carusorestaurant.cz/#organization","name":"","url":"https://www.carusorestaurant.cz/","sameAs":[]},{"@type":"WebSite","@id":"https://www.carusorestaurant.cz/#website","url":"https://www.carusorestaurant.cz/","name":"Italsk\u00e1 restaurace v Brn\u011b a Olomouci","publisher":{"@id":"https://www.carusorestaurant.cz/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://www.carusorestaurant.cz/?s={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://www.carusorestaurant.cz/denni-obedove-menu/#webpage","url":"https://www.carusorestaurant.cz/denni-obedove-menu/","inLanguage":"cs-CZ","name":"Denn\u00ed zv\u00fdhodn\u011bn\u00e9 ob\u011bdov\u00e9 menu | Caruso Pizza &amp; Pasta Brno a Olomouc","isPartOf":{"@id":"https://www.carusorestaurant.cz/#website"},"datePublished":"2021-12-03T13:48:19+00:00","dateModified":"2023-02-16T13:47:36+00:00","description":"Ka\u017ed\u00fd den nab\u00edz\u00edme zv\u00fdhodn\u011bn\u00e9 ob\u011bdov\u00e9 menu od 119 K\u010d. Zastavte se u n\u00e1s v italsk\u00e9 restauraci v Brn\u011b a Olomouci. T\u011b\u0161\u00edme se na va\u0161i n\u00e1v\u0161t\u011bvu."}]}</script>
+<script type='application/ld+json' class='yoast-schema-graph yoast-schema-graph--main'>{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.carusorestaurant.cz/#organization","name":"","url":"https://www.carusorestaurant.cz/","sameAs":[]},{"@type":"WebSite","@id":"https://www.carusorestaurant.cz/#website","url":"https://www.carusorestaurant.cz/","name":"Italsk\u00e1 restaurace v Brn\u011b a Olomouci","publisher":{"@id":"https://www.carusorestaurant.cz/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://www.carusorestaurant.cz/?s={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://www.carusorestaurant.cz/denni-obedove-menu/#webpage","url":"https://www.carusorestaurant.cz/denni-obedove-menu/","inLanguage":"cs-CZ","name":"Denn\u00ed zv\u00fdhodn\u011bn\u00e9 ob\u011bdov\u00e9 menu | Caruso Pizza &amp; Pasta Brno a Olomouc","isPartOf":{"@id":"https://www.carusorestaurant.cz/#website"},"datePublished":"2021-12-03T13:48:19+00:00","dateModified":"2023-02-22T20:43:41+00:00","description":"Ka\u017ed\u00fd den nab\u00edz\u00edme zv\u00fdhodn\u011bn\u00e9 ob\u011bdov\u00e9 menu od 119 K\u010d. Zastavte se u n\u00e1s v italsk\u00e9 restauraci v Brn\u011b a Olomouci. T\u011b\u0161\u00edme se na va\u0161i n\u00e1v\u0161t\u011bvu."}]}</script>
 <!-- / Yoast SEO plugin. -->
 
 <link rel='dns-prefetch' href='//fonts.googleapis.com' />
@@ -321,7 +509,7 @@ margin: 0 auto;
 \t\t<section class="page-banner-section blog">
 \t\t\t<div class="container">
 \t\t\t\t<h1>Denní obědové menu</h1>
-\t\t\t\t\t\t\t\t<h3>Zvýhodněné menu každý všední den do 14:00. Ceny platí pouze pro konzumaci v restauraci.</h3>
+\t\t\t\t\t\t\t\t<h3>Zvýhodněné menu každý všední den do 14:00. Jídlo s sebou za příplatek 15 Kč.</h3>
 \t\t\t\t\t\t\t</div>
 \t\t</section>
 \t\t<!-- End page-banner section -->
@@ -840,7 +1028,7 @@ margin: 0 auto;
 <div class="vc_row wpb_row vc_inner vc_row-fluid"><div class="row"><div class="wpb_column vc_column_container vc_col-sm-8"><div class="vc_column-inner "><div class="wpb_wrapper">
 \t<div class="wpb_text_column wpb_content_element " >
 \t\t<div class="wpb_wrapper">
-\t\t\t<p>Vegetariana</p>
+\t\t\t<p>Prosciutto</p>
 
 \t\t</div>
 \t</div>
@@ -895,28 +1083,28 @@ margin: 0 auto;
 <div class="vc_row wpb_row vc_inner vc_row-fluid"><div class="row"><div class="wpb_column vc_column_container vc_col-sm-8"><div class="vc_column-inner "><div class="wpb_wrapper">
 \t<div class="wpb_text_column wpb_content_element " >
 \t\t<div class="wpb_wrapper">
-\t\t\t<p>Tagliatelle Pomodoro</p>
+\t\t\t<p>Penne Pollo Spinaci</p>
 
 \t\t</div>
 \t</div>
 </div></div></div><div class="wpb_column vc_column_container vc_col-sm-4"><div class="vc_column-inner "><div class="wpb_wrapper">
 \t<div class="wpb_text_column wpb_content_element " >
 \t\t<div class="wpb_wrapper">
-\t\t\t<p><strong>129 Kč</strong></p>
+\t\t\t<p><strong>139 Kč</strong></p>
 
 \t\t</div>
 \t</div>
 </div></div></div></div></div><div class="vc_row wpb_row vc_inner vc_row-fluid"><div class="row"><div class="wpb_column vc_column_container vc_col-sm-8"><div class="vc_column-inner "><div class="wpb_wrapper">
 \t<div class="wpb_text_column wpb_content_element " >
 \t\t<div class="wpb_wrapper">
-\t\t\t<p>Gnocchi Pollo Funghi</p>
+\t\t\t<p>Spaghetti Amatriciana</p>
 
 \t\t</div>
 \t</div>
 </div></div></div><div class="wpb_column vc_column_container vc_col-sm-4"><div class="vc_column-inner "><div class="wpb_wrapper">
 \t<div class="wpb_text_column wpb_content_element " >
 \t\t<div class="wpb_wrapper">
-\t\t\t<p><strong>149 Kč</strong></p>
+\t\t\t<p><strong>139 Kč</strong></p>
 
 \t\t</div>
 \t</div>
@@ -936,7 +1124,7 @@ margin: 0 auto;
 <div class="vc_row wpb_row vc_inner vc_row-fluid"><div class="row"><div class="wpb_column vc_column_container vc_col-sm-8"><div class="vc_column-inner "><div class="wpb_wrapper">
 \t<div class="wpb_text_column wpb_content_element " >
 \t\t<div class="wpb_wrapper">
-\t\t\t<p>Primavera</p>
+\t\t\t<p>Montana</p>
 
 \t\t</div>
 \t</div>
