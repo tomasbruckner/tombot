@@ -395,7 +395,7 @@ class Caruso extends Restaurant {
         title_link: "https://www.carusorestaurant.cz/denni-obedove-menu/",
     };
 
-    protected handleResponse(body: string) {
+    public handleResponse(body: string) {
         const $ = cheerio.load(body);
         const dishes = this.getDishes($);
 
@@ -409,7 +409,7 @@ class Caruso extends Restaurant {
             throw new Error("Caruso does not have menu on weekend");
         }
 
-        const id = $(`.vc_tta-tab > a`)[dayIndex].attribs.href;
+        const id = $(`.vc_tta-tab > a`)[dayIndex - 1].attribs.href;
         const nodes = $(id).find('.wpb_wrapper > p');
         const result = [];
 

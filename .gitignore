@@ -7,3 +7,4 @@ process.json
 coverage
 .idea
 .vscode
+debug.ps1
