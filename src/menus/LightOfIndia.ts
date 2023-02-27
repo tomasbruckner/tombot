@@ -11,10 +11,15 @@ class LightOfIndia extends Restaurant {
     title_link: "http://www.lightofindia.cz/lang-cs/denni-menu",
   };
 
-  protected handleResponse(body: string) {
+  public handleResponse(body: string) {
     const $ = cheerio.load(body);
-    const nodes = $(`td[valign="top"]`)[0].childNodes;
-    const dishes = this.getDishes(nodes);
+    let nodes = $(`td[valign="top"] > strong`)[0].childNodes;
+    let dishes = this.getDishes(nodes);
+
+    if (!dishes) {
+      nodes = $(`td[valign="top"]`)[0].childNodes;
+      dishes = this.getDishes(nodes);
+    }
 
     return this.createSlackMenu(dishes);
   }
