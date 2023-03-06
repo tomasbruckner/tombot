@@ -225,6 +225,7 @@ Check out these commands:
         alcapone
         caruso
         drevak
+        everest
         karel
         lightofindia
         selepka
@@ -350,7 +351,7 @@ Check out these commands:
                 text: " all",
             });
 
-            const NUMBER_OF_EXPECTED_MENUS = 7;
+            const NUMBER_OF_EXPECTED_MENUS = 8;
             expect(promises.length).toBe(NUMBER_OF_EXPECTED_MENUS);
         });
     });
