@@ -8,11 +8,13 @@ import UDrevaka from "./UDrevaka";
 import Tao from "./Tao";
 import UKarla from "./UKarla";
 import Caruso from "./Caruso";
+import Everest from "./Everest";
 
 class RestaurantHandler {
   private restaurants = {
     [Restaurants.AlCapone]: new AlCapone(request),
     [Restaurants.Caruso]: new Caruso(request),
+    [Restaurants.Everest]: new Everest(request),
     [Restaurants.Drevak]: new UDrevaka(request),
     [Restaurants.Tao]: new Tao(request),
     [Restaurants.LightOfIndia]: new LightOfIndia(request),

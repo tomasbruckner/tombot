@@ -3,7 +3,7 @@ import { CronJob } from "cron";
 import {
   ALCAPONE_REGEX,
   ALL_REGEX, CARUSO_REGEX,
-  DREVAK_REGEX,
+  DREVAK_REGEX, EVEREST_REGEX,
   HELP_REGEX,
   JOKE_REGEX,
   KAREL_REGEX,
@@ -132,6 +132,10 @@ class Bot {
         messagePromises.push(this.sendMenu(Restaurants.Caruso, message));
       }
 
+      if (all || EVEREST_REGEX.test(message.text)) {
+        messagePromises.push(this.sendMenu(Restaurants.Everest, message));
+      }
+
       if (SELEPKA_REGEX.test(message.text)) {
         messagePromises.push(this.sendMenu(Restaurants.Selepka, message));
       }
@@ -186,6 +190,7 @@ Check out these commands:
         alcapone
         caruso
         drevak
+        everest
         karel
         lightofindia
         selepka

@@ -7,4 +7,5 @@ export enum Restaurants {
   Tao,
   ZelenaKocka,
   Karel,
+  Everest
 }
