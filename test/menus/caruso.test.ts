@@ -188,8 +188,8 @@ const expectedSlackMenu = [
         {
             "color": "#5BBB47",
             "fallback": "Restaurant menu",
-            "footer": "Cena: 139 Kč",
-            "text": "Spaghetti Pollo Funghi"
+            "footer": "Cena: 139 Kč (https://carusopizza.cz/cs/spaghetti/1027-spaghetti-pollo-e-funghi.html)",
+            "text": "*Spaghetti Pollo Funghi* (Těstoviny) - kuřecí maso, smetana, žampiony, petržel"
         },
         {
             "color": "#5BBB47",
