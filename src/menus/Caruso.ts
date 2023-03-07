@@ -48,6 +48,11 @@ const LUNCH_MAP = {
         type: 'Pizza',
         link: 'https://carusopizza.cz/cs/pizza-brno-olomouc/8-hawai.html#/velikost-velka_35_cm'
     },
+    'Hawaii': {
+        description: 'smetana, mozzarella, šunka, ananas',
+        type: 'Pizza',
+        link: 'https://carusopizza.cz/cs/pizza-brno-olomouc/8-hawai.html#/velikost-velka_35_cm'
+    },
     'Pannocchia': {
         description: 'rajčatový protlak, mozzarella, šunka, kukuřice',
         type: 'Pizza',
@@ -79,6 +84,11 @@ const LUNCH_MAP = {
         link: 'https://carusopizza.cz/cs/pizza-brno-olomouc/18-pollo-spinaci.html#/velikost-velka_35_cm'
     },
     'Quattro stagioni': {
+        description: 'rajčatový protlak, mozzarella, dušená šunka, černé olivy, žampiony, italské artyčoky',
+        type: 'Pizza',
+        link: 'https://carusopizza.cz/cs/pizza-brno-olomouc/1001-quattro-stagioni.html#/velikost-velka_35_cm'
+    },
+    'Quattro Stagioni': {
         description: 'rajčatový protlak, mozzarella, dušená šunka, černé olivy, žampiony, italské artyčoky',
         type: 'Pizza',
         link: 'https://carusopizza.cz/cs/pizza-brno-olomouc/1001-quattro-stagioni.html#/velikost-velka_35_cm'
@@ -308,6 +318,11 @@ const LUNCH_MAP = {
         description: "kuřecí maso, smetana, žampiony, petržel",
         link: "https://carusopizza.cz/cs/fusilli/1025-fusilli-pollo-e-funghi.html"
     },
+    "Fusilli Pollo Funghi": {
+        type: "Těstoviny",
+        description: "kuřecí maso, smetana, žampiony, petržel",
+        link: "https://carusopizza.cz/cs/fusilli/1025-fusilli-pollo-e-funghi.html"
+    },
     "Penne Pollo e Funghi": {
         type: "Těstoviny",
         description: "kuřecí maso, smetana, žampiony, petržel",
@@ -334,6 +349,36 @@ const LUNCH_MAP = {
         link: "https://carusopizza.cz/cs/ravioli/1030-ravioli-pollo-e-funghi.html"
     },
     "Tortellini Pollo e Funghi": {
+        type: "Těstoviny",
+        description: "tortellini plněné mletým masem, kuřecí maso, smetana, žampiony, petržel",
+        link: "https://carusopizza.cz/cs/tortellini/1031-tortellini-pollo-e-funghi.html"
+    },
+    "Penne Pollo Funghi": {
+        type: "Těstoviny",
+        description: "kuřecí maso, smetana, žampiony, petržel",
+        link: "https://carusopizza.cz/cs/penne/1026-rigatoni-pollo-e-funghi.html"
+    },
+    "Spaghetti Pollo Funghi": {
+        type: "Těstoviny",
+        description: "kuřecí maso, smetana, žampiony, petržel",
+        link: "https://carusopizza.cz/cs/spaghetti/1027-spaghetti-pollo-e-funghi.html"
+    },
+    "Tagliatelle Pollo Funghi": {
+        type: "Těstoviny",
+        description: "kuřecí maso, smetana, žampiony, petržel",
+        link: "https://carusopizza.cz/cs/tagliatelle/1028-tagliatelle-pollo-e-funghi.html"
+    },
+    "Gnocchi Pollo Funghi": {
+        type: "Těstoviny",
+        description: "kuřecí maso, smetana, žampiony, petržel",
+        link: "https://carusopizza.cz/cs/gnocchi/1029-gnocchi-pollo-e-funghi.html"
+    },
+    "Ravioli Pollo Funghi": {
+        type: "Těstoviny",
+        description: "ravioli plněné ricottou a špenátem, kuřecí maso, smetana, žampiony, petržel",
+        link: "https://carusopizza.cz/cs/ravioli/1030-ravioli-pollo-e-funghi.html"
+    },
+    "Tortellini Pollo Funghi": {
         type: "Těstoviny",
         description: "tortellini plněné mletým masem, kuřecí maso, smetana, žampiony, petržel",
         link: "https://carusopizza.cz/cs/tortellini/1031-tortellini-pollo-e-funghi.html"
@@ -410,12 +455,12 @@ class Caruso extends Restaurant {
         }
 
         const id = $(`.vc_tta-tab > a`)[dayIndex - 1].attribs.href;
-        const nodes = $(id).find('.wpb_wrapper > p');
+        const nodes = $(id).find('.wpb_wrapper > .wpb_text_column.wpb_content_element  > .wpb_wrapper > p');
         const result = [];
 
         for (let i = 0; i < nodes.length; i += 2) {
-            let name = nodes[i].children[0].data?.trim() ?? nodes[i].children[0].children[0].data.trim();
-            let price = nodes[i + 1].children[0].data?.trim() ?? nodes[i + 1].children[0].children[0].data.trim();
+            let name = $(nodes[i]).contents().text().trim();
+            let price = $(nodes[i + 1]).contents().text().trim();
             if (LUNCH_MAP[name]) {
                 price = `${price} (${LUNCH_MAP[name].link})`;
                 name = `*${name}* (${LUNCH_MAP[name].type}) - ${LUNCH_MAP[name].description}`;
