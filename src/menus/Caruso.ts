@@ -258,6 +258,11 @@ const LUNCH_MAP = {
         description: "rajčata, zelenina",
         link: "https://carusopizza.cz/cs/penne/115-rigatoni-pomodoro.html"
     },
+    "Penne Romagna": {
+        type: "Těstoviny",
+        description: "domácí italská slanina pancetta, smetana, krémový parmazán, pepř",
+        link: "https://carusopizza.cz/en/pasta-delivery-in-brno-and-olomouc/1165-penne-romagna.html"
+    },
     "Penne Carbonara": {
         type: "Těstoviny",
         description: "2 vejce, italská domácí pancetta, parmezán, cibule, pepř",
@@ -312,6 +317,11 @@ const LUNCH_MAP = {
         type: "Těstoviny",
         description: "tortellini plněné mletým masem, kuřecí maso, špenát, smetana",
         link: "https://carusopizza.cz/cs/tortellini/1008-tortellini-pollo-spinaci.html"
+    },
+    "Tortellini Tricolore": {
+        type: "Těstoviny",
+        description: "rajčata, bazalka, bazalkové pesto, mozzarella kuličky",
+        link: "https://carusopizza.cz/cs/rozvoz-testovin-v-brne-a-olomouci/1159-tortellini-tricolore.html"
     },
     "Fusilli Pollo e Funghi": {
         type: "Těstoviny",
@@ -460,10 +470,11 @@ class Caruso extends Restaurant {
 
         for (let i = 0; i < nodes.length; i += 2) {
             let name = $(nodes[i]).contents().text().trim();
+            const normalizedName = name.replace('28 cm/35 cm', '').trim()
             let price = $(nodes[i + 1]).contents().text().trim();
-            if (LUNCH_MAP[name]) {
-                price = `${price} (${LUNCH_MAP[name].link})`;
-                name = `*${name}* (${LUNCH_MAP[name].type}) - ${LUNCH_MAP[name].description}`;
+            if (LUNCH_MAP[normalizedName]) {
+                price = `${price} (${LUNCH_MAP[normalizedName].link})`;
+                name = `*${name}* (${LUNCH_MAP[normalizedName].type}) - ${LUNCH_MAP[normalizedName].description}`;
             }
 
             result.push({
