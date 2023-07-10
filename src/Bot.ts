@@ -166,10 +166,13 @@ class Bot {
       });
 
       if (this.allNotSent(history)) {
+        console.log('Sending all');
         this.handleMessage({
           channel: this.lunchtimeChannel,
           text: `<@${this.selfId}> all`,
         });
+      } else {
+        console.log('All sent');
       }
     } catch (e) {
       console.error(e);
