@@ -15,5 +15,3 @@ export const JOKE_REGEX = /\b(joke|vtip)(\b|\?)/i;
 export const LIGHT_REGEX = /\b(light|lightofindia)(\b|\?)/i;
 
 export const NAMEDAY_REGEX = /\b(svatek|meniny|nameday|name day)(\b|\?)/i;
-
-export const SELEPKA_REGEX = /\b(selepka|selepova)(\b|\?)/i;

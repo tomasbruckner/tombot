@@ -2,14 +2,15 @@ import { RTMCallResult, RTMClient, WebClient } from "@slack/client";
 import { CronJob } from "cron";
 import {
   ALCAPONE_REGEX,
-  ALL_REGEX, CARUSO_REGEX,
-  DREVAK_REGEX, EVEREST_REGEX,
+  ALL_REGEX,
+  CARUSO_REGEX,
+  DREVAK_REGEX,
+  EVEREST_REGEX,
   HELP_REGEX,
   JOKE_REGEX,
   KAREL_REGEX,
   LIGHT_REGEX,
   NAMEDAY_REGEX,
-  SELEPKA_REGEX,
   TAO_REGEX,
 } from "./common/constants";
 import { Restaurants, SlackChannels } from "./common/enums";
@@ -22,7 +23,6 @@ class Bot {
 
   public constructor(
     private slackToken: string,
-    private zomatoKey: string,
     private lunchtimeChannel: string,
     private dayInfo: DayInfo,
     private rtmClient: RTMClient,
@@ -36,10 +36,6 @@ class Bot {
   public start(): void {
     if (!this.slackToken) {
       throw new Error("No slack token specified in env TOKEN");
-    }
-
-    if (!this.zomatoKey) {
-      throw new Error("No Zomato api key specified in env ZOMATO");
     }
 
     this.rtmClient.on("authenticated", (connectData) => {
@@ -135,10 +131,6 @@ class Bot {
       if (all || EVEREST_REGEX.test(message.text)) {
         messagePromises.push(this.sendMenu(Restaurants.Everest, message));
       }
-
-      if (SELEPKA_REGEX.test(message.text)) {
-        messagePromises.push(this.sendMenu(Restaurants.Selepka, message));
-      }
     }
 
     return messagePromises;
@@ -148,7 +140,6 @@ class Bot {
     try {
       const slackMessage = await this.restaurantHandler.sendMenu(
         restaurant,
-        this.zomatoKey,
         message
       );
       this.webClient.chat.postMessage(slackMessage);
@@ -159,31 +150,14 @@ class Bot {
 
   private async sendAllByCron() {
     try {
-      const history = await this.webClient.channels.history({
+      console.log("Sending all");
+      this.handleMessage({
         channel: this.lunchtimeChannel,
-        inclusive: true,
-        oldest: Date.now().toString(),
+        text: `<@${this.selfId}> all`,
       });
-
-      if (this.allNotSent(history)) {
-        console.log('Sending all');
-        this.handleMessage({
-          channel: this.lunchtimeChannel,
-          text: `<@${this.selfId}> all`,
-        });
-      } else {
-        console.log('All sent');
-      }
     } catch (e) {
       console.error(e);
     }
-  }
-
-  private allNotSent(history): boolean {
-    return !history.messages.reduce(
-      (acc, m) => acc || ALL_REGEX.test(m.text),
-      false
-    );
   }
 
   private static getHelpMessage(): string {
@@ -196,7 +170,6 @@ Check out these commands:
         everest
         karel
         lightofindia
-        selepka
         tao
         svatek
         all`;

@@ -12,7 +12,7 @@ class AlCapone extends Restaurant {
     title_link: "https://www.pizzaalcapone.cz/poledni-menu",
   };
 
-  protected async getMenu(_: string) {
+  protected async getMenu() {
     const getIntro = bent("https://www.pizzaalcapone.cz/poledni-menu", "GET");
     const r = await getIntro();
     const phpCookie = r.headers["set-cookie"]

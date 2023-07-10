@@ -3,9 +3,7 @@ export enum Restaurants {
   Caruso,
   Drevak,
   LightOfIndia,
-  Selepka,
   Tao,
-  ZelenaKocka,
   Karel,
   Everest
 }
