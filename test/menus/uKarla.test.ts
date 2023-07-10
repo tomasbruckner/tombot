@@ -24,7 +24,7 @@ describe("U Karla", () => {
     });
 
     test("Resolve menu response", done => {
-        const menu = testedClass.getSlackMenu({channel: "channel"}, "apikey");
+        const menu = testedClass.getSlackMenu({channel: "channel"});
 
         expect(requestMock.mock.calls.length).toBe(1);
 

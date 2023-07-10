@@ -9,22 +9,18 @@ class Restaurant {
   protected url: string;
 
   protected defaultParams: SlackAttachment;
-
   public constructor(protected request) {}
 
-  public async getSlackMenu(message: Message, zomatoApiKey: string) {
-    const attachments = await this.getMenu(zomatoApiKey);
+  public async getSlackMenu(message: Message) {
+    const attachments = await this.getMenu();
 
     return this.createAttachmentMessage(message, attachments);
   }
 
-  protected getMenu(zomatoApiKey: string) {
+  protected getMenu() {
     return new Promise((resolve, reject) => {
       this.request.get(
         {
-          headers: {
-            user_key: zomatoApiKey,
-          },
           url: this.url,
         },
         (err, res, body) => {

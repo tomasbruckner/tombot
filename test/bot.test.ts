@@ -47,7 +47,6 @@ describe("Bot", () => {
         beforeEach(() => {
             testedClass = new Bot(
                 "slack",
-                "zomato",
                 "123",
                 dayInfo,
                 rtm,
@@ -78,28 +77,11 @@ describe("Bot", () => {
                 done();
             });
         });
-
-        test("Send all resolve", done => {
-            web.channels.history.mockResolvedValue({
-                messages: [{
-                    text: " all",
-                }],
-            });
-
-            const onTick = cron.mock.calls[0][0].onTick;
-
-            onTick().then(() => {
-                const mockError: any = console.error;
-                expect(mockError.mock.calls.length).toBe(0);
-                done();
-            });
-        });
     });
 
     test("Slack token throws", () => {
         const testedClass: Bot = new Bot(
             "",
-            "zomato",
             "123",
             dayInfo,
             rtm,
@@ -113,23 +95,6 @@ describe("Bot", () => {
         }).toThrow(/^No slack token specified in env TOKEN$/);
     });
 
-    test("Zomato key throws", () => {
-        const testedClass: Bot = new Bot(
-            "slack",
-            "",
-            "123",
-            dayInfo,
-            rtm,
-            web,
-            restaurantHandler,
-            cron,
-        );
-
-        expect(() => {
-            testedClass.start();
-        }).toThrow(/^No Zomato api key specified in env ZOMATO$/);
-    });
-
     test("Start", () => {
         const startMock = jest.fn();
         cron = function () {
@@ -138,7 +103,6 @@ describe("Bot", () => {
 
         const testedClass: Bot = new Bot(
             "slack",
-            "zomato",
             "123",
             dayInfo,
             rtm,
@@ -197,7 +161,6 @@ describe("Bot", () => {
 
             testedClass = new Bot(
                 "slack",
-                "zomato",
                 "123",
                 dayInfo,
                 rtm,
@@ -228,7 +191,6 @@ Check out these commands:
         everest
         karel
         lightofindia
-        selepka
         tao
         svatek
         all`);
@@ -323,23 +285,6 @@ Check out these commands:
                 const calls = restaurantHandler.sendMenu.mock.calls;
                 expect(calls.length).toBe(1);
                 expect(calls[0][0]).toBe(Restaurants.Drevak);
-
-                done();
-            });
-        });
-
-        test("Selepka", done => {
-            const promises = handleMessage({
-                channel: ["D"],
-                text: " selepka",
-            });
-
-            expect(promises.length).toBe(1);
-
-            Promise.all(promises).then(() => {
-                const calls = restaurantHandler.sendMenu.mock.calls;
-                expect(calls.length).toBe(1);
-                expect(calls[0][0]).toBe(Restaurants.Selepka);
 
                 done();
             });
