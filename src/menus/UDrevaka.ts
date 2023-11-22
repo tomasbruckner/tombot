@@ -11,7 +11,9 @@ class UDrevaka extends Restaurant {
     title_link: "https://udrevaka.cz/denni-menu/",
   };
 
-  protected handleResponse(body: string) {
+  private nameMap = ['po Polévka:', 'út Polévka:', 'st Polévka:', 'čt Polévka:', 'pa Polévka:' ]
+
+  public handleResponse(body: string) {
     const $ = cheerio.load(body);
     const dishes = this.getDishes($);
 
@@ -25,75 +27,45 @@ class UDrevaka extends Restaurant {
       throw new Error("U Drevaka does not have menu on weekend");
     }
 
-    const nodes = $(`.item-day:nth-child(${dayIndex}) > .row > div`);
+    const prefix = this.nameMap[dayIndex - 1]
 
-    if (nodes.length > 8) {
-      return [
-        {
-          dish: {
-            name: nodes[0].children[0].data,
-            price: "",
-          },
+    const nodes = $(`div > div > p`);
+    const result = []
+    let found = false;
+    for(const x of nodes) {
+      const text = $(x).contents().text().replace(/\s+/g, ' ').trim();
+      if (!found) {
+        if ($(x).contents().text().trim().startsWith(prefix)) {
+          found = true;
+          result.push({
+            dish: {
+              name: text.replace(prefix, '').trim(),
+              price: ''
+            },
+          })
+        }
+
+        continue;
+      }
+
+      if (!text) {
+        continue;
+      }
+
+      const parts = text.match(/^\d\) (.+)(\d\d\d.*)/)
+      if (!parts) {
+        break;
+      }
+
+      result.push({
+        dish: {
+          name: parts[1].trim(),
+          price: parts[2].includes('k') ? parts[2].trim() : `${parts[2].trim()} kč`
         },
-        {
-          dish: {
-            name: nodes[1].children[0].data,
-            price: nodes[2].children[0].data,
-          },
-        },
-        {
-          dish: {
-            name: nodes[3].children[0].data,
-            price: nodes[4].children[0].data,
-          },
-        },
-        {
-          dish: {
-            name: nodes[5].children[0].data,
-            price: nodes[6].children[0].data,
-          },
-        },
-        {
-          dish: {
-            name: nodes[7].children[0].data,
-            price: nodes[8].children[0].data,
-          },
-        },
-      ];
+      })
     }
 
-    return [
-      {
-        dish: {
-          name: nodes[0].children[0].data,
-          price: "",
-        },
-      },
-      {
-        dish: {
-          name: nodes[1].children[0].data,
-          price: "",
-        },
-      },
-      {
-        dish: {
-          name: nodes[2].children[0].data,
-          price: "",
-        },
-      },
-      {
-        dish: {
-          name: nodes[3].children[0].data,
-          price: "",
-        },
-      },
-      {
-        dish: {
-          name: nodes[4].children[0].data,
-          price: "",
-        },
-      },
-    ];
+    return result;
   }
 }
 

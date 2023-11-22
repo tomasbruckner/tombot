@@ -11,7 +11,7 @@ class Tao extends Restaurant {
     title_link: "https://www.taorestaurant.cz/tydenni_menu/nabidka/",
   };
 
-  protected handleResponse(body: string) {
+  public handleResponse(body: string) {
     const $ = cheerio.load(body);
     const dishes = this.getDishes($);
 
