@@ -5,7 +5,7 @@ import PublicHolidays from "./PublicHolidays";
 class DayInfo {
   constructor(
     private nameDays: NameDays,
-    private publicHolidays: PublicHolidays
+    private publicHolidays: PublicHolidays,
   ) {}
 
   public getDayInfo(): string {

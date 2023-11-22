@@ -27,56 +27,8 @@ describe("Bot", () => {
             },
         };
         restaurantHandler = jest.fn();
-        cron = function () {
-            this.start = jest.fn();
-        };
 
         console.log = jest.fn();
-    });
-
-    describe("Cron", () => {
-        const originalError = console.error;
-        let cron = jest.fn();
-        let testedClass: Bot;
-        const web: any = {
-            channels: {
-                history: jest.fn(),
-            },
-        };
-
-        beforeEach(() => {
-            testedClass = new Bot(
-                "slack",
-                "123",
-                dayInfo,
-                rtm,
-                web,
-                restaurantHandler,
-                cron,
-            );
-
-            console.error = jest.fn();
-        });
-
-        test("Cron settings", () => {
-            expect(cron.mock.calls[0][0].timeZone).toBe("Europe/Prague");
-            expect(cron.mock.calls[0][0].start).toBe(false);
-            expect(cron.mock.calls[0][0].cronTime).toBe("0 8 * * 1-5");
-        });
-
-        test("Send all resolve", done => {
-            web.channels.history.mockResolvedValue({
-                messages: [],
-            });
-
-            const onTick = cron.mock.calls[0][0].onTick;
-
-            onTick().then(() => {
-                const mockError: any = console.error;
-                expect(mockError.mock.calls.length).toBe(1);
-                done();
-            });
-        });
     });
 
     test("Slack token throws", () => {
@@ -87,55 +39,11 @@ describe("Bot", () => {
             rtm,
             web,
             restaurantHandler,
-            cron,
         );
 
         expect(() => {
             testedClass.start();
         }).toThrow(/^No slack token specified in env TOKEN$/);
-    });
-
-    test("Start", () => {
-        const startMock = jest.fn();
-        cron = function () {
-            this.start = startMock;
-        };
-
-        const testedClass: Bot = new Bot(
-            "slack",
-            "123",
-            dayInfo,
-            rtm,
-            web,
-            restaurantHandler,
-            cron,
-        );
-
-        testedClass.start();
-
-        const rtmCalls = rtm.on.mock.calls;
-        expect(rtmCalls.length).toBe(3);
-        expect(rtm.start.mock.calls.length).toBe(1);
-        expect(startMock.mock.calls.length).toBe(1);
-
-        expect(rtmCalls[0][0]).toBe("authenticated");
-
-        const authenticatedResult = rtmCalls[0][1]({
-            self: {
-                id: 2,
-            },
-            team: {
-                id: 11,
-            },
-        });
-
-        const log: any = console.log;
-
-        expect(log.mock.calls.length).toBe(1);
-
-        rtmCalls[1][1]();
-
-        expect(log.mock.calls.length).toBe(2);
     });
 
     describe("Handle message", () => {
@@ -166,7 +74,6 @@ describe("Bot", () => {
                 rtm,
                 web,
                 restaurantHandler,
-                cron,
             );
 
             testedClass.start();

@@ -75,7 +75,7 @@ const expectedSlackMenu = [
       footer: "",
       text: "Česnečka se zeleninou a brambory (1,6,7,9)",
       title: "U Drevaka",
-      title_link: "https://udrevaka.cz/denni-menu/",
+      title_link: "https://udrevaka.cz/pages/poledni-menu",
     },
     {
       color: "#5da7ac",
@@ -109,7 +109,7 @@ const expectedSlackMenu = [
       footer: "",
       text: "Gulášová (1,6,9)",
       title: "U Drevaka",
-      title_link: "https://udrevaka.cz/denni-menu/",
+      title_link: "https://udrevaka.cz/pages/poledni-menu",
     },
     {
       color: "#5da7ac",
@@ -143,7 +143,7 @@ const expectedSlackMenu = [
       footer: "",
       text: "Slepičí vývar s nudlemi, zeleninou a trhaným masem (1,6,7,9)",
       title: "U Drevaka",
-      title_link: "https://udrevaka.cz/denni-menu/",
+      title_link: "https://udrevaka.cz/pages/poledni-menu",
     },
     {
       color: "#5da7ac",
@@ -177,7 +177,7 @@ const expectedSlackMenu = [
       footer: "",
       text: "Hráškový krém (1,6,7,9)",
       title: "U Drevaka",
-      title_link: "https://udrevaka.cz/denni-menu/",
+      title_link: "https://udrevaka.cz/pages/poledni-menu",
     },
     {
       color: "#5da7ac",
@@ -211,7 +211,7 @@ const expectedSlackMenu = [
       footer: "",
       text: "Hovězí vývar se zeleninou a nudlemi (1,6,7,9)",
       title: "U Drevaka",
-      title_link: "https://udrevaka.cz/denni-menu/",
+      title_link: "https://udrevaka.cz/pages/poledni-menu",
     },
     {
       color: "#5da7ac",

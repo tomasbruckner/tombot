@@ -75,7 +75,7 @@ const expectedSlackMenu = [
       footer: "",
       text: "Hrachová se slaninou a majoránkou (6,9)",
       title: "U Karla",
-      title_link: "https://ukarlabrno.cz/denni-menu/",
+      title_link: "https://ukarlabrno.cz/pages/poledni-menu",
     },
     {
       color: "#5da7ac",
@@ -115,7 +115,7 @@ const expectedSlackMenu = [
       footer: "",
       text: "Vývar z uzeného žebra, kroupy, brambory(1,6,9)",
       title: "U Karla",
-      title_link: "https://ukarlabrno.cz/denni-menu/",
+      title_link: "https://ukarlabrno.cz/pages/poledni-menu",
     },
     {
       color: "#5da7ac",
@@ -155,7 +155,7 @@ const expectedSlackMenu = [
       footer: "",
       text: "Česnečka s vejcem a bramborem (3)",
       title: "U Karla",
-      title_link: "https://ukarlabrno.cz/denni-menu/",
+      title_link: "https://ukarlabrno.cz/pages/poledni-menu",
     },
     {
       color: "#5da7ac",
@@ -195,7 +195,7 @@ const expectedSlackMenu = [
       footer: "",
       text: "Slepičí vývar s nudlemi (1,7)",
       title: "U Karla",
-      title_link: "https://ukarlabrno.cz/denni-menu/",
+      title_link: "https://ukarlabrno.cz/pages/poledni-menu",
     },
     {
       color: "#5da7ac",
@@ -235,7 +235,7 @@ const expectedSlackMenu = [
       footer: "",
       text: "Zelňačka s klobásou a kapkou smetany (1,6,7,9)",
       title: "U Karla",
-      title_link: "https://ukarlabrno.cz/denni-menu/",
+      title_link: "https://ukarlabrno.cz/pages/poledni-menu",
     },
     {
       color: "#5da7ac",

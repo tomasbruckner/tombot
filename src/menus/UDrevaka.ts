@@ -11,12 +11,17 @@ class UDrevaka extends Restaurant {
     title_link: "https://udrevaka.cz/pages/poledni-menu",
   };
 
-  private nameMap = ['po Polévka:', 'út Polévka:', 'st Polévka:', 'čt Polévka:', 'pa Polévka:' ]
+  private nameMap = [
+    /po\s+Polévka:/,
+    /út\s+Polévka:/,
+    /st\s+Polévka:/,
+    /čt\s+Polévka:/,
+    /pa\s+Polévka:/,
+  ];
 
   public handleResponse(body: string) {
     const $ = cheerio.load(body);
     const dishes = this.getDishes($);
-
     return this.createSlackMenu(dishes);
   }
 
@@ -27,22 +32,22 @@ class UDrevaka extends Restaurant {
       throw new Error("U Drevaka does not have menu on weekend");
     }
 
-    const prefix = this.nameMap[dayIndex - 1]
+    const prefixRegexp = this.nameMap[dayIndex - 1];
 
     const nodes = $(`div > div > p`);
-    const result = []
+    const result = [];
     let found = false;
-    for(const x of nodes) {
-      const text = $(x).contents().text().replace(/\s+/g, ' ').trim();
+    for (const x of nodes) {
+      const text = $(x).contents().text().replace(/\s+/g, " ").trim();
       if (!found) {
-        if ($(x).contents().text().trim().startsWith(prefix)) {
+        if (prefixRegexp.test($(x).contents().text().trim())) {
           found = true;
           result.push({
             dish: {
-              name: text.replace(prefix, '').trim(),
-              price: ''
+              name: text.replace(prefixRegexp, "").trim(),
+              price: "",
             },
-          })
+          });
         }
 
         continue;
@@ -52,7 +57,7 @@ class UDrevaka extends Restaurant {
         continue;
       }
 
-      const parts = text.match(/^\d\) (.+)(\d\d\d.*)/)
+      const parts = text.match(/^\d\) (.+)(\d\d\d.*)/);
       if (!parts) {
         break;
       }
@@ -60,9 +65,11 @@ class UDrevaka extends Restaurant {
       result.push({
         dish: {
           name: parts[1].trim(),
-          price: parts[2].includes('k') ? parts[2].trim() : `${parts[2].trim()} kč`
+          price: parts[2].includes("k")
+            ? parts[2].trim()
+            : `${parts[2].trim()} kč`,
         },
-      })
+      });
     }
 
     return result;
