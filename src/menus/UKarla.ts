@@ -3,12 +3,12 @@ import { SlackAttachment } from "../common/interfaces";
 import Restaurant from "./Restaurant";
 
 class UKarla extends Restaurant {
-  protected url: string = "https://ukarlabrno.cz/denni-menu/";
+  protected url: string = "https://ukarlabrno.cz/pages/poledni-menu";
 
   protected defaultParams: SlackAttachment = {
     color: "#5da7ac",
     title: "U Karla",
-    title_link: "https://ukarlabrno.cz/denni-menu/",
+    title_link: "https://ukarlabrno.cz/pages/poledni-menu",
   };
   private nameMap = ['po Polévka:', 'út Polévka:', 'st Polévka:', 'čt Polévka:', 'pa Polévka:' ]
 

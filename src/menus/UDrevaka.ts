@@ -3,12 +3,12 @@ import { SlackAttachment } from "../common/interfaces";
 import Restaurant from "./Restaurant";
 
 class UDrevaka extends Restaurant {
-  protected url: string = "https://udrevaka.cz/denni-menu/";
+  protected url: string = "https://udrevaka.cz/pages/poledni-menu";
 
   protected defaultParams: SlackAttachment = {
     color: "#5da7ac",
     title: "U Drevaka",
-    title_link: "https://udrevaka.cz/denni-menu/",
+    title_link: "https://udrevaka.cz/pages/poledni-menu",
   };
 
   private nameMap = ['po Polévka:', 'út Polévka:', 'st Polévka:', 'čt Polévka:', 'pa Polévka:' ]
