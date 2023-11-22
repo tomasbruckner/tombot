@@ -5,5 +5,5 @@ export enum Restaurants {
   LightOfIndia,
   Tao,
   Karel,
-  Everest
+  Everest,
 }

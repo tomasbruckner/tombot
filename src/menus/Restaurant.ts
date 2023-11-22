@@ -37,7 +37,7 @@ class Restaurant {
           } catch (e) {
             return reject(e);
           }
-        }
+        },
       );
     });
   }

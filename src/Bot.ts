@@ -1,4 +1,3 @@
-import { RTMCallResult, RTMClient, WebClient } from "@slack/client";
 import { CronJob } from "cron";
 import {
   ALCAPONE_REGEX,
@@ -16,6 +15,8 @@ import {
 import { Restaurants, SlackChannels } from "./common/enums";
 import DayInfo from "./database/DayInfo";
 import RestaurantHandler from "./menus/RestaurantHandler";
+import { RTMCallResult, RTMClient } from "@slack/rtm-api";
+import { WebClient } from "@slack/web-api";
 
 class Bot {
   private cronJob: CronJob;
@@ -28,9 +29,14 @@ class Bot {
     private rtmClient: RTMClient,
     private webClient: WebClient,
     private restaurantHandler: RestaurantHandler,
-    CronJobConstructor: CronJob
   ) {
-    this.cronJob = new CronJobConstructor(this.getCronSettings());
+    this.cronJob = new CronJob(
+      "0 8 * * 1-5",
+      () => this.sendAllByCron(),
+      null,
+      false,
+      "Europe/Prague",
+    );
   }
 
   public start(): void {
@@ -54,15 +60,6 @@ class Bot {
     this.cronJob.start();
   }
 
-  public getCronSettings() {
-    return {
-      cronTime: "0 8 * * 1-5",
-      onTick: () => this.sendAllByCron(),
-      start: false,
-      timeZone: "Europe/Prague",
-    };
-  }
-
   private handleMessage(message): Array<Promise<void | RTMCallResult>> {
     const messagePromises = [];
 
@@ -81,7 +78,7 @@ class Bot {
         const helpMessage = Bot.getHelpMessage();
 
         messagePromises.push(
-          this.rtmClient.sendMessage(helpMessage, message.channel)
+          this.rtmClient.sendMessage(helpMessage, message.channel),
         );
       }
 
@@ -99,8 +96,8 @@ class Bot {
         messagePromises.push(
           this.rtmClient.sendMessage(
             "http://files.explosm.net/comics/Rob/myothercat.png",
-            message.channel
-          )
+            message.channel,
+          ),
         );
       }
 
@@ -140,7 +137,7 @@ class Bot {
     try {
       const slackMessage = await this.restaurantHandler.sendMenu(
         restaurant,
-        message
+        message,
       );
       this.webClient.chat.postMessage(slackMessage);
     } catch (e) {
