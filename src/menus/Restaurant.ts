@@ -42,7 +42,7 @@ class Restaurant {
     });
   }
 
-  protected handleResponse(body: string) {
+  public handleResponse(body: string) {
     const dailyMenu = JSON.parse(body);
 
     return this.createSlackMenu(dailyMenu);
