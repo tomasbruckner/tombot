@@ -11,11 +11,11 @@ class UKarla extends Restaurant {
     title_link: "https://ukarlabrno.cz/pages/poledni-menu",
   };
   private nameMap = [
-    /po\s+Polévka:/,
-    /út\s+Polévka:/,
-    /st\s+Polévka:/,
-    /čt\s+Polévka:/,
-    /pa\s+Polévka:/,
+    /po\s+Polévka:/i,
+    /út\s+Polévka:/i,
+    /st\s+Polévka:/i,
+    /čt\s+Polévka:/i,
+    /pa\s+Polévka:/i,
   ];
 
   public handleResponse(body: string) {
@@ -57,7 +57,7 @@ class UKarla extends Restaurant {
         continue;
       }
 
-      const parts = text.match(/^\d\) (.+)(\d\d\d.*)/);
+      const parts = text.match(/^\d\) (.+)(\d\d\d.*)?/);
       if (!parts) {
         break;
       }
@@ -65,9 +65,9 @@ class UKarla extends Restaurant {
       result.push({
         dish: {
           name: parts[1].trim(),
-          price: parts[2].includes("k")
-            ? parts[2].trim()
-            : `${parts[2].trim()} kč`,
+          price: parts[2]?.includes("k")
+              ? parts[2]?.trim()
+              : `${parts[2]?.trim() ?? '?'} kč`,
         },
       });
     }

@@ -57,7 +57,7 @@ class UDrevaka extends Restaurant {
         continue;
       }
 
-      const parts = text.match(/^\d\) (.+)(\d\d\d.*)/);
+      const parts = text.match(/^\d\) (.+)(\d\d\d.*)?/);
       if (!parts) {
         break;
       }
@@ -65,9 +65,9 @@ class UDrevaka extends Restaurant {
       result.push({
         dish: {
           name: parts[1].trim(),
-          price: parts[2].includes("k")
-            ? parts[2].trim()
-            : `${parts[2].trim()} kč`,
+          price: parts[2]?.includes("k")
+            ? parts[2]?.trim()
+            : `${parts[2]?.trim() ?? '?'} kč`,
         },
       });
     }
