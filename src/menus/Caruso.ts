@@ -13,6 +13,11 @@ const LUNCH_MAP = {
     type: "Pizza",
     link: "https://carusopizza.cz/cs/pizza-brno-olomouc/14-mais.html#/velikost-velka_35_cm",
   },
+  Mezzogiorno: {
+    description: "římský salát, ledový salát, rukola, sušená italská rajčata, černé olivy, mozzarella kuličky, bazalkové pesto, italský tvrdý sýr, pizza pane",
+    type: "Salát",
+    link: "https://carusopizza.cz/cs/rozvoz-salatu-v-brne-a-olomouci/118-mezzogiorno.html",
+  },
   "4 Formaggi": {
     description: "smetana, mozzarella, gorgonzola, plísňový sýr, uzený sýr",
     type: "Pizza",
@@ -86,6 +91,11 @@ const LUNCH_MAP = {
     description: "smetana, mozzarella, kuřecí maso, špenát",
     type: "Pizza",
     link: "https://carusopizza.cz/cs/pizza-brno-olomouc/18-pollo-spinaci.html#/velikost-velka_35_cm",
+  },
+  "Pollo e Spinaci": {
+    description: "smetana, mozzarella, kuřecí maso, špenát",
+    type: "Pizza",
+    link: "https://carusopizza.cz/cs/pizza-brno-olomouc/18-pollo-e-spinaci.html?search_query=polo+e+spinaci&results=9#/velikost-velka_35_cm",
   },
   "Quattro stagioni": {
     description:
@@ -272,6 +282,41 @@ const LUNCH_MAP = {
     description: "rajčata, zelenina",
     link: "https://carusopizza.cz/cs/gnocchi/110-gnocchi-pomodoro.html",
   },
+  "Gnocchi Romagna": {
+    type: "Těstoviny",
+    description: "domácí italská slanina pancetta, smetana, krémový italský tvrdý sýr, pepř",
+    link: "https://carusopizza.cz/cs/rozvoz-testovin-v-brne-a-olomouci/1162-gnocchi-romagna.html",
+  },
+  "Tagliatelle Romagna": {
+    type: "Těstoviny",
+    description: "domácí italská slanina pancetta, smetana, krémový italský tvrdý sýr, pepř",
+    link: "https://carusopizza.cz/cs/rozvoz-testovin-v-brne-a-olomouci/1163-tagliatelle-romagna.html",
+  },
+  "Fusilli Romagna": {
+    type: "Těstoviny",
+    description: "domácí italská slanina pancetta, smetana, krémový italský tvrdý sýr, pepř",
+    link: "https://carusopizza.cz/cs/rozvoz-testovin-v-brne-a-olomouci/1164-fusilli-romagna.html",
+  },
+  "Penne Romagna": {
+    type: "Těstoviny",
+    description: "domácí italská slanina pancetta, smetana, krémový italský tvrdý sýr, pepř",
+    link: "https://carusopizza.cz/cs/rozvoz-testovin-v-brne-a-olomouci/1165-penne-romagna.html",
+  },
+  "Spaghetti Romagna": {
+    type: "Těstoviny",
+    description: "domácí italská slanina pancetta, smetana, krémový italský tvrdý sýr, pepř",
+    link: "https://carusopizza.cz/cs/rozvoz-testovin-v-brne-a-olomouci/1166-spaghetti-romagna.html",
+  },
+  "Ravioli Romagna": {
+    type: "Těstoviny",
+    description: "domácí italská slanina pancetta, smetana, krémový italský tvrdý sýr, pepř",
+    link: "https://carusopizza.cz/cs/rozvoz-testovin-v-brne-a-olomouci/1167-ravioli-romagna.html",
+  },
+  "Tortellini Romagna": {
+    type: "Těstoviny",
+    description: "domácí italská slanina pancetta, smetana, krémový italský tvrdý sýr, pepř",
+    link: "https://carusopizza.cz/cs/rozvoz-testovin-v-brne-a-olomouci/1168-tortelini-romagna.html#/ingredience_navic_testoviny-zadna_dalsi_ingredience",
+  },
   "Penne Bolognese": {
     type: "Těstoviny",
     description: "mleté maso (hovězí a vepřové), zelenina, rajčata",
@@ -281,12 +326,6 @@ const LUNCH_MAP = {
     type: "Těstoviny",
     description: "rajčata, zelenina",
     link: "https://carusopizza.cz/cs/penne/115-rigatoni-pomodoro.html",
-  },
-  "Penne Romagna": {
-    type: "Těstoviny",
-    description:
-      "domácí italská slanina pancetta, smetana, krémový parmazán, pepř",
-    link: "https://carusopizza.cz/en/pasta-delivery-in-brno-and-olomouc/1165-penne-romagna.html",
   },
   "Penne Carbonara": {
     type: "Těstoviny",
@@ -348,6 +387,26 @@ const LUNCH_MAP = {
     type: "Těstoviny",
     description: "rajčata, bazalka, bazalkové pesto, mozzarella kuličky",
     link: "https://carusopizza.cz/cs/rozvoz-testovin-v-brne-a-olomouci/1159-tortellini-tricolore.html",
+  },
+  "Tagliatelle Tricolore": {
+    type: "Těstoviny",
+    description: "rajčata, bazalka, bazalkové pesto, mozzarella kuličky",
+    link: "https://carusopizza.cz/cs/rozvoz-testovin-v-brne-a-olomouci/1160-tagliatelle-tricolore.html",
+  },
+  "Ravioli Tricolore": {
+    type: "Těstoviny",
+    description: "rajčata, bazalka, bazalkové pesto, mozzarella kuličky",
+    link: "https://carusopizza.cz/cs/rozvoz-testovin-v-brne-a-olomouci/1158-ravioli-tricolore.html",
+  },
+  "Spaghetti Tricolore": {
+    type: "Těstoviny",
+    description: "rajčata, bazalka, bazalkové pesto, mozzarella kuličky",
+    link: "https://carusopizza.cz/cs/rozvoz-testovin-v-brne-a-olomouci/1157-spaghetti-tricolore.html",
+  },
+  "Fusilli Tricolore": {
+    type: "Těstoviny",
+    description: "rajčata, bazalka, bazalkové pesto, mozzarella kuličky",
+    link: "https://carusopizza.cz/cs/rozvoz-testovin-v-brne-a-olomouci/1156-fusilli-tricolore.html",
   },
   "Fusilli Pollo e Funghi": {
     type: "Těstoviny",
@@ -475,6 +534,52 @@ const LUNCH_MAP = {
     description:
       "ravioli plněné ricottou a špenátem, rajčata, domácí pancetta, cibule, chilli drcené, černé olivy",
     link: "https://carusopizza.cz/cs/ravioli/1078-ravioli-amatriciana.html",
+  },
+  "Mousse al Lampone": {
+    type: "Dezerty",
+    description:
+      "malinová pěna zdobená hoblinkami z hořké čokolády",
+    link: "https://carusopizza.cz/cs/home/1049-mousse-al-lampone.html",
+  },
+  "Tiramisu all' Amaretto": {
+    type: "Dezerty",
+    description:
+      "krém s příchutí tiramisu prokládaný amaretto sušenkami a zdobený hoblinkami z mléčné čokolády",
+    link: "https://carusopizza.cz/cs/dezerty/1147-tiramisu-all-amaretto.html",
+  },
+  "Tiramisu all Amaretto": {
+    type: "Dezerty",
+    description:
+      "krém s příchutí tiramisu prokládaný amaretto sušenkami a zdobený hoblinkami z mléčné čokolády",
+    link: "https://carusopizza.cz/cs/dezerty/1147-tiramisu-all-amaretto.html",
+  },
+  "Tiramisu all´Amaretto": {
+    type: "Dezerty",
+    description:
+      "krém s příchutí tiramisu prokládaný amaretto sušenkami a zdobený hoblinkami z mléčné čokolády",
+    link: "https://carusopizza.cz/cs/dezerty/1147-tiramisu-all-amaretto.html",
+  },
+  "Mousse al Cioccolato": {
+    type: "Dezerty",
+    description:
+      "čokoládová pěna zdobená hoblinkami z bílé čokolády",
+    link: "https://carusopizza.cz/cs/dezerty/1146-mousse-al-cioccolato.html",
+  },
+  "Tiramisu Originale": {
+    type: "Dezerty",
+    description:
+      "krém s příchutí tiramusu prokládaný cukrářskými piškoty máčenými v silné kávě posypaný kakaem",
+    link: "https://carusopizza.cz/cs/dezerty/1048-tiramisu-originale.html",
+  },
+  "Panna Cotta Frutti di Bosco": {
+    type: "Dezerty",
+    description: "smetana, vanilka, hustá poleva z lesního ovoce",
+    link: "https://carusopizza.cz/cs/dezerty/1068-panna-cotta-frutti-di-bosco.html",
+  },
+  "Panna Cotta Cioccolato": {
+    type: "Dezerty",
+    description: "smetana, vanilka, hustá čokoládová poleva",
+    link: "https://carusopizza.cz/cs/dezerty/1069-panna-cotta-cioccolato.html",
   },
 };
 

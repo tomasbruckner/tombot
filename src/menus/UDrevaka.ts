@@ -12,11 +12,11 @@ class UDrevaka extends Restaurant {
   };
 
   private nameMap = [
-    /po\s+Polévka:/,
-    /út\s+Polévka:/,
-    /st\s+Polévka:/,
-    /čt\s+Polévka:/,
-    /pa\s+Polévka:/,
+    /po\s+Polévka:/i,
+    /út\s+Polévka:/i,
+    /st\s+Polévka:/i,
+    /čt\s+Polévka:/i,
+    /pa\s+Polévka:/i,
   ];
 
   public handleResponse(body: string) {
