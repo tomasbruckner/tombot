@@ -6,4 +6,5 @@ export enum Restaurants {
   Tao,
   Karel,
   Everest,
+  Padagali
 }

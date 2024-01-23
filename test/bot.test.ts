@@ -98,6 +98,7 @@ Check out these commands:
         everest
         karel
         lightofindia
+        padagali
         tao
         svatek
         all`);
@@ -203,7 +204,7 @@ Check out these commands:
                 text: " all",
             });
 
-            const NUMBER_OF_EXPECTED_MENUS = 8;
+            const NUMBER_OF_EXPECTED_MENUS = 9;
             expect(promises.length).toBe(NUMBER_OF_EXPECTED_MENUS);
         });
     });
