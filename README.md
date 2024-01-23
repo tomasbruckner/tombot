@@ -18,6 +18,7 @@ help
 - drevak
 - lightofindia
 - tao
+- padagali
 - svatek - shows whose name day is today
 - all - shows menu for every restaurant + name day
 

@@ -7,6 +7,7 @@ import Tao from "./Tao";
 import UKarla from "./UKarla";
 import Caruso from "./Caruso";
 import Everest from "./Everest";
+import Padagali from "./Padagali";
 
 class RestaurantHandler {
   private restaurants = {
@@ -17,6 +18,7 @@ class RestaurantHandler {
     [Restaurants.Tao]: new Tao(request),
     [Restaurants.LightOfIndia]: new LightOfIndia(request),
     [Restaurants.Karel]: new UKarla(request),
+    [Restaurants.Padagali]: new Padagali(request),
   };
 
   /* istanbul ignore next */

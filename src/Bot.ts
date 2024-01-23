@@ -9,7 +9,7 @@ import {
   JOKE_REGEX,
   KAREL_REGEX,
   LIGHT_REGEX,
-  NAMEDAY_REGEX,
+  NAMEDAY_REGEX, PADAGALI_REGEX,
   TAO_REGEX,
 } from "./common/constants";
 import { Restaurants, SlackChannels } from "./common/enums";
@@ -113,6 +113,10 @@ class Bot {
         messagePromises.push(this.sendMenu(Restaurants.Karel, message));
       }
 
+      if (all || PADAGALI_REGEX.test(message.text)) {
+        messagePromises.push(this.sendMenu(Restaurants.Padagali, message));
+      }
+
       if (all || TAO_REGEX.test(message.text)) {
         messagePromises.push(this.sendMenu(Restaurants.Tao, message));
       }
@@ -167,6 +171,7 @@ Check out these commands:
         everest
         karel
         lightofindia
+        padagali
         tao
         svatek
         all`;
