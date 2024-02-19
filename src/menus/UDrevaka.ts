@@ -3,7 +3,7 @@ import { SlackAttachment } from "../common/interfaces";
 import Restaurant from "./Restaurant";
 
 class UDrevaka extends Restaurant {
-  protected url: string = "https://udrevaka.cz/pages/poledni-menu";
+  protected url: string = "https://udrevaka.cz/api/public/custom-page/poledni-menu?lang=cz&screen=desktop";
 
   protected defaultParams: SlackAttachment = {
     color: "#5da7ac",
@@ -20,7 +20,9 @@ class UDrevaka extends Restaurant {
   ];
 
   public handleResponse(body: string) {
-    const $ = cheerio.load(body);
+    const parsed = JSON.parse(body)
+
+    const $ = cheerio.load(`<pre>${parsed.content.value}</pre>`);
     const dishes = this.getDishes($);
     return this.createSlackMenu(dishes);
   }
@@ -34,7 +36,7 @@ class UDrevaka extends Restaurant {
 
     const prefixRegexp = this.nameMap[dayIndex - 1];
 
-    const nodes = $(`div > div > p`);
+    const nodes = $(`p`);
     const result = [];
     let found = false;
     for (const x of nodes) {
@@ -57,7 +59,7 @@ class UDrevaka extends Restaurant {
         continue;
       }
 
-      const parts = text.match(/^\d\) (.+)(\d\d\d.*)?/);
+      const parts = text.match(/^\d\) (.+)(\d\d\d)$/);
       if (!parts) {
         break;
       }

@@ -3,13 +3,15 @@ import { SlackAttachment } from "../common/interfaces";
 import Restaurant from "./Restaurant";
 
 class Padagali extends Restaurant {
-    protected url: string = "https://padagali.cz/denni-menu/";
+    protected url: string = "https://padagali.choiceqr.com/section:denni-menu";
 
     protected defaultParams: SlackAttachment = {
         color: "#ffdcff",
         title: "Padagali",
-        title_link: "https://padagali.cz/denni-menu/",
+        title_link: "https://padagali.choiceqr.com/section:denni-menu",
     };
+
+    private ids = ['category-pondeli','category-utery','category-streda','category-ctvrtek','category-patek']
 
     public handleResponse(body: string) {
         const $ = cheerio.load(body);
@@ -25,14 +27,14 @@ class Padagali extends Restaurant {
             throw new Error("Padagali does not have menu on weekend");
         }
 
-        let nodes = $(`div.glf-mor-restaurant-menu-category`)[dayIndex - 1];
-        nodes = $(nodes).find("> div > div > div");
+        const root = $(`#${this.ids[dayIndex - 1]}`);
+        const menuRoot = $(root).find(`[class*="styles_menu-item-desktop"]`);
         const result = [];
 
-        for (let i = 0; i < nodes.length; i += 1) {
-            const price = $(nodes[i].children[1].children[1]).contents().text();
-            const name = $(nodes[i].children[1].children[0]).contents().text();
-            const description = $(nodes[i].children[3]).contents().text()
+        for (let i = 0; i < menuRoot.length; i += 1) {
+            const name = $(menuRoot[i]).find(`[class*="menu-item-title"]`).text();
+            const description = $(menuRoot[i]).find(`[class*="menu-item-description"]`).text();
+            const price = $(menuRoot[i]).find(`[class*="menu-item-price"]`).text();
             result.push({
                 dish: {
                     name: `${name} (${description})`,
