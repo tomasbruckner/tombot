@@ -28,7 +28,7 @@ class Padagali extends Restaurant {
         }
 
         const root = $(`#${this.ids[dayIndex - 1]}`);
-        const menuRoot = $(root).find(`[class*="styles_menu-item-desktop"]`);
+        const menuRoot = $(root).find(`[class*="styles_menuCategoryList"] > [class*="styles_menu-item"]`);
         const result = [];
 
         for (let i = 0; i < menuRoot.length; i += 1) {
