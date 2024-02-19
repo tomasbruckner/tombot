@@ -3,7 +3,7 @@ import { SlackAttachment } from "../common/interfaces";
 import Restaurant from "./Restaurant";
 
 class UKarla extends Restaurant {
-  protected url: string = "https://ukarlabrno.cz/pages/poledni-menu";
+  protected url: string = "https://ukarlabrno.cz/api/public/custom-page/poledni-menu?lang=cz&screen=desktop";
 
   protected defaultParams: SlackAttachment = {
     color: "#5da7ac",
@@ -11,15 +11,16 @@ class UKarla extends Restaurant {
     title_link: "https://ukarlabrno.cz/pages/poledni-menu",
   };
   private nameMap = [
-    /po\s+Polévka:/i,
-    /út\s+Polévka:/i,
-    /st\s+Polévka:/i,
-    /čt\s+Polévka:/i,
-    /pa\s+Polévka:/i,
+    /po\s+Polévka\s*:/i,
+    /út\s+Polévka\s*:/i,
+    /st\s+Polévka\s*:/i,
+    /čt\s+Polévka\s*:/i,
+    /pa\s+Polévka\s*:/i,
   ];
 
   public handleResponse(body: string) {
-    const $ = cheerio.load(body);
+    const parsed = JSON.parse(body);
+    const $ = cheerio.load(`<pre>${parsed.content.value}</pre>`);
     const dishes = this.getDishes($);
 
     return this.createSlackMenu(dishes);
@@ -29,12 +30,12 @@ class UKarla extends Restaurant {
     const dayIndex = new Date().getDay();
 
     if (dayIndex === 0 || dayIndex > 5) {
-      throw new Error("U Drevaka does not have menu on weekend");
+      throw new Error("U Karla does not have menu on weekend");
     }
 
     const prefixRegexp = this.nameMap[dayIndex - 1];
 
-    const nodes = $(`div > div > p`);
+    const nodes = $(`p`);
     const result = [];
     let found = false;
     for (const x of nodes) {
@@ -57,7 +58,7 @@ class UKarla extends Restaurant {
         continue;
       }
 
-      const parts = text.match(/^\d\) (.+)(\d\d\d.*)?/);
+      const parts = text.match(/^\d\) (.+)(\d\d\d)$/);
       if (!parts) {
         break;
       }
