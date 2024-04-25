@@ -101,7 +101,7 @@ class Bot {
         );
       }
 
-      if (all || ALCAPONE_REGEX.test(message.text)) {
+      if (ALCAPONE_REGEX.test(message.text)) {
         messagePromises.push(this.sendMenu(Restaurants.AlCapone, message));
       }
 
@@ -121,7 +121,7 @@ class Bot {
         messagePromises.push(this.sendMenu(Restaurants.Tao, message));
       }
 
-      if (all || LIGHT_REGEX.test(message.text)) {
+      if (LIGHT_REGEX.test(message.text)) {
         messagePromises.push(this.sendMenu(Restaurants.LightOfIndia, message));
       }
 
